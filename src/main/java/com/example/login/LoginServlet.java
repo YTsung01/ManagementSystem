@@ -1,6 +1,7 @@
 package com.example.login;
 
 import java.io.IOException;
+//test git測試
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,7 @@ public class LoginServlet extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method 
 		super.doGet(req, resp);
 	}
 
