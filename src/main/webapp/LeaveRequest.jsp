@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
-<!-- Left People：Jessie -->
+<!-- Left People：Bonita456 -->
 <div class="container-xl mt-5">
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
 
@@ -135,22 +135,20 @@
 
 
 				<!-- 留言內容 -->
-				<div class="row align-items-center pe-4 mb-2 mt-2">
+				<div class="row  pe-4 mb-5 mt-3">
 					<div class="col-12 col-md-2 text-md-end p-md-0">請假事由：</div>
-					<div class="col-12 col-md-10">
+					<div class="col-12 col-md-10 mb-4">
 						<textarea name="a_content" id="a_content" class="form-control"
 							rows="5" required></textarea>
-					</div>
-				</div>
-
-			<div class="row align-items-center pe-4 mb-2 mt-2">
-			<div class="col-12 col-md-10">
-				<label class="btn btn-outline-primary w-100"> <input
+				<div class="col-12 col-md-12 mt-5">
+				<label class="btn btn-outline-primary w-100"> 
+				<input
 					type="file" name="upfile[]" multiple accept=".jpg, .jpeg, .png"
 					id="upfile" class="upfile d-none"> <!-- 選多個東西要用陣列儲存 name是負責接收不是負責選 藥用multiple才能多選 accept來過濾 -->
 					上傳附件
 				</label>
-				<ul style="list-style-type: disc;">
+				
+				<ul style="list-style-type: disc; margin: 50px">
 					<li>上傳照片最多 10 張</li>
 					<li>每張照片容量最高 1M</li>
 					<li>照片寬度最小 1000px</li>
@@ -161,12 +159,16 @@
 				<div id="img_errmsg" class="text-danger text-center tw-bold"></div>
 				<div id="img_area" class="text-center"></div>
 			</div>
-			</div>
+							
+					</div>
+				</div>
+
+			
 
 			<!-- 最後 -->
-			<div class="col-12">
-				<input type="submit"
-					class="btn btn-outline-primary px-5 d-block w-100" value="確定送出">
+			<div style="display:flex; justify-content:center; align-items: center; ">
+				<button  type="submit" class="btn btn-primary align-items-center m-4" value="送出">送出</button>
+				<button type="reset" class="btn btn-danger">清除</button>
 			</div>
 
 		</div>
