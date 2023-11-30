@@ -12,13 +12,13 @@
 
                         <!-- 姓名 -->
                         <div class="row align-items-center pe-4 mb-3">
-                            <div class="col-10 col-md-1 text-md-end text-nowrap p-md-0">申請人：</div>
-                            <div class="col-10 col-md-4 position-relative">
+                            <div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請人：</div>
+                            <div class="col-12 col-md-4 position-relative">
                                 <input type="text" name="a_name" id="a_name" class="form-control" required>
                                 <div class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
                             </div>
-                            <div class="col-10 col-md-1 text-md-end text-nowrap p-md-0">申請部門：</div>
-                            <div class="col-10 col-md-4 position-relative">
+                            <div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請部門：</div>
+                            <div class="col-12 col-md-4 position-relative">
                                 <input type="text" name="a_name" id="a_name" class="form-control" required>
                                 <div class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
                             </div>
