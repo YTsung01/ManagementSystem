@@ -12,29 +12,50 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #4682b4">
   <div class="container-fluid">
-    <a class="navbar-brand text-secondary " href="#">考勤系統</a>
+    <a class="navbar-brand text-light " href="#">考勤系統</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active text-secondary" aria-current="page" href="./index.jsp">首頁</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-secondary " href="./page1.jsp">請假</a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link text-secondary " href="./page1.jsp">打卡</a>
-        </li>
-       <li class="nav-item">
-          <a class="nav-link text-secondary " href="#">加班</a>
+          <a class="nav-link active text-light" aria-current="page" href="./index.jsp">首頁</a>
         </li>
         
+          
+        </li>
          <li class="nav-item">
-          <a class="nav-link text-secondary " href="#">薪資查詢</a>
+          <a class="nav-link text-light " href="./page1.jsp">打卡</a>
+        </li>
+        
+        
+    <div class="dropdown">
+	  <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+	  style="background-color: #4682b4">
+	    請假
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+	    <li><a class="dropdown-item" href="./page1.jsp">請假申請</a></li>
+	    <li><a class="dropdown-item" href="#">請假查詢</a></li>
+	  </ul>
+	</div>
+	
+	<div class="dropdown">
+	  <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+	  style="background-color: #4682b4">
+	    加班
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+	    <li><a class="dropdown-item" href="#">加班申請</a></li>
+	    <li><a class="dropdown-item" href="#">加班查詢</a></li>
+	  </ul>
+	</div>
+        
+        
+         <li class="nav-item">
+          <a class="nav-link text-light " href="#">薪資查詢</a>
         </li>
       </ul>
      
