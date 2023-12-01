@@ -37,7 +37,7 @@
 	    請假
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-	    <li><a class="dropdown-item" href="./page1.jsp">請假申請</a></li>
+	    <li><a class="dropdown-item" href="./LeaveRequest.jsp">請假申請</a></li>
 	    <li><a class="dropdown-item" href="#">請假查詢</a></li>
 	  </ul>
 	</div>
