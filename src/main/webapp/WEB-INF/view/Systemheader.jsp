@@ -48,8 +48,8 @@
 	    加班
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-	    <li><a class="dropdown-item" href="#">加班申請</a></li>
-	    <li><a class="dropdown-item" href="#">加班查詢</a></li>
+	    <li><a class="dropdown-item" href="./OvertimeRequest.jsp">加班申請</a></li>
+	    <li><a class="dropdown-item" href="./OvertimeSearch.jsp">加班查詢</a></li>
 	  </ul>
 	</div>
         
