@@ -9,7 +9,6 @@
 	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #4682b4">
@@ -27,7 +26,7 @@
           
         </li>
          <li class="nav-item">
-          <a class="nav-link text-light " href="#">打卡</a>
+          <a class="nav-link text-light " href="./CheckIn.jsp">打卡</a>
         </li>
         
         
@@ -43,11 +42,11 @@
 	</div>
 	
 	<div class="dropdown">
-	  <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+	  <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"
 	  style="background-color: #4682b4">
 	    加班
 	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
 	    <li><a class="dropdown-item" href="./OvertimeRequest.jsp">加班申請</a></li>
 	    <li><a class="dropdown-item" href="./OvertimeSearch.jsp">加班查詢</a></li>
 	  </ul>
@@ -55,7 +54,7 @@
         
         
          <li class="nav-item">
-          <a class="nav-link text-light " href="#">薪資查詢</a>
+          <a class="nav-link text-light " href="./Salary.jsp">薪資查詢</a>
         </li>
       </ul>
      
