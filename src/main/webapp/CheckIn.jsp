@@ -36,13 +36,22 @@
 <html>
 	<head>
 	
-	<form class="pure-form">
-		員工編號: <input type="text" name="name" placeholder="請輸入員工編號" /><p />
-		姓名: <input type="text" name="name" placeholder="請輸入姓名" /><p />
-		部門: <input type="text" name="name" placeholder="請輸入部門"  /><p />
+	<div class="d-flex justify-content-center mx-auto p-4"  >
+	<form action="./index.html" method="post" enctype="multipart/form-data"
+		class="border rounded mx-auto p-4">
+		
+		<div class="pb-2">員工編號: <input type="text" name="name" placeholder="請輸入員工編號" /><p /></div>
+		
+		<div class="pb-2">姓名: <input type="text" name="name" placeholder="請輸入姓名" /><p /></div>
+		<div class="pb-2">部門: <input type="text" name="name" placeholder="請輸入部門"  /><p /></div>
+		
+		
+		
 		
 		<button type="submit" class="pure-button pure-button-primary">打卡</button>	  
 	</form>
+	</div>
+
 	
 	
 	<table  class="table table-bordered">
@@ -53,7 +62,7 @@
 					<th>性別</th>
 					<th>部門</th>
 					<th>職位</th>
-					<th> </th>
+					<th>時間 </th>
 				</tr>
 	</thead>
   <tbody>

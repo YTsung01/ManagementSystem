@@ -19,11 +19,10 @@ import model.EmployeebookDao;
 @WebServlet(value= "/CheckIn")
 public class CheckInServelet extends HttpServlet {
 	
+	
 	private EmployeebookDao employeebookDao = new EmployeebookDAOInMemory();
-	//private EmployeebookDao employeebookDao = new EmployeebookDaoMySQL();
+	
 
-	
-	
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
