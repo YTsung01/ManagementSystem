@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
-<!-- Left People：jessie789 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 
 <div class="container-xl mt-5">
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
@@ -100,16 +95,16 @@
 
 			<!-- 請假起始日 -->
 			<div class="row align-items-center pe-4 mb-3">
-				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">請假起始日：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-14 col-md-2 text-md-end text-nowrap p-md-0 ">請假起始日：</div>
+				<div class="col-14 col-md-2 position-relative">
 					<input type="datetime-local" name="startDate" id="startDate"
-						class="form-control" style="width: auto;" min="2023-11-01"
+						class="form-control me-3" style="width: auto;" min="2023-11-01"
 						max="2023-12-31">
 					<!-- 控制日期最大最小值 -->
 				</div>
 
-				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">請假結束日：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-14 col-md-2 text-md-end text-nowrap p-md-0">結束日：</div>
+				<div class="col-14 col-md-2 position-relative">
 					<input type="datetime-local" name="endDate" id="endDate"
 						class="form-control" style="width: auto;" min="2023-11-01"
 						max="2023-12-31">
