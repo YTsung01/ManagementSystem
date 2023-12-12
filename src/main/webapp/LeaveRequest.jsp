@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
-<!-- Left People：jessie789 -->
 
 
 <div class="container-xl mt-5">
@@ -57,10 +56,10 @@
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請人性別：</div>
 				<div class="col-12 col-md-8">
 					<label> <input type="radio" name="a_sex" id="a_sex_1"
-						class="form-check-input" value=" 先生" required> 先生 <!-- required是設定為必填項目 -->
+						class="form-check-input" value=" 先生" required> 男 <!-- required是設定為必填項目 -->
 					</label> <label class="ms-3"> <input type="radio" name="a_sex"
 						id="a_sex_2" class="form-check-input" value=" 小姐" required>
-						小姐
+						女
 					</label>
 				</div>
 			</div>
@@ -75,6 +74,7 @@
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
+						<button type="button" class="col-12 col-md-2 btn btn-light text-nowrap" name="searchDayoff" id="searchDayoff">查詢剩餘時數</button>
 			</div>
 
 			<!-- 選擇假別 -->
@@ -95,16 +95,16 @@
 
 			<!-- 請假起始日 -->
 			<div class="row align-items-center pe-4 mb-3">
-				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">請假起始日：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-14 col-md-2 text-md-end text-nowrap p-md-0 ">請假起始日：</div>
+				<div class="col-14 col-md-2 position-relative">
 					<input type="datetime-local" name="startDate" id="startDate"
-						class="form-control" style="width: auto;" min="2023-11-01"
+						class="form-control me-3" style="width: auto;" min="2023-11-01"
 						max="2023-12-31">
 					<!-- 控制日期最大最小值 -->
 				</div>
 
-				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">請假結束日：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-14 col-md-2 text-md-end text-nowrap p-md-0">結束日：</div>
+				<div class="col-14 col-md-2 position-relative">
 					<input type="datetime-local" name="endDate" id="endDate"
 						class="form-control" style="width: auto;" min="2023-11-01"
 						max="2023-12-31">
@@ -127,7 +127,8 @@
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2 ">時</div>
 				</div>
-				<button type="button" class="col-12 col-md-1 btn btn-light " name="calculatebtn" id="calculatebtn">計算</button>
+				<button type="button" class="col-12 col-md-1 btn btn-light text-nowrap " name="calculatebtn" id="calculatebtn">計算</button>
+				
 
 
 
@@ -207,23 +208,35 @@ $('#calculatebtn').on('click', function() {
         var timeDiff =Math.abs(endDate.getTime()- startDate.getTime());
         var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));         
         var diffHours =  Math.ceil(timeDiff / (1000 * 60 * 60));
-        var diffDayHours = diffHours- diffDays*24;
+        var diffDayHours = diffHours % 24;
+        var difftotalDays = Math.floor(diffHours/ 24);
+        //var diffDayHours = diffHours- diffDays*24;
 
         
         
         
         if (diffDays <1){
         	resultDate_msg.text('0'+ '天');
-        	resultTime_msg.text(Hours+ '時');
+        	//resultTime_msg.text(diffHours+ '時');
         	
         }else{
-        	resultDate_msg.text(diffDays+ '天');
-        	resultTime_msg.text(diffDayHours+ '時');
+        	resultDate_msg.text(difftotalDays+ '天');
+        	
+        	//resultTime_msg.text(diffDayHours+ '時');
         	
         }
-        //resultTime_msg.text(diffHours+ '時');
+      	
+        if(diffDayHours >8){
+        	
+        	resultTime_msg.text('8'+ '時');
+        }else{
+        	
+        resultTime_msg.text(diffDayHours+ '時');}
+       
        
         });
+        
+
 
 </script>
 
