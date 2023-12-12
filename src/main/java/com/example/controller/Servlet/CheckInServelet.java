@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.Servlet;
 
 import java.io.IOException;
 import java.util.Date;
