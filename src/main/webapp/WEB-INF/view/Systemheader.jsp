@@ -39,6 +39,7 @@
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 	    <li><a class="dropdown-item" href="./LeaveRequest.jsp">請假申請</a></li>
 	    <li><a class="dropdown-item" href="./LeaveSearch.jsp">請假查詢</a></li>
+	    <li><a class="dropdown-item" href="./LeaveCheck.jsp">請假管理</a></li>
 	  </ul>
 	</div>
 	
@@ -50,6 +51,7 @@
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 	    <li><a class="dropdown-item" href="./OvertimeRequest.jsp">加班申請</a></li>
 	    <li><a class="dropdown-item" href="./OvertimeSearch.jsp">加班查詢</a></li>
+	    <li><a class="dropdown-item" href="./OvertimeCheck.jsp">加班管理</a></li>
 	  </ul>
 	</div>
         
