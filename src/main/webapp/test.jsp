@@ -1,58 +1,131 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>上下班打卡系統</title>
-</head>
-<body>
-    <h1>上下班打卡系統</h1>
+  <head>
     
-    <%-- 表單輸入編號 --%>
-    <form method="post">
-        <label for="employeeId">輸入您的編號：</label>
-        <input type="text" id="employeeId" name="employeeId">
-        <br><br>
-        <input type="submit" value="提交">
-    </form>
     
-    <%-- 按鈕和列表顯示打卡時間 --%>
-    <%
-        // 檢查是否有提交編號
-        String employeeId = request.getParameter("employeeId");
-        if(employeeId != null && !employeeId.isEmpty()) {
-            // 獲取上班和下班時間（模擬用）
-            String clockInTime = request.getParameter("clockInTime");
-            String clockOutTime = request.getParameter("clockOutTime");
-            
-            // 儲存打卡時間
-            if(clockInTime != null && !clockInTime.isEmpty()) {
-                // 取得當前時間
-                java.util.Date now = new java.util.Date();
-                clockInTime = now.toString(); // 在實際情況下應該是從資料庫中獲取
-            }
-            if(clockOutTime != null && !clockOutTime.isEmpty()) {
-                // 取得當前時間
-                java.util.Date now = new java.util.Date();
-                clockOutTime = now.toString(); // 在實際情況下應該是從資料庫中獲取
-            }
-    %>
-            <form method="post">
-                <input type="hidden" name="employeeId" value="<%= employeeId %>">
-                <input type="hidden" name="clockInTime" value="<%= clockInTime %>">
-                <input type="hidden" name="clockOutTime" value="<%= clockOutTime %>">
-                <input type="submit" name="clockIn" value="上班">
-                <input type="submit" name="clockOut" value="下班">
-            </form>
-            
-            <%-- 顯示打卡列表 --%>
-            <h2>打卡列表</h2>
-            <ul>
-                <li>編號：<%= employeeId %></li>
-                <li>上班時間：<%= clockInTime %></li>
-                <li>下班時間：<%= clockOutTime %></li>
-            </ul>
-    <% } %>
-</body>
+    <title>加班申请</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+
+  </head>
+  <script type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
+  
+  <body>
+  	
+		
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">		
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+				<li class="active">加班申请</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">加班申请</h1>
+			</div>
+		</div><!--/.row-->
+									
+		
+		
+		<div class="row">
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-heading"><span class="glyphicon glyphicon-envelope"></span>Writing Content</div>
+					<div class="panel-body">
+						<form class="form-horizontal" action="saveJBAction" method="post">
+    							<input type="hidden" name="jb.sqr" value="<%=session.getAttribute("ename") %>">
+							<fieldset>
+								<!-- 类别 input-->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="kqsj">申请时间</label>
+									<div class="col-md-9">
+										<input type="text" name="jb.sqrq" value="" class="form-control">
+									</div>
+								</div>
+							
+								<!-- 考勤时间 input-->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="">加班日期</label>
+									<div class="col-md-9">
+											<input type="text" name="jb.jbrq" class="form-control" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  /> 
+									</div>
+								</div>
+								
+								
+								<!-- 考勤时段 body -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="">加班时长</label>
+									<div class="col-md-9">
+										<input type="text" name="jb.jbsc" class="form-control">个工作日
+									</div>
+								</div>
+
+								
+								<!-- 考勤说明 body -->
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="">加班原因</label>
+									<div class="col-md-9">
+								    	<input type="text" name="jb.jbyy" class="form-control">
+									</div>
+								</div>
+								
+								
+								<!-- 提交 actions -->
+								<div class="form-group">
+									<div class="col-md-12 widget-right">
+										<button type="reset" class="btn btn-default btn-md pull-right">reset</button>
+										<button type="submit" class="btn btn-default btn-md pull-right">Submit</button>
+									</div>
+									
+								</div>
+								
+								
+							</fieldset>
+						</form>
+					</div>
+				</div>
+				
+								
+			</div><!--/.col-->
+		</div><!--/.row-->
+	</div>	<!--/.main-->
+		  
+
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/chart.min.js"></script>
+	<script src="js/chart-data.js"></script>
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
+	<script>
+		$('#calendar').datepicker({
+		});
+
+		!function ($) {
+		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
+		        $(this).find('em:first').toggleClass("glyphicon-minus");      
+		    }); 
+		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>
+    
+  </body>
 </html>

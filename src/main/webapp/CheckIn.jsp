@@ -38,62 +38,88 @@ List<Employeebook> employeebooks = (List<Employeebook>) request.getAttribute("em
 	<div class="container-xl mt-5">
 
 		<div class="d-flex justify-content-center mx-auto p-4">
-			<form action="http://localhost:8080/ManagementSystem_my/checkin"
-				method="post" class="border rounded mx-auto p-4 ">
-				<div class="d-flex  ustify-content-center">
-					<div class="pb-2 mx-auto ">
-						員工編號: <input type="number" name="id" id="id" placeholder="請輸入員工編號"
-							required />
-						<p />
+	
+				<form
+					action="http://localhost:8080/ManagementSystem_my/checkin"
+					method="post" class="border rounded mx-auto p-4 ">
+					<div class="d-flex  ustify-content-center">
+						<div class="pb-2 mx-auto ">
+							員工編號:
+							<input type="number" name="id" id="id"
+								placeholder="請輸入員工編號" required />
+							<p />
+						</div>
+
+						<div class="pb-2 ">
+							姓名:
+							<input type="text" name="nickname"
+								id="nickname" placeholder="請輸入姓名" required />
+							<p />
+						</div>
+						<div class="pb-2 ">
+							部門:
+							<input type="text" name="department"
+								id="department" placeholder="請輸入部門" required />
+							<p />
+						</div>
+					</div>
+					<div class="p-3 d-flex justify-content-center">
+						<button type="submit"
+							class="btn btn-primary m-2 "onclick="clockIn()">
+							上班
+						</button>
+						<button type="submit"
+							class="btn btn-success m-2 "  onclick="clockOut()">
+							下班
+						</button>
 					</div>
 
-					<div class="pb-2 ">
-						姓名: <input type="text" name="nickname" id="nickname"
-							placeholder="請輸入姓名" required />
-						<p />
-					</div>
-					<div class="pb-2 ">
-						部門: <input type="text" name="department" id="department"
-							placeholder="請輸入部門" required />
-						<p />
-					</div>
-				</div>
-				<div class="p-3 d-flex justify-content-center">
-					<button type="submit" class="btn btn-primary m-2 " onclick="clockIn()">上班</button>
-					<button type="submit" class="btn btn-success m-2 " onclick="clockOut()">下班</button>
-				</div>
+					<div class="p-3">
+						<table class="table table-bordered ">
+							<thead>
+								<tr>
+									<th>員工編號</th>
+									<th>名稱</th>
+									<th>部門</th>
+									<th>上班時間</th>
+									<th>下班時間</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+									for (Employeebook eb :
+									employeebooks) {
+								%>
 
+								<tr>
+									<td>
+										<%=eb.getId()%>
+									</td>
+									<td>
+										<%=
+											eb.getNickname()
+										%>
+									</td>
+									<td>
+										<%=
+											eb.getDepartment()
+										%>
+									</td>
+									<td>
+										<%=
+											getDateFormatString(eb.getDate())
+										%>
+									</td>
+									<td>
+										<div id="clockOut"></div>
+									</td>
+								</tr>
+								<%}%>
 
-				<div class="p-3">
-					<table class="table table-bordered ">
-						<thead>
-							<tr>
-								<th>員工編號</th>
-								<th>名稱</th>
-								<th>部門</th>
-								<th>上班時間</th>
-								<th>下班時間</th>
-							</tr>
-						</thead>
-						<tbody>
-							<%
-							for (Employeebook eb : employeebooks) {
-							%>
-
-							<tr>
-								<td><%=eb.getId()%></td>
-								<td><%=eb.getNickname()%></td>
-								<td><%=eb.getDepartment()%></td>
-								<td><%=getDateFormatString(eb.getDate())%></td>
-								<td> <div id="clockOut"></div></td>
-							</tr>
-							<%
-							}
-							%>
-
-						</tbody>
-					</table>
-			</form>
+							</tbody>
+						</table>
+				</form>
+	
 		</div>
 	</div>
 	
@@ -124,6 +150,7 @@ List<Employeebook> employeebooks = (List<Employeebook>) request.getAttribute("em
         setInterval(displayDateTime, 1000); // 每秒更新時間
     </script>
 
+ 
 </body>
 
 </html>

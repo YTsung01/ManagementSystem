@@ -41,7 +41,7 @@ public class CheckInServelet extends HttpServlet {
 		String nickname =req.getParameter("nickname");
 		Integer id =Integer.parseInt(req.getParameter("id")); //直接裝箱轉型成int
 		String department =req.getParameter("department");
-		
+	
 		
 		//建立Guestbook物件
 		
@@ -51,6 +51,9 @@ public class CheckInServelet extends HttpServlet {
 		employeebook.setNickname(nickname);
 		employeebook.setDepartment(department);
 		employeebook.setDate(new Date());
+		
+		
+		
 		
 		//加入到資料庫中
 		
