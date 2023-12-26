@@ -1,13 +1,14 @@
-drop table if exists empBook;
 
--- 建立 Room
+drop table if exists empbook;
+
 create table if not exists empBook(
 empId int primary key,
 empName varchar(50) not null unique,
 empSex varchar(50) not null,
 empDepartment varchar(50) not null,
 empJob varchar(50) not null,
-createDate timestamp default current_timestamp
+checkintime timestamp default current_timestamp,
+checkouttime timestamp default current_timestamp
 );
 
 insert into empBook(empId,empName,empSex,empDepartment,empJob) values(201,"Solar","female","Sales","Engineer");
@@ -21,4 +22,3 @@ insert into empBook(empId,empName,empSex,empDepartment,empJob) values(103,"Yesun
 insert into empBook(empId,empName,empSex,empDepartment,empJob) values(104,"Shindong","male","Admin","Engineer");
 insert into empBook(empId,empName,empSex,empDepartment,empJob) values(105,"Siwon","male","Admin","Boss");
 insert into empBook(empId,empName,empSex,empDepartment,empJob) values(106,"Ryeowook","female","Admin","Engineer")
-

@@ -13,23 +13,27 @@
 
 		<form action="http://localhost:8080/ManagementSystem_my/checkin"
 			method="post" class="border rounded mx-auto p-4 ">
-			<p class="fs-3 fw-bold text-center">請假查詢</p>
+			<p class="fs-3 fw-bold text-center">請假申請單</p>
+			<p class="fs-6 fw-bold text-end">申請單號: ______-______-______</p>
 			<div class="p-3">
 				<table class="table table-bordered ">
 					<thead>
 						<tr>
 							<th>員工編號</th>
-							<th>名稱</th>
-							<th>部門</th>
-							<th>請假開始時間</th>
-							<th>請假結束時間</th>
-							<th>請假時數</th>
-							<th>請假原因</th>
-							<th>審核狀態</th>
-							<th>審核人</th>
-							<th>詳情</th>
+							<td colspan="4">123</td>
+
+
+							<th>申請人</th>
+							<td colspan="4">123</td>
 
 						</tr>
+						<tr>
+							<th>員工編號</th>
+						</tr>
+						<tr>
+							<th>員工編號</th>
+						</tr>
+
 					</thead>
 					<tbody>
 
@@ -38,35 +42,35 @@
 							<td>001</td>
 							<td>Amy</td>
 							<td>Sales</td>
-							<td>2023-12-19 17:00</td>
-							<td>2023-12-19 18:00</td>
-							<td>1</td>
-							<td>工作太多</td>
-							<td>同意</td>
-							<td>主管</td>
-							<td><a
-								href="http://localhost:8080/ManagementSystem_my/leave_result.jsp">詳情</a></td>
+							<td>Sales</td>
+							<td>Sales</td>
+							<td>Sales</td>
+							<td>Sales</td>
+							<td>Sales</td>
+							<td>Sales</td>
+							
+						
+
 
 						</tr>
 						<tr>
 							<td>001</td>
 							<td>Amy</td>
 							<td>Sales</td>
-							<td>2023-12-30 17:00</td>
-							<td>2023-12-30 18:00</td>
-							<td>1</td>
-							<td>工作太多</td>
-							<td>駁回</td>
-							<td>主管</td>
-							<td><a
-								href="http://localhost:8080/ManagementSystem_my/leave_result.jsp">詳情</a></td>
+							<td>Sales</td>
+							<td>Sales</td>
+							<td>Sales</td>
+							<td>Sales</td>
+							<td>Sales</td>
+							<td>Sales</td>
+							
+						
 
 						</tr>
 
 
 
 					</tbody>
-	
 
 
 				</table>

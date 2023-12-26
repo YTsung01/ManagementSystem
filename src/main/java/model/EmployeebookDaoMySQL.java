@@ -13,8 +13,10 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.example.*;
 
-public abstract class EmployeebookDaoMySQL implements EmployeebookDao{
+
+public class EmployeebookDaoMySQL implements EmployeebookDao{
 	
 private Connection conn;
 	
@@ -42,6 +44,52 @@ private Connection conn;
 			}
 		}
 	}
+	
+	@Override
+	public void create(Employeebook employeebook) {
+		String sql = "insert into employeebook(id, NickName, department) values(?, ?, ?);";
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			// 配置 sql ? 資料
+			pstmt.setInt(1, employeebook.getId());
+			pstmt.setString(2, employeebook.getNickname());
+			pstmt.setString(3, employeebook.getDepartment());
+
+			// 提交送出
+			int rowcount = pstmt.executeUpdate();
+			System.out.println("rowcount(異動筆數) = " + rowcount);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Override
+	public List<Employeebook> readAll() {
+		String sql = "select id, NickName, department, date from employeebook order by id";
+		List<Employeebook> employeebooks = new ArrayList<>();
+		try(Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql) ) {
+			
+			// 將 rs 的資料逐筆注入到 employeebook 物件中
+			while (rs.next()) {
+				Employeebook employeebook = new Employeebook();
+				employeebook.setId(rs.getInt("empid"));
+				employeebook.setNickname(rs.getString("empName"));
+				employeebook.setDepartment(rs.getString("empDepartment"));
+				employeebook.setDate(new Date(rs.getTimestamp("date").getTime()));
+
+				// 加入到 employeebooks 集合中
+				employeebooks.add(employeebook);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return employeebooks;
+	}
+
+	
 
 	
 	
