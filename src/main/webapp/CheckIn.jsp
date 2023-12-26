@@ -37,18 +37,20 @@
 	<head>
 	
 	<div class="d-flex justify-content-center mx-auto p-4"  >
-	<form action="./index.html" method="post" enctype="multipart/form-data"
+	<form action="http://localhost:8080/ManagementSystem_my/CheckInDao" method="post" enctype="multipart/form-data"
 		class="border rounded mx-auto p-4">
 		
 		<div class="pb-2">員工編號: <input type="text" name="name" placeholder="請輸入員工編號" /><p /></div>
 		
 		<div class="pb-2">姓名: <input type="text" name="name" placeholder="請輸入姓名" /><p /></div>
 		<div class="pb-2">部門: <input type="text" name="name" placeholder="請輸入部門"  /><p /></div>
+		<div class="pb-2">職位: <input type="text" name="name" placeholder="請輸入職位"  /><p /></div>
 		
 		
 		
 		
-		<button type="submit" class="pure-button pure-button-primary">打卡</button>	  
+		<button type="submit" class="pure-button pure-button-primary">打卡上班</button>	  
+		<button type="submit" class="pure-button pure-button-primary">打卡下班</button>	  
 	</form>
 	</div>
 
