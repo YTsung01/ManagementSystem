@@ -1,6 +1,6 @@
 drop table if exists empBook;
 
---test
+--test01
 
 -- 建立 Room
 create table if not exists empBook(
