@@ -1,5 +1,7 @@
 drop table if exists empBook;
 
+--test
+
 -- 建立 Room
 create table if not exists empBook(
 EmpId int primary key,
