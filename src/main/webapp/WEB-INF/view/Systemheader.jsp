@@ -56,10 +56,13 @@
          <li class="nav-item">
           <a class="nav-link text-light " href="./Salary.jsp">薪資查詢</a>
         </li>
+        
       </ul>
      
+     
+     
     </div>
-    <i class="bi bi-person-circle text-secondary h5 mb-0 d-none d-lg-block"></i>
+    <i class="bi bi-person-circle text-light h5 mb-0 d-none d-lg-block"></i>
   </div>
 </nav>
 

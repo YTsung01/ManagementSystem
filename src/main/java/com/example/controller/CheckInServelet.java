@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.model.Employeebook;
+import com.example.model.EmployeebookDAOInMemory;
+import com.example.model.EmployeebookDao;
 
-import model.Employeebook;
-import model.EmployeebookDAOInMemory;
-import model.EmployeebookDao;
+
+
 
 @WebServlet(value= "/CheckIn")
 public class CheckInServelet extends HttpServlet {
