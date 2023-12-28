@@ -38,13 +38,13 @@ public class loginController {
 			return "managementsystem/login";
 		}
 		
-		// 前台登入處理
+		// 員工登入處理
 		@PostMapping("/login")
 		public String login(@RequestParam("empname") String empname, 
 							 @RequestParam("password") String password,
 							HttpSession session, Model model) throws Exception {
 			
-			// 根據 username 查找 user 物件
+			// 根據 EmployeeName 查找 emp 物件
 			Optional<Employee> empOpt = dao.findEmployeeByEmployeeName(empname);
 			if(empOpt.isPresent()) {
 				Employee employee = empOpt.get();
@@ -55,7 +55,7 @@ public class loginController {
 				String encryptedPasswordECBBase64 = Base64.getEncoder().encodeToString(encryptedPasswordECB);
 				//-------------------------------------------------------------------------------------------
 				if(employee.getEmppassword().equals(encryptedPasswordECBBase64)) { // 比對加密過後的 password 是否相同
-					session.setAttribute("employee", employee); // 將 user 物件放入到 session 變數中
+					session.setAttribute("employee", employee); // 將 employee 物件放入到 session 變數中
 					return "redirect:/mvc/mainpage"; // OK, 導向前台首頁
 				} else {
 					session.invalidate(); // session 過期失效
@@ -74,7 +74,7 @@ public class loginController {
 		public String loginBackend(@RequestParam("empname") String empname, 
 				 @RequestParam("password") String password,
 							HttpSession session, Model model) throws Exception {
-			// 根據 username 查找 user 物件
+			// 根據 empname 查找 emp 物件
 						Optional<Employee> empOpt = dao.findEmployeeByEmployeeName(empname);
 						if(empOpt.isPresent()) {
 							Employee employee = empOpt.get();
@@ -88,7 +88,7 @@ public class loginController {
 						if(employee.getEmppassword().equals(encryptedPasswordECBBase64)) {
 							// 比對 level = 2 才可以登入後台
 							if(employee.getLevelId() == 2) {
-								session.setAttribute("employee", employee); // 將 user 物件放入到 session 變數中
+								session.setAttribute("employee", employee); // 將 employee 物件放入到 session 變數中
 								return "redirect:/example/mainpage"; // OK, 導向後台首頁
 								//問助教+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 							}

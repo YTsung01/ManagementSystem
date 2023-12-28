@@ -43,10 +43,10 @@ public class checkInController {
 	*/
 	
 	
-	// 登入首頁
-		@GetMapping(value = {"/login", "/", "/login/"})
-		public String loginPage(HttpSession session) {
-			return "group_buy/login";
+	// 打卡首頁
+		@GetMapping(value = {"/checkin", "/", "/checkin/"})
+		public String checkinPage(HttpSession session) {
+			return "emp/CheckIn";
 		}
 		
 		

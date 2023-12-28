@@ -24,13 +24,13 @@ public class EmployeeDaoMySQL implements EmployeeDao {
 	@Autowired
 	private EmployeeDao employeeDao;
 
-//	1. 查詢所有使用者(多筆)
+//	1. 查詢所有員工(多筆)
 	@Override
 	public List<Employee> findAllEmployees() {
 		String sql = "select empId,empName,password,empSex,empDepartment,empDeptno,empJob,levelId,hireDate,salary from empBook";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Employee.class));
 	}
-//	2. 新增使用者
+//	2. 新增員工
 	@Override
 	public void addEmployee(Employee employee) {
 		String sql = "insert into empBook(empId,empName,password,empSex,empDepartment,empDeptno,empJob,levelId,hireDate,salary) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -47,7 +47,7 @@ public class EmployeeDaoMySQL implements EmployeeDao {
 		return rowcount > 0;
 	}
 
-//	4. 根據員工名稱查找使用者(登入用-單筆)
+//	4. 根據員工名稱查找員工(登入用-單筆)
 	@Override
 	public Optional<Employee> findEmployeeByEmployeeName(String empname) {
 		String sql = "select empId,password,empSex,empDepartment,empDeptno,empJob,levelId,hireDate,salary "
@@ -67,7 +67,7 @@ public class EmployeeDaoMySQL implements EmployeeDao {
 		}
 	}
 
-//	5. 根據使用者ID查找使用者(單筆)
+//	5. 根據員工ID查找員工(單筆)
 	@Override
 	public Optional<Employee> findEmployeeByEmployeeId(Integer empId) {
 		String sql = "select empName,password,empSex,empDepartment,empDeptno,empJob,levelId,hireDate,salary "
