@@ -68,7 +68,7 @@
 	</thead>
   <tbody>
  		<tr>		
-			<th>${ employee.empId }</th>
+			<th>${not empty employee.empId }</th>
 			<th>Nickname</th>
 			<th>sex</th>
 			<th>Department</th>

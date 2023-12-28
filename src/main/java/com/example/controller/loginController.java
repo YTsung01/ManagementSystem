@@ -1,0 +1,118 @@
+package com.example.controller;
+
+import java.util.Base64;
+import java.util.Optional;
+
+import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+import com.example.model.dao.EmployeeDao;
+import com.example.model.entity.Employee;
+import com.example.util.KeyUtil;
+
+
+
+
+
+@Controller
+@RequestMapping("/managementsystem")
+public class loginController {
+	
+	@Autowired 
+	private EmployeeDao dao;
+
+	
+	// 登入首頁
+		@GetMapping(value = {"/login", "/", "/login/"})
+		public String loginPage(HttpSession session) {
+			return "managementsystem/login";
+		}
+		
+		// 前台登入處理
+		@PostMapping("/login")
+		public String login(@RequestParam("empname") String empname, 
+							 @RequestParam("password") String password,
+							HttpSession session, Model model) throws Exception {
+			
+			// 根據 username 查找 user 物件
+			Optional<Employee> empOpt = dao.findEmployeeByEmployeeName(empname);
+			if(empOpt.isPresent()) {
+				Employee employee = empOpt.get();
+				// 將 password 進行 AES 加密 -------------------------------------------------------------------
+				final String KEY = KeyUtil.getSecretKey();
+				SecretKeySpec aesKeySpec = new SecretKeySpec(KEY.getBytes(), "AES");
+				byte[] encryptedPasswordECB = KeyUtil.encryptWithAESKey(aesKeySpec, password);
+				String encryptedPasswordECBBase64 = Base64.getEncoder().encodeToString(encryptedPasswordECB);
+				//-------------------------------------------------------------------------------------------
+				if(employee.getEmppassword().equals(encryptedPasswordECBBase64)) { // 比對加密過後的 password 是否相同
+					session.setAttribute("employee", employee); // 將 user 物件放入到 session 變數中
+					return "redirect:/mvc/mainpage"; // OK, 導向前台首頁
+				} else {
+					session.invalidate(); // session 過期失效
+					model.addAttribute("loginMessage", "密碼錯誤");
+					return "login";
+				}
+			} else {
+				session.invalidate(); // session 過期失效
+				model.addAttribute("loginMessage", "無此使用者");
+				return "login";
+			}
+		}
+		
+		// 主管登入處理
+		@PostMapping("/login_boss")
+		public String loginBackend(@RequestParam("empname") String empname, 
+				 @RequestParam("password") String password,
+							HttpSession session, Model model) throws Exception {
+			// 根據 username 查找 user 物件
+						Optional<Employee> empOpt = dao.findEmployeeByEmployeeName(empname);
+						if(empOpt.isPresent()) {
+							Employee employee = empOpt.get();
+							// 將 password 進行 AES 加密 -------------------------------------------------------------------
+							final String KEY = KeyUtil.getSecretKey();
+							SecretKeySpec aesKeySpec = new SecretKeySpec(KEY.getBytes(), "AES");
+							byte[] encryptedPasswordECB = KeyUtil.encryptWithAESKey(aesKeySpec, password);
+							String encryptedPasswordECBBase64 = Base64.getEncoder().encodeToString(encryptedPasswordECB);
+						
+						//-------------------------------------------------------------------------------------------
+						if(employee.getEmppassword().equals(encryptedPasswordECBBase64)) {
+							// 比對 level = 2 才可以登入後台
+							if(employee.getLevelId() == 2) {
+								session.setAttribute("employee", employee); // 將 user 物件放入到 session 變數中
+								return "redirect:/example/mainpage"; // OK, 導向後台首頁
+								//問助教+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+							}
+							session.invalidate(); // session 過期失效
+							model.addAttribute("loginMessage", "無權限登入後台");
+							return "login";
+						} else {
+							session.invalidate(); // session 過期失效
+							model.addAttribute("loginMessage", "密碼錯誤");
+							return "login";
+						}
+					} else {
+						session.invalidate(); // session 過期失效
+						model.addAttribute("loginMessage", "無此使用者");
+						return "login";
+					}
+					}
+		
+		// 登出
+		@GetMapping("/logout")
+		public String logout(HttpSession session) {
+			session.invalidate();
+			return "redirect:/example/login";
+			//問助教+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		}
+
+}
