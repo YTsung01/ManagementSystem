@@ -14,16 +14,14 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/data/jpa https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 	
-	<!-- 定義 PropertiesFactoryBean 讀取 UTF-8 編碼的 properties 文件 
+	<!-- 定義 PropertiesFactoryBean 讀取 UTF-8 編碼的 properties 文件 -->
 	<bean id="appProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 	    <property name="locations">
-	        <value>/WEB-INF/resources/units.properties</value>
+	        <value>/WEB-INF/resources/enviroment.properties</value>
 	    </property>
 	    <property name="fileEncoding" value="UTF-8"/>
 	</bean>
-	-->
-	
-	
+
 	<!-- 使用 PropertyPlaceholderConfigurer 引用上面的 PropertiesFactoryBean -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	    <property name="properties" ref="appProperties"/>
@@ -34,7 +32,7 @@
     
     <!-- 定義 LoggingAspect 切面 -->
 
-    <bean id="loggingAspect" class="aop.LoggingAspect"/>
+    <bean id="loggingAspect" class="com.example.aop.LoggingAspect"/>
 
     <!-- 定義切面和通知 -->
     <aop:config>
@@ -53,7 +51,7 @@
 	<!-- 配置 view 渲染器位置 -->
 	<bean id="internalResourceViewResolver"
 		  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	  <property name="prefix" value="/WEB-INF/" />
+	  <property name="prefix" value="/WEB-INF/view/" />
 	  <property name="suffix" value=".jsp" />
 	</bean>
 	
@@ -90,7 +88,7 @@
 	<!-- c3p0 pool -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/group_buy?serverTimezone=Asia/Taipei&amp;characterEncoding=utf-8&amp;useUnicode=true" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/managementsystem?serverTimezone=Asia/Taipei&amp;characterEncoding=utf-8&amp;useUnicode=true" />
 		<property name="user" value="web" />
 		<property name="password" value="12345678" />
 		<property name="maxConnectionAge" value="300" /> <!-- -1 表示沒有限制 -->
@@ -117,16 +115,16 @@
     <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
     
     <!-- 定義攔截器 Bean -->
-    <bean id="loginInterceptor" class="interceptor.LoginInterceptor"/>
+    <bean id="loginInterceptor" class="com.example.interceptor.LoginInterceptor"/>
 
     <!-- 配置攔截器 -->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/managementsystem/**"/>
-            <mvc:exclude-mapping path="/managementsystem/login"/>
-            <mvc:exclude-mapping path="/managementsystem/login_boss"/>
-            <mvc:exclude-mapping path="/managementsystem/login/*"/>
-            <bean class="interceptor.LoginInterceptor"/>
+            <mvc:mapping path="/app/**"/>
+            <mvc:exclude-mapping path="/app/auth/login"/>
+            <mvc:exclude-mapping path="/app/auth/login_boss"/>
+            <mvc:exclude-mapping path="/app/auth/login/*"/>
+            <bean class="com.example.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

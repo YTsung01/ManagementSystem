@@ -138,10 +138,14 @@ public class Employee {
 	public void setServices(List<Service> services) {
 		this.services = services;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empName=" + empName + ", emppassword=" + emppassword + ", empSex="
+				+ empSex + ", empDepartment=" + empDepartment + ", empDeptno=" + empDeptno + ", empJob=" + empJob
+				+ ", levelId=" + levelId + ", hireDate=" + hireDate + ", salary=" + salary + ", services=" + services
+				+ "]";
+	}
 }
 
 

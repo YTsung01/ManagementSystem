@@ -24,7 +24,7 @@ import com.example.model.dao.CheckInDao;
 
 @Controller
 @RequestMapping("/checkin")
-public class checkInController {
+public class CheckInController {
 	
 	@Autowired
 	private CheckInDao checkInDao;

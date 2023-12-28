@@ -7,19 +7,17 @@
 		<title>考勤系統登入</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" >
-		
-
-		
 	</head>
 	<body>
-	
 		 <div class="d-flex justify-content-center align-items-center vh-100 mx-auto " >
-	    	<form class="needs-validation border rounded mx-auto p-4" novalidate method="post" action="./mainpage.jsp">
+	    	<form class="needs-validation border rounded mx-auto p-4" novalidate 
+	    	      method="post" 
+	    	      action="${ pageContext.request.contextPath }/app/auth/login">
 	    	<fieldset>
 	    	  <h4 class="text-center mb-3">Login</h4>
 			  <div>
 			    <label for="username" class="form-label">🙋‍♀帳號:</label>
-			    <input type="text" class="form-control" id="username" name="username" value=""  placeholder="請輸入員工編號" required>
+			    <input type="text" class="form-control" id="empname" name="empname" value=""  placeholder="請輸入員工編號" required>
 			    <div class="invalid-feedback">
 			      請輸入帳號
 			    </div>
