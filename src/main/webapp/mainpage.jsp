@@ -19,10 +19,6 @@
 
 			</div>
 
-
-
-
-
 			<!-- 右側 -->
 			<div class="col-12 col-md-6 ">
 				<ul>

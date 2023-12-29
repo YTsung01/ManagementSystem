@@ -73,7 +73,7 @@
   	-->
   	<servlet-mapping>
   		<servlet-name>springmvc_dispatcher</servlet-name>
-  		<url-pattern>/example/*</url-pattern>
+  		<url-pattern>/app/*</url-pattern>
   	</servlet-mapping>
   	
   	<!-- 中文支援 -->
@@ -92,7 +92,7 @@
     
     <filter-mapping>
         <filter-name>springUtf8Encoding</filter-name>
-        <url-pattern>/example/*</url-pattern>
+        <url-pattern>/app/*</url-pattern>
     </filter-mapping>
   	
   	<!-- HiddenHttpMethodFilter -->
@@ -103,7 +103,7 @@
     
     <filter-mapping>
         <filter-name>HiddenHttpMethodFilter</filter-name>
-        <url-pattern>/example/*</url-pattern>
+        <url-pattern>/app/*</url-pattern>
     </filter-mapping>
     
     <!-- Spring Security -->

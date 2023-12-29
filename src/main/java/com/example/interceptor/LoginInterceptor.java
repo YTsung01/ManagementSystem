@@ -26,14 +26,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 				if(employee.getLevelId() == 2) {
 					return true; // 放行
 				} else {
-					response.sendRedirect(request.getServletContext().getContextPath() + "/mvc/managementsystem/login");
+					response.sendRedirect(request.getServletContext().getContextPath() + "/app/login");
 					return false; // 不放行
 				}
 			} 
 			return true; // 放行
 		}
 		// 未登入, 導入到登入頁面
-		response.sendRedirect(request.getServletContext().getContextPath() + "/mvc/managementsystem/login");
+		response.sendRedirect(request.getServletContext().getContextPath() + "/app/login");
 		return false; // 不放行
 	}
 

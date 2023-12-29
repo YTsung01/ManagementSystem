@@ -24,7 +24,7 @@ import com.example.model.dao.CheckInDao;
 
 @Controller
 @RequestMapping("/checkin")
-public class checkInController {
+public class CheckInController {
 	
 	@Autowired
 	private CheckInDao checkInDao;
@@ -46,7 +46,7 @@ public class checkInController {
 	// 打卡首頁
 		@GetMapping(value = {"/checkin", "/", "/checkin/"})
 		public String checkinPage(HttpSession session) {
-			return "emp/CheckIn";
+			return "../emp/CheckIn";
 		}
 		
 		

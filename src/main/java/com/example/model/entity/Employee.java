@@ -26,9 +26,10 @@ public class Employee {
 	private String empDepartment; // 部門
 	private Integer empDeptno;    // 部門代號
 	private String empJob;        // 職位
-	private Integer levelId;        //員工職等
+	private Integer levelId;      //員工職等
 	private Date hireDate;        //員工職等
-	private Float salary;        //員工職等
+	private Float salary;         //員工職等
+
 	
 	private List<Service> services;
 	
@@ -138,10 +139,14 @@ public class Employee {
 	public void setServices(List<Service> services) {
 		this.services = services;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empName=" + empName + ", emppassword=" + emppassword + ", empSex="
+				+ empSex + ", empDepartment=" + empDepartment + ", empDeptno=" + empDeptno + ", empJob=" + empJob
+				+ ", levelId=" + levelId + ", hireDate=" + hireDate + ", salary=" + salary + ", services=" + services
+				+ "]";
+	}
 }
 
 
