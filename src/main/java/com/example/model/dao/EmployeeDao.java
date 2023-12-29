@@ -28,5 +28,8 @@ public interface EmployeeDao {
 //	5. 根據員工ID查找員工(單筆)
 	Optional<Employee> findEmployeeByEmployeeId(Integer empId);
 	
+//	6. 根據部門ID查找主管(單筆)
+	Optional<Employee> findSupervisorByempDeptno(Integer empDeptno);
+	
 
 }

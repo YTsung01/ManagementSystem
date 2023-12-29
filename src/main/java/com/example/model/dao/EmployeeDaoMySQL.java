@@ -82,4 +82,15 @@ public class EmployeeDaoMySQL implements EmployeeDao {
 		}
 	}
 
+//	6. 根據部門ID查找主管(單筆)
+	@Override
+	public Optional<Employee> findSupervisorByempDeptno(Integer empDeptno) {
+		String sql = "select empId,empName,empDeptno,levelId "
+				+ "from empBook where empDeptno = ? && levelId = ?";
+
+		return Optional.empty();
+	}
+	
+	
+
 }
