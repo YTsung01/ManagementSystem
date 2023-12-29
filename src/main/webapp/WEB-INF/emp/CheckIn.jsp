@@ -59,8 +59,7 @@
 	<thead>
 				<tr>
 					<th>員工編號</th>
-					<th>名稱</th>
-					<th>性別</th>
+					<th>名稱</th> 
 					<th>部門</th>
 					<th>職位</th>
 					<th>時間 </th>
@@ -69,10 +68,9 @@
   <tbody>
  		<tr>		
 			<th>${not empty employee.empId }</th>
-			<th>Nickname</th>
-			<th>sex</th>
-			<th>Department</th>
-			<th>Job</th>
+			<th>${ employee.empName }</th>
+			<th> ${ employee.empDepartment  }</th>
+			<th>${ employee.empJob }</th>
 			<th >time</th>				
 		</tr>
 

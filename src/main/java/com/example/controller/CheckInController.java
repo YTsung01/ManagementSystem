@@ -46,7 +46,7 @@ public class CheckInController {
 	// 打卡首頁
 		@GetMapping(value = {"/checkin", "/", "/checkin/"})
 		public String checkinPage(HttpSession session) {
-			return "emp/CheckIn";
+			return "../emp/CheckIn";
 		}
 		
 		

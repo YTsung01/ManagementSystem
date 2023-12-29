@@ -20,13 +20,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active text-light" aria-current="page" href="./mainpage.jsp">首頁</a>
+          <a class="nav-link active text-light" aria-current="page" href="/ManagementSystem/app/main">首頁</a>
         </li>
         
           
         </li>
          <li class="nav-item">
-          <a class="nav-link text-light " href="./CheckIn.jsp">打卡</a>
+          <a class="nav-link text-light " href="/ManagementSystem/app/checkin">打卡</a>
         </li>
         
         
