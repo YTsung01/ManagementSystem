@@ -11,7 +11,7 @@ public class CheckIn {
 		private String empSex;
 		private String empDepartment;
 		private String empJob;
-		private Timestamp checkInTime;
+		private String checkInTime;
 
 		public CheckIn() {
 			
@@ -72,8 +72,8 @@ public class CheckIn {
 			return checkInTime;
 		}
 
-		public void setCheckInTime(Timestamp checkInTime) {
-			this.checkInTime = checkInTime;
+		public void setCheckInTime(String date) {
+			this.checkInTime = date;
 		}
 
 		
