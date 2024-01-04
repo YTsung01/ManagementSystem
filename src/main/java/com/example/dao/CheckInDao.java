@@ -1,4 +1,4 @@
-package com.example.model.dao;
+package com.example.dao;
 
 import java.util.List;
 
@@ -13,11 +13,9 @@ public interface CheckInDao {
 	int addCheckIn(CheckIn checkIn);
 	
 	//打卡下班
-	//test
-
 	
 	// 查看所有預訂打卡紀錄
-	List<CheckIn> findAllCheckIn();
+	List<CheckIn> findAllCheckIns();
 	
 
 }

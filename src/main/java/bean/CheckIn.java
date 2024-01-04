@@ -1,5 +1,6 @@
 package bean;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 //Entity
@@ -8,21 +9,18 @@ public class CheckIn {
 	// 一般欄位
 		private Integer empId;
 		private String empName;
-		private String empSex;
 		private String empDepartment;
 		private String empJob;
-		private Timestamp checkInTime;
+		private String checkInTime;
 
 		public CheckIn() {
 			
 		}
 
-		public CheckIn(Integer empId, String empName, String empSex, String empDepartment, String empJob,
-				Timestamp checkInTime) {
+		public CheckIn(Integer empId, String empName, String empDepartment, String empJob, String checkInTime) {
 			super();
 			this.empId = empId;
 			this.empName = empName;
-			this.empSex = empSex;
 			this.empDepartment = empDepartment;
 			this.empJob = empJob;
 			this.checkInTime = checkInTime;
@@ -44,14 +42,6 @@ public class CheckIn {
 			this.empName = empName;
 		}
 
-		public String getEmpSex() {
-			return empSex;
-		}
-
-		public void setEmpSex(String empSex) {
-			this.empSex = empSex;
-		}
-
 		public String getEmpDepartment() {
 			return empDepartment;
 		}
@@ -68,17 +58,14 @@ public class CheckIn {
 			this.empJob = empJob;
 		}
 
-		public Timestamp getCheckInTime() {
+		public String getCheckInTime() {
 			return checkInTime;
 		}
 
-		public void setCheckInTime(Timestamp checkInTime) {
+		public void setCheckInTime(String checkInTime) {
 			this.checkInTime = checkInTime;
 		}
+		
+		
 
-		
-
-		
-		
-		
 }
