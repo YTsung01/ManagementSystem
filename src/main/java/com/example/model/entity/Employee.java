@@ -27,8 +27,9 @@ public class Employee {
 	private Integer empDeptno;    // 部門代號
 	private String empJob;        // 職位
 	private Integer levelId;      //員工職等
-	private Date hireDate;        //員工職等
-	private Float salary;         //員工職等
+	private Date hireDate;        //員工入職時間
+	private Float salary;         //員工薪資
+	
 
 	
 	private List<Service> services;
@@ -37,8 +38,13 @@ public class Employee {
 		
 	}
 
+	
+
+	
+
+
 	public Employee(Integer empId, String empName, String emppassword, String empSex, String empDepartment,
-			Integer empDeptno, String empJob, Integer levelId, Date hireDate, Float salary) {
+			Integer empDeptno, String empJob, Integer levelId, Date hireDate, Float salary, List<Service> services) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
@@ -50,7 +56,13 @@ public class Employee {
 		this.levelId = levelId;
 		this.hireDate = hireDate;
 		this.salary = salary;
+		this.services = services;
 	}
+
+
+
+
+
 
 	public Integer getEmpId() {
 		return empId;
@@ -131,6 +143,12 @@ public class Employee {
 	public void setSalary(Float salary) {
 		this.salary = salary;
 	}
+	
+	
+	
+
+
+
 
 	public List<Service> getServices() {
 		return services;

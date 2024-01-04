@@ -17,7 +17,7 @@ public interface CheckInDao {
 
 	
 	// 查看所有預訂打卡紀錄
-	List<CheckIn> findAllCheckIns();
+	List<CheckIn> findAllCheckIn();
 	
 
 }

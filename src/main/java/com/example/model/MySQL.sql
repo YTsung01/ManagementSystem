@@ -55,3 +55,7 @@ SELECT * FROM managementsystem.service where levelId <= (select levelId from emp
 
 -- boss: 根據姓名查找 menu
 SELECT * FROM managementsystem.service where levelId <= (select levelId from empbook where empName = 'Heechul') order by sort;
+
+--根據部門ID查找主管
+select empId,empName,empDeptno,levelId
+from empBook where empDeptno = 1 && levelId = 2

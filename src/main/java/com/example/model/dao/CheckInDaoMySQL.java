@@ -12,7 +12,7 @@ import bean.CheckIn;
 
 
 @Repository("CheckInDao") // 自行定義名稱
-public class CheckInDaoImpl implements CheckInDao {
+public class CheckInDaoMySQL implements CheckInDao {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -23,20 +23,21 @@ public class CheckInDaoImpl implements CheckInDao {
 	@Override
 	public int addCheckIn(CheckIn checkIn) {
 		
-		String sql = "insert into CheckInList(empId,empName,empSex,empDepartment,empJob,checkInTime) values(?, ?, ?, ?, ?, ?)";
-		return jdbcTemplate.update(sql,checkIn.getEmpId(),checkIn.getEmpName(),checkIn.getEmpSex(),checkIn.getEmpDepartment(),
+		String sql = "insert into CheckInList(empId,empName,empDepartment,empJob,checkInTime) values(?, ?, ?, ?, ?)";
+		return jdbcTemplate.update(sql,checkIn.getEmpId(),checkIn.getEmpName(),checkIn.getEmpDepartment(),
 				checkIn.getEmpJob(),checkIn.getCheckInTime());
 	
 	}
 
 	@Override
-	public List<CheckIn> findAllCheckIns() {
-		String sql = "SELECT empId,empName,empSex,empDepartment,empJob,checkInTime FROM CheckInList";
+	public List<CheckIn> findAllCheckIn() {
+		String sql = "SELECT empId,empName,empDepartment,empJob,checkInTime FROM CheckInList";
 		List<CheckIn> checkIns= jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CheckIn.class));
 		return checkIns;
 		
 		
 	}
+	
 	
 	
 

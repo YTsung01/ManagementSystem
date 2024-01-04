@@ -1,3 +1,4 @@
+<%@page import="com.example.model.entity.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
@@ -31,7 +32,7 @@ ${ employee }
 					<li>姓名 : </li><p/> ${ employee.empName }
 					<li>員工編號 :</li><p/> ${ employee.empId }
 					<li>部門 :</li><p/> ${ employee.empDepartment  }
-					<li>主管 :</li><p/> 
+					<li>主管 :</li><p/> ${ employee.empDeptno }
 					<li>職位 :</li><p/> ${ employee.empJob }
 					<li>到職日 :</li><p/> ${ employee.hireDate }
 				</ul>
