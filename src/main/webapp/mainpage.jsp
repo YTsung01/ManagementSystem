@@ -1,9 +1,6 @@
-<%@page import="com.example.model.entity.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
-
-${ employee }
 
 <div class="container-xl mt-5">
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
@@ -22,19 +19,15 @@ ${ employee }
 
 			</div>
 
-
-
-
-
 			<!-- 右側 -->
 			<div class="col-12 col-md-6 ">
 				<ul>
-					<li>姓名 : </li><p/> ${ employee.empName }
-					<li>員工編號 :</li><p/> ${ employee.empId }
-					<li>部門 :</li><p/> ${ employee.empDepartment  }
-					<li>主管 :</li><p/> ${ employee.empDeptno }
-					<li>職位 :</li><p/> ${ employee.empJob }
-					<li>到職日 :</li><p/> ${ employee.hireDate }
+					<li>姓名 : </li><p/>
+					<li>員工編號 :</li><p/>
+					<li>部門 :</li><p/>
+					<li>主管 :</li><p/>
+					<li>職位 :</li><p/>
+					<li>到職日 :</li><p/>
 				</ul>
 
 			</div>
@@ -74,15 +67,6 @@ ${ employee }
 							<td>2023-12-04</td>
 
 						</tr>
-						
-						<tr>
-							<th scope="row">1</th>
-							<td>${ employee.empName } </td>
-							<td>${ employee.empJob }</td>
-							<td>${ employee.hireDate }</td>
-
-						</tr>
-						
 					</tbody>
 				</table>
 			</div>

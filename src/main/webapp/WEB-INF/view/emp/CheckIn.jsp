@@ -28,7 +28,7 @@
 
 
 
-
+${ employee }
 
 
 <html>
@@ -38,11 +38,11 @@
 	<form action="http://localhost:8080/ManagementSystem_my/CheckInDao" method="post" enctype="multipart/form-data"
 		class="border rounded mx-auto p-4">
 		
-		<div class="pb-2">員工編號: <input type="text" name="name" placeholder="請輸入員工編號" /><p /></div>
+		<div class="pb-2">員工編號: <input type="text" name="empId" placeholder="請輸入員工編號" /><p /></div>
 		
-		<div class="pb-2">姓名: <input type="text" name="name" placeholder="請輸入姓名" /><p /></div>
-		<div class="pb-2">部門: <input type="text" name="name" placeholder="請輸入部門"  /><p /></div>
-		<div class="pb-2">職位: <input type="text" name="name" placeholder="請輸入職位"  /><p /></div>
+		<div class="pb-2">姓名: <input type="text" name="empName" placeholder="請輸入姓名" /><p /></div>
+		<div class="pb-2">部門: <input type="text" name="empDepartment" placeholder="請輸入部門"  /><p /></div>
+		<div class="pb-2">職位: <input type="text" name="empJob" placeholder="請輸入職位"  /><p /></div>
 		
 		
 		
@@ -66,13 +66,13 @@
 				</tr>
 	</thead>
   <tbody>
- 		<tr>		
-			<th>${not empty employee.empId }</th>
+ 		<!--<tr>		
+			<th>${employee.empId }</th>
 			<th>${ employee.empName }</th>
 			<th> ${ employee.empDepartment  }</th>
 			<th>${ employee.empJob }</th>
 			<th >time</th>				
-		</tr>
+		</tr> -->
 
  
   </tbody>
