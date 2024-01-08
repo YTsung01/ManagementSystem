@@ -34,6 +34,7 @@ ${ employee }
 <html>
 	<head>
 	
+	<!--
 	<div class="d-flex justify-content-center mx-auto p-4"  >
 	<form action="http://localhost:8080/ManagementSystem_my/CheckInDao" method="post" enctype="multipart/form-data"
 		class="border rounded mx-auto p-4">
@@ -43,6 +44,25 @@ ${ employee }
 		<div class="pb-2">姓名: <input type="text" name="empName" placeholder="請輸入姓名" /><p /></div>
 		<div class="pb-2">部門: <input type="text" name="empDepartment" placeholder="請輸入部門"  /><p /></div>
 		<div class="pb-2">職位: <input type="text" name="empJob" placeholder="請輸入職位"  /><p /></div>
+		
+		
+		
+		
+		<button type="submit" class="pure-button pure-button-primary">打卡上班</button>	  
+		<button type="submit" class="pure-button pure-button-primary">打卡下班</button>	  
+	</form>
+	</div>
+	-->
+	
+	<div class="d-flex justify-content-center mx-auto p-4"  >
+	<form action="http://localhost:8080/ManagementSystem_my/CheckInDao" method="post" enctype="multipart/form-data"
+		class="border rounded mx-auto p-4">
+		
+		<div class="pb-2">員工編號: ${employee.empId } <p /></div>
+		
+		<div class="pb-2">姓名: ${ employee.empName } <p /></div>
+		<div class="pb-2">部門: ${ employee.empDepartment  } <p /></div>
+		<div class="pb-2">職位: ${ employee.empJob } <p /></div>
 		
 		
 		
@@ -66,13 +86,13 @@ ${ employee }
 				</tr>
 	</thead>
   <tbody>
- 		<!--<tr>		
+ 		<tr>		
 			<th>${employee.empId }</th>
 			<th>${ employee.empName }</th>
 			<th> ${ employee.empDepartment  }</th>
 			<th>${ employee.empJob }</th>
 			<th >time</th>				
-		</tr> -->
+		</tr>
 
  
   </tbody>

@@ -10,6 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,7 +52,7 @@ public class CheckInController {
 	
 	
 	// 打卡首頁
-		@GetMapping(value = {"/checkin", "/", "/checkin/"})
+	@GetMapping(value = { "/" })
 		public String checkinPage(Model model) {
 			List<CheckIn> checkIn =checkInDao.findAllCheckIn();
 			model.addAttribute("checkIn",checkIn);
@@ -67,7 +68,7 @@ public class CheckInController {
 		 * @throws ParseException 
 		*/
 		
-		/*
+		
 		@RequestMapping(value = {"/checkinpage"} ,method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain;charset=utf-8")
 		@ResponseBody
 		public String checkIn(@RequestParam( name="empId") Integer empId,
@@ -99,7 +100,7 @@ public class CheckInController {
 			}
 		
 		}
-		*/
+		
 	
 		
 		

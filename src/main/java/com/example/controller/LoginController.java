@@ -85,7 +85,7 @@ public class LoginController {
 				if (employee.getLevelId() == 2) {
 					session.setAttribute("employee", employee); // 將 employee 物件放入到 session 變數中
 					return "redirect:/example/mainpage"; // OK, 導向後台首頁
-					// 問助教+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+					
 				}
 				session.invalidate(); // session 過期失效
 				model.addAttribute("loginMessage", "無權限登入後台");
@@ -107,7 +107,7 @@ public class LoginController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/example/login";
-		// 問助教+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 	}
 
 }
