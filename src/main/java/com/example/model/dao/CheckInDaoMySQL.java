@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.model.entity.CheckIn;
 
-
+//test
 
 
 @Repository("CheckInDao") // 自行定義名稱
@@ -37,7 +37,7 @@ public class CheckInDaoMySQL implements CheckInDao {
 		List<CheckIn> checkIns= jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CheckIn.class));
 		return checkIns;
 		
-		
+
 	}
 	
 	
