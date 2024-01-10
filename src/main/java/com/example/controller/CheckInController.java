@@ -10,6 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ import bean.CheckIn;
 public class CheckInController {
 	
 	@Autowired
+	@Qualifier("checkin")
 	private CheckInDao checkInDao;
 	
 	/**
@@ -51,7 +53,7 @@ public class CheckInController {
 	
 	
 	// 打卡首頁
-		@GetMapping(value = {"/checkin", "/", "/checkin/"})
+		@GetMapping ("/")
 		public String checkinPage(Model model) {
 			List<CheckIn> checkIn =checkInDao.findAllCheckIn();
 			model.addAttribute("checkIn",checkIn);
