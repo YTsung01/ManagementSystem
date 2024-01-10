@@ -2,7 +2,9 @@ package com.example.model.dao;
 
 import java.util.List;
 
-import bean.CheckIn;
+import com.example.model.entity.CheckIn;
+
+
 
 public interface CheckInDao {
 	

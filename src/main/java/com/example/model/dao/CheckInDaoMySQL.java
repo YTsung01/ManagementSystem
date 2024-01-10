@@ -8,7 +8,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import bean.CheckIn;
+import com.example.model.entity.CheckIn;
+
+
 
 
 @Repository("CheckInDao") // 自行定義名稱

@@ -34,7 +34,7 @@
           
         </li>
          <li class="nav-item">
-          <a class="nav-link text-light " href="/ManagementSystem/app/checkin">打卡</a>
+          <a class="nav-link text-light " href="/ManagementSystem/app/checkin/">打卡</a>
         </li>
         
         

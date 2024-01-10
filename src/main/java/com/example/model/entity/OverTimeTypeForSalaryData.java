@@ -1,10 +1,10 @@
-package bean;
+package com.example.model.entity;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
 //Entity
-public class CheckIn {
+public class OverTimeTypeForSalaryData {
 	
 	// 一般欄位
 		private Integer empId;
@@ -13,11 +13,11 @@ public class CheckIn {
 		private String empJob;
 		private String checkInTime;
 
-		public CheckIn() {
+		public OverTimeTypeForSalaryData() {
 			
 		}
 
-		public CheckIn(Integer empId, String empName, String empDepartment, String empJob, String checkInTime) {
+		public OverTimeTypeForSalaryData(Integer empId, String empName, String empDepartment, String empJob, String checkInTime) {
 			super();
 			this.empId = empId;
 			this.empName = empName;
