@@ -68,6 +68,8 @@ public class CheckInController {
 		 * 範例：http://localhost:8080/SpringMVC/mvc/bookingMySQL/bookRoom?roomId=101&name=Tom&date=2023-12-04
 		 * @throws ParseException 
 		*/
+		
+		/*
 		@RequestMapping(value = {"/checkinpage"} ,method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain;charset=utf-8")
 		@ResponseBody
 		public String checkIn(@RequestParam( name="empId") Integer empId,
@@ -99,6 +101,7 @@ public class CheckInController {
 			}
 		
 		}
+		*/
 	
 		
 		
