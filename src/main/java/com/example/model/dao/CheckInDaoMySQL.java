@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.model.entity.CheckIn;
 
-//test
+
 
 
 @Repository("CheckInDao") // 自行定義名稱
