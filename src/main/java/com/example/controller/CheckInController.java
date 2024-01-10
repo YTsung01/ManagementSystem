@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.model.dao.CheckInDao;
+import com.example.model.entity.CheckIn;
 
-import bean.CheckIn;
+
 
 
 
@@ -71,7 +72,7 @@ public class CheckInController {
 		
 		@RequestMapping(value = {"/checkinpage"} ,method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain;charset=utf-8")
 		@ResponseBody
-		public String checkIn(@RequestParam( name="empId") Integer empId,
+		public String checkIn(@RequestParam(name="empId") Integer empId,
 							  @RequestParam(name="empName") String empName,
 							  @RequestParam(name="empDepartment") String empDepartment,
 							  @RequestParam(name="empJob") String empJob,
@@ -87,7 +88,7 @@ public class CheckInController {
 					
 			
 		
-			// 新增預約資料紀錄 (rowcount 資料表異動筆數)
+			// 新增打卡紀錄 (rowcount 資料表異動筆數)
 			try {
 				int rowcount = checkInDao.addCheckIn(checkInList);
 				if(rowcount == 0) {
