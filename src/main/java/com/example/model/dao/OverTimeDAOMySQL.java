@@ -48,14 +48,17 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	@Override
 	public List<OverTime> findOverTimeHourByEmpId(Integer empId) {
 		String sql = "select empId, overTimeHour, verifyState from overTimeList where empId=? and verifyState=1";
-		List
+		
 	}
 
 	//加班查詢
 	@Override
 	public List<OverTime> findOverTimeByEmpId(Integer empId) {
-		// TODO Auto-generated method stub
-		return null;
+			String sql = "select empId, OverTimeFormId, verifystate from overTimeList where empId = ?";
+			List<OverTime> OverTimes = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
+			OverTimes.forEach(this::enrichOverTimesWithDetails);
+			return OverTimes;
+		
 	}
 
 	//修改加班(注意!! 不能修改已經審核過的申請單)
