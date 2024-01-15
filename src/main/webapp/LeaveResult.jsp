@@ -68,7 +68,7 @@
 		<ol>
 			<p>【備註事項】:</p>
 			<li>員工請假規定及薪資核定辦法依照勞基法規定</li>
-			<li>請假二日(含)以內由主管核准，三日以上需第二主管核准</li>
+			<li>請假需經過部門主管以及代理人簽章</li>
 		</ol>
 		
 		<form>
@@ -76,8 +76,6 @@
 				<thead>
 					<tr>
 						<th width="100px" ;align='center' valign="middle">部門主管</th>
-						<td width="100px" ; height="100px"></td>
-						<th width="100px" ;align='center' valign="middle">第二主管</th>
 						<td width="100px" ; height="100px"></td>
 						<th width="100px" ;align='center' valign="middle">代理人</th>
 						<td width="100px" ; height="100px"></td>
