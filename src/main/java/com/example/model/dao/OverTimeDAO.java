@@ -1,6 +1,7 @@
 package com.example.model.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.model.entity.CheckIn;
 import com.example.model.entity.OverTime;
@@ -11,10 +12,13 @@ public interface OverTimeDAO {
 	
 	
 	//加班申請
-	int addOverTime(OverTime overTime , Employee employee);
+	int addOverTime(OverTime overTime);
+	
+	//依據empId查詢使用者
+	Optional<Employee>findEmpById(Integer empId);
 	
 	
-	//查詢目前加班的累積時數
+	//依據empId查詢目前加班的累積時數
 	List<OverTime> findOverTimeHourByEmpId(Integer empId);
 	
 	
@@ -22,14 +26,16 @@ public interface OverTimeDAO {
 	List<OverTime> findOverTimeByEmpId(Integer empId);
 	
 	//修改加班(注意!! 不能修改已經審核過的申請單)
-	int updateOverTimeById(Integer empId);
-	
-	
-	// 查看所有加班紀錄(主管可看到所有人的)
-	List<OverTime> findAllCheckIn();
+	int updateOverTimeById(Integer empId, OverTime overTime);
 	
 	//取消加班
 	int cancelOverTimeById(Integer overTimeFormId);
+	
+	
+	// 查看所有加班紀錄(主管可看到所有人的)
+	List<OverTime> findAllOverTime();
+	
+	
 	
 
 }

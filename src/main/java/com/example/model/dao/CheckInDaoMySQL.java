@@ -37,7 +37,7 @@ public class CheckInDaoMySQL implements CheckInDao {
 		List<CheckIn> checkIns= jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CheckIn.class));
 		return checkIns;
 		
-		
+
 	}
 	
 	
