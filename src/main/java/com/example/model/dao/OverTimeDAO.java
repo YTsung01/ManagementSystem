@@ -3,7 +3,7 @@ package com.example.model.dao;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.model.entity.CheckIn;
+
 import com.example.model.entity.OverTime;
 import com.example.model.entity.Employee;
 
@@ -17,10 +17,10 @@ public interface OverTimeDAO {
 	//依據empId查詢使用者
 	Optional<Employee>findEmpById(Integer empId);
 	
-	
+	/*
 	//依據empId查詢目前加班的累積時數
 	List<OverTime> findOverTimeHourByEmpId(Integer empId);
-	
+	*/
 	
 	//加班查詢
 	List<OverTime> findOverTimeByEmpId(Integer empId);

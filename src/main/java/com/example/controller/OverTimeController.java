@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -20,11 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.model.dao.CheckInDao;
-import com.example.model.entity.CheckIn;
-
-
-
+import com.example.model.dao.OverTimeDAO;
+import com.example.model.entity.OverTime;
 
 
 
@@ -36,7 +34,7 @@ import com.example.model.entity.CheckIn;
 public class OverTimeController {
 	
 	@Autowired
-	private CheckInDao checkInDao;
+	private OverTimeDAO overTimeDAO;
 	
 	/**
 
@@ -54,26 +52,27 @@ public class OverTimeController {
 	
 	// 加班申請
 	@GetMapping(value = { "/request" })
-		public String overtimeRequestPage(Model model) {
-			List<CheckIn> checkIn =checkInDao.findAllCheckIn();
-			model.addAttribute("checkIn",checkIn);
+		public String overtimeRequestPage(Model model, OverTime overTime) {
+			System.out.println("overTime = " + overTime);
+			overTimeDAO.addOverTime(overTime);
+			model.addAttribute("overTimes",overTimeDAO.findAllOverTime());
 			return "emp/OvertimeRequest";
 		}
 	
 	// 加班查詢
 	@GetMapping(value = { "/search" })
 		public String overtimeSearchPage(Model model) {
-			List<CheckIn> checkIn =checkInDao.findAllCheckIn();
-			model.addAttribute("checkIn",checkIn);
+			List<OverTime> overTimes = overTimeDAO.findAllOverTime();
+			model.addAttribute("overTimes",overTimes);
 			return "emp/OvertimeSearch";
 		}
 	
 	// 加班管理
 	@GetMapping(value = { "/check" })
 		public String overtimeCheckPage(Model model) {
-			List<CheckIn> checkIn =checkInDao.findAllCheckIn();
-			model.addAttribute("checkIn",checkIn);
-			return "boss/OvertimeCheck";
+			List<OverTime> overTimes = overTimeDAO.findAllOverTime();
+			model.addAttribute("overTimes",overTimes);
+			return "emp/OvertimeSearch";
 		}
 	
 
