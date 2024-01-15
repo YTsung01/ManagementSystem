@@ -40,7 +40,7 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	//將加班資訊注入overTimeList
 
 	public void enrichOverTimeListWithDetails(OverTime overTime) {
-		findEmpById(overTime.getEmpId()).ifPresent(overTime);
+		findEmpById(overTime.getEmpId()).ifPresent(overTime :: setEmployee);
 	}
 
 	

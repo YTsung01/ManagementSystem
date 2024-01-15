@@ -29,7 +29,7 @@ public interface OverTimeDAO {
 	int updateOverTimeById(Integer empId, OverTime overTime);
 	
 	//取消加班
-		int cancelOverTimeById(Integer overTimeFormId);
+	int cancelOverTimeById(Integer overTimeFormId);
 	
 	
 	// 查看所有加班紀錄(主管可看到所有人的)
