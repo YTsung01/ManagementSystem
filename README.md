@@ -1,3 +1,19 @@
+import java.util.UUID;
+
+@Controller
+@RequestMapping("/example")
+public class ExampleController {
+
+    @GetMapping("/generateUUID")
+    public String generateUUID(Model model) {
+        UUID uuid = UUID.randomUUID();
+        model.addAttribute("uuid", uuid.toString());
+        return "example/generateUUID";
+    }
+}
+
+
+
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 
