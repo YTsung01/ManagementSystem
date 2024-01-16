@@ -9,15 +9,29 @@ public class OverTimeTypeData {
 	// 一般欄位
 		private Integer empId;
 		private String empName;
-		private String empDepartment;
-		private String empJob;
-		private String checkInTime;
+		
+		public OverTimeTypeData() {}
 
-		public OverTimeTypeData() {
-			
+		public Integer getEmpId() {
+			return empId;
 		}
 
+		public void setEmpId(Integer empId) {
+			this.empId = empId;
+		}
 
+		public String getEmpName() {
+			return empName;
+		}
+
+		public void setEmpName(String empName) {
+			this.empName = empName;
+		}
+
+		@Override
+		public String toString() {
+			return "OverTimeTypeData [empId=" + empId + ", empName=" + empName + "]";
+		}
 		
 
 }

@@ -30,8 +30,8 @@ public class DataDaoMySQL implements dataDao {
 
 	@Override
 	public Optional<AgentData> getAgentDataById(Integer id) {
-		return jdbcTemplate.query(sqlAll, new BeanPropertyRowMapper<>(EducationData.class), "Education");
 		return Optional.empty();
+		
 	}
 
 	@Override

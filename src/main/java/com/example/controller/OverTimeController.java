@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.model.dao.OverTimeDAO;
+import com.example.model.dao.OverTimeTypeDataDAO;
 import com.example.model.entity.CheckIn;
 import com.example.model.entity.Employee;
 import com.example.model.entity.OverTime;
@@ -38,6 +39,9 @@ public class OverTimeController {
 	
 	@Autowired
 	private OverTimeDAO overTimeDAO;
+	
+	@Autowired
+	private OverTimeTypeDataDAO overTimeTypeDataDAO;
 	
 	/**
 

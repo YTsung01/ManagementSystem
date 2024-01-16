@@ -7,65 +7,31 @@ import java.sql.Timestamp;
 public class OverTimeTypeForSalaryData {
 	
 	// 一般欄位
-		private Integer empId;
-		private String empName;
-		private String empDepartment;
-		private String empJob;
-		private String checkInTime;
+	private Integer empId;
+	private String empName;
+	
+	public OverTimeTypeForSalaryData() {}
 
-		public OverTimeTypeForSalaryData() {
-			
-		}
+	public Integer getEmpId() {
+		return empId;
+	}
 
-		public OverTimeTypeForSalaryData(Integer empId, String empName, String empDepartment, String empJob, String checkInTime) {
-			super();
-			this.empId = empId;
-			this.empName = empName;
-			this.empDepartment = empDepartment;
-			this.empJob = empJob;
-			this.checkInTime = checkInTime;
-		}
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
+	}
 
-		public Integer getEmpId() {
-			return empId;
-		}
+	public String getEmpName() {
+		return empName;
+	}
 
-		public void setEmpId(Integer empId) {
-			this.empId = empId;
-		}
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
 
-		public String getEmpName() {
-			return empName;
-		}
-
-		public void setEmpName(String empName) {
-			this.empName = empName;
-		}
-
-		public String getEmpDepartment() {
-			return empDepartment;
-		}
-
-		public void setEmpDepartment(String empDepartment) {
-			this.empDepartment = empDepartment;
-		}
-
-		public String getEmpJob() {
-			return empJob;
-		}
-
-		public void setEmpJob(String empJob) {
-			this.empJob = empJob;
-		}
-
-		public String getCheckInTime() {
-			return checkInTime;
-		}
-
-		public void setCheckInTime(String checkInTime) {
-			this.checkInTime = checkInTime;
-		}
-		
-		
+	@Override
+	public String toString() {
+		return "OverTimeTypeData [empId=" + empId + ", empName=" + empName + "]";
+	}
+	
 
 }
