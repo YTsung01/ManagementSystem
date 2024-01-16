@@ -1,16 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-		<title>Layout</title>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<title>Layout</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" />
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #4682b4">
   <div class="container-fluid">
     <a class="navbar-brand text-light " href="#">考勤系統</a>
@@ -48,9 +56,9 @@
 	    加班
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-	    <li><a class="dropdown-item" href="./OvertimeRequest.jsp">加班申請</a></li>
-	    <li><a class="dropdown-item" href="./OvertimeSearch.jsp">加班查詢</a></li>
-	    <li><a class="dropdown-item" href="./OvertimeCheck.jsp">加班管理</a></li>
+	    <li><a class="dropdown-item" href="/ManagementSystem/app/overtime/request">加班申請</a></li>
+	    <li><a class="dropdown-item" href="'/ManagementSystem/app/overtime/search/'+ document.getElementById('bookingId').value">加班查詢</a></li>
+	    <li><a class="dropdown-item" href="/ManagementSystem/app/overtime/check">加班管理</a></li>
 	  </ul>
 	</div>
         
@@ -67,6 +75,7 @@
     <i class="bi bi-person-circle text-light h5 mb-0 d-none d-lg-block"></i>
   </div>
 </nav>
+
 
 </body>
 </html>
