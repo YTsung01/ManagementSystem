@@ -1,5 +1,22 @@
 ## 專案介紹
 員工管理考勤系統(現正進行中 尚未完成)
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<html>
+<head>
+    <title>顯示當日日期</title>
+</head>
+<body>
+
+<h1>當日日期：</h1>
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="formattedDate" />
+<p>${formattedDate}</p>
+
+</body>
+</html>
+
 
 
 
