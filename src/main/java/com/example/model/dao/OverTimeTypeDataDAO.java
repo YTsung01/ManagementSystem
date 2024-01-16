@@ -8,7 +8,7 @@ import com.example.model.entity.OverTime;
 import com.example.model.entity.Employee;
 
 
-public interface OverTimeDAO {
+public interface OverTimeTypeDataDAO {
 	
 	
 	//加班申請

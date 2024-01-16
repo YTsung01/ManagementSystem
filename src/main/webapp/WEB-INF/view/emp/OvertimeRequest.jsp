@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ page contentType="text/html;charset=UTF-8" language="java" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 
 <div class="container-xl mt-5">
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
@@ -24,8 +28,10 @@
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表日期：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="date" name="a_date" id="a_date" class="form-control"
-						style="width: auto;" min="2023-11-01" max="2030-12-31">
+					<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="formattedDate" />
+					<p>${formattedDate}</p>
+					<!--<input type="date" name="a_date" id="a_date" class="form-control"
+						style="width: auto;" min="2023-11-01" max="2030-12-31">-->
 					<!-- 控制日期最大最小值 -->
 
 				</div>
@@ -35,15 +41,13 @@
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請人：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="a_name" id="a_name" class="form-control"
-						required>
+					${ employee.empName }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請部門：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="a_name" id="a_name" class="form-control"
-						required>
+					${ employee.empDepartment  }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
@@ -55,9 +59,9 @@
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
-					<label> <input type="radio" name="a_sex" id="a_sex_1"
+					<label> <input type="radio" name="overTimeType1" id="overTimeType"
 						class="form-check-input" value=" 先生" required> 加班費 <!-- required是設定為必填項目 -->
-					</label> <label class="ms-3"> <input type="radio" name="a_sex"
+					</label> <label class="ms-3"> <input type="radio" name="overTimeType2"
 						id="a_sex_2" class="form-check-input" value=" 小姐" required>
 						補休
 					</label>
@@ -69,9 +73,9 @@
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
-					<label> <input type="radio" name="a_sex" id="a_sex_1"
+					<label> <input type="radio" name="overTimeTypeForDay1" id="overTimeTypeForDay"
 						class="form-check-input" value=" 先生" required> 平日加班 <!-- required是設定為必填項目 -->
-					</label> <label class="ms-3"> <input type="radio" name="a_sex"
+					</label> <label class="ms-3"> <input type="radio" name="overTimeTypeForDay2"
 						id="a_sex_2" class="form-check-input" value=" 小姐" required>
 						假日加班
 					</label>
