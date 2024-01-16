@@ -76,7 +76,7 @@ public class CheckInController {
 							  @RequestParam(name="empName") String empName,
 							  @RequestParam(name="empDepartment") String empDepartment,
 							  @RequestParam(name="empJob") String empJob,
-							  @RequestParam(name="date") String date) throws ParseException {
+							  @RequestParam(name="date") String date, Model model) throws ParseException {
 			
 			// 將表單參數逐一注入到 checkInList 物件中
 			CheckIn checkInList= new CheckIn();
@@ -85,7 +85,8 @@ public class CheckInController {
 			checkInList.setEmpDepartment(empDepartment);
 			checkInList.setEmpJob(empJob);
 			checkInList.setCheckInTime(date);
-					
+			
+			model.addAttribute("date",date);
 			
 		
 			// 新增打卡紀錄 (rowcount 資料表異動筆數)

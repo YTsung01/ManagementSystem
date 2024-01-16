@@ -3,12 +3,23 @@
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %> 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+
+${ employee }
 
 <div class="container-xl mt-5">
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
+
+
+<%
+    // 使用當前時間生成唯一的表單單號
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+    String formNumber = dateFormat.format(new Date());
+%>
+
 
 	<form action="./index.html" method="post" enctype="multipart/form-data"
 		class="border rounded mx-auto p-4">
@@ -19,10 +30,9 @@
 
 			<!-- 填表人 -->
 			<div class="row align-items-center pe-4 mb-3">
-				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表人：</div>
+				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">員工編號：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="a_name" id="a_name" class="form-control"
-						required>
+					${employee.empId }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
@@ -51,7 +61,7 @@
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
-				<button type="button" class="col-12 col-md-1 btn btn-light ">..</button>
+				
 
 
 

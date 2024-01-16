@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.model.dao.OverTimeDAO;
+import com.example.model.dao.OverTimeTypeDataDAO;
 import com.example.model.entity.CheckIn;
 import com.example.model.entity.Employee;
 import com.example.model.entity.OverTime;
@@ -39,6 +40,9 @@ public class OverTimeController {
 	@Autowired
 	private OverTimeDAO overTimeDAO;
 	
+	@Autowired
+	private OverTimeTypeDataDAO overTimeTypeDataDAO;
+	
 	/**
 
 	 * 打卡紀錄
@@ -54,7 +58,7 @@ public class OverTimeController {
 
 	// 打卡首頁
 	@GetMapping(value = { "/" })
-		public String checkinPage(Model model) {
+		public String overTimePage(Model model) {
 			return "emp/OvertimeRequest";
 		}
 	
@@ -71,7 +75,7 @@ public class OverTimeController {
 		}
 	
 	// 加班查詢
-	@GetMapping(value = "/search/{empId}", produces = "text/plain;charset=utf-8")
+	@GetMapping(value = "/search/{empId}")
 	@ResponseBody
 		public String overtimeSearchPage(@PathVariable("empId") Integer empId,Model model, OverTime overTime) {
 			List<OverTime> overTimes = overTimeDAO.findOverTimeByEmpId(empId);

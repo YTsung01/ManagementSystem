@@ -23,10 +23,10 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	@Override
 	public int addOverTime(OverTime overTime ) {
 		String sql = "insert into overTimeList(overTimeFormId, empId, empName, empDepartment, empDeptno, empJob, overTimeDate, overTimeHour, "
-				+ "overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "overTimeTypeId, overTimeTypeForDayId, overTimeReason, verifyState, overTimeCheckReason) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		return jdbcTemplate.update(sql,overTime.getOverTimeFormId(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),
-									overTime.getEmpDeptno(),overTime.getEmpJob(),overTime.getOverTimeDate(),overTime.getOverTimeHour(),overTime.getOverTimeType(),
-									overTime.getOverTimeTypeForDay(),overTime.getOverTimeReason(),overTime.getVerifyState(),overTime.getOverTimeCheckReason());
+									overTime.getEmpDeptno(),overTime.getEmpJob(),overTime.getOverTimeDate(),overTime.getOverTimeHour(),overTime.getOverTimeTypeId(),
+									overTime.getOverTimeTypeForDayId(),overTime.getOverTimeReason(),overTime.getVerifyState(),overTime.getOverTimeCheckReason());
 	}
 	
 	
@@ -37,7 +37,7 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	@Override
 	public Optional<Employee> findEmpById(Integer empId) {
 		String sql = "select overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, overTimeEnd, overTimeHour, "
-				+ "overTimeLeftHour, overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason from overTimeList where empId = ?";
+				+ "overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason, verifyState, overTimeCheckReason from overTimeList where empId = ?";
 	
 		try {
 			Employee employee = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Employee.class),empId);
@@ -92,7 +92,7 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	@Override
 	public List<OverTime> findAllOverTimeByDeptNo(Integer empDeptno) {
 		String sql = "select overTimeFormId, empId, empName, empDepartment, empDeptno, empJob, overTimeDate, overTimeHour, "
-				+ " overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason from overTimeList where empDeptno=?";
+				+ " overTimeTypeId, overTimeTypeForDayId, overTimeReason, verifyState, overTimeCheckReason from overTimeList where empDeptno=?";
 		List<OverTime> overTimes= jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empDeptno);
 		return overTimes;
 	}
