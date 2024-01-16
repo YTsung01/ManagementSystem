@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.UUID" %>
 
 ${ employee }
 
@@ -20,6 +21,11 @@ ${ employee }
     String formNumber = dateFormat.format(new Date());
 %>
 
+<%
+UUID uuid = UUID.randomUUID();
+uuid.toString();
+%>
+<%=uuid%>
 
 	<form action="./index.html" method="post" enctype="multipart/form-data"
 		class="border rounded mx-auto p-4">
