@@ -1,0 +1,13 @@
+    @GetMapping("/showTime")
+    public String showTime(Model model) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        // 将当地时刻格式化为字符串
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = localDateTime.format(formatter);
+
+        // 将格式化后的时间传递给JSP页面
+        model.addAttribute("formattedTime", formattedTime);
+
+        return "timePage"; // 这里使用的JSP页面的名称
+    }
