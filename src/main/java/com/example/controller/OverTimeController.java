@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,23 +77,32 @@ public class OverTimeController {
 	// 加班申請-表單接收並將申請單存入資料庫
 	@PostMapping("/add/{empId}")
 	@ResponseBody
-	public String add(@RequestParam Map<String, Object> formMap , OverTime overTime) {
-	
-		
-	//建立加班資料
-	Map<String, Object> addOverTime = new LinkedHashMap<>();
-	addOverTime.put("empId",overTime.getEmpId());
-	addOverTime.put("empName",overTime.getEmpName());
-	addOverTime.put("empDepartment",overTime.getEmpDepartment());
-	addOverTime.put("overTimeTypeId",overTime.getOverTimeTypeId());
-	addOverTime.put("overTimeTypeForDayId",overTime.getOverTimeTypeForDayId());
-	addOverTime.put("overTimeStart",overTime.getOverTimeStart());
-	addOverTime.put("overTimeEnd",overTime.getOverTimeEnd());
-	addOverTime.put("overTimeReason",overTime.getOverTimeReason());
-	
-	//return formMap + "";
-	return addOverTime+ "";
-	}
+    public String addOverTime(
+            @PathVariable("empId") Integer empId,
+            @RequestParam("overTimeStart") Date overTimeStart,
+            @RequestParam("overTimeEnd")  Date overTimeEnd,
+            @RequestParam("overTimeHour") int overTimeHour,
+            @RequestParam("overTimeTypeId") int overTimeTypeId,
+            @RequestParam("overTimeTypeForDayId") int overTimeTypeForDayId,
+            @RequestParam("overTimeReason") String overTimeReason) {
+
+        // 在这里你可以将表单数据保存到数据库
+        OverTime overTime = new OverTime();
+        // 设置overTime对象的属性值
+        overTime.setEmpId(empId);
+        overTime.setOverTimeStart(overTimeStart);
+        overTime.setOverTimeEnd(overTimeEnd);
+        overTime.setOverTimeHour(overTimeHour);
+        overTime.setOverTimeTypeId(overTimeTypeId);
+        overTime.setOverTimeTypeForDayId(overTimeTypeForDayId);
+        overTime.setOverTimeReason(overTimeReason);
+
+        overTimeDAO.addOverTime(overTime); // 假设这里是将数据保存到数据库的方法
+
+        // 可以根据需要进行其他处理
+
+        return "redirect:/success"; // 重定向到成功页面
+    }
 	
 	
 	
