@@ -1,23 +1,23 @@
-@Controller
-public class YourController {
-
-    @Autowired
-    private OverTimeDAO overTimeDAO; // 假设你有一个用于访问数据库的DAO层
-
-    @PostMapping("/add/{empId}")
+	// 加班申請-表單接收並將申請單存入資料庫
+	@PostMapping("/add/{empId}")
+	@ResponseBody
     public String addOverTime(
             @PathVariable("empId") Integer empId,
-            @RequestParam("overTimeStart") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime overTimeStart,
-            @RequestParam("overTimeEnd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime overTimeEnd,
+            @RequestParam("empName") String empName,
+            @RequestParam("empDepartment") String empDepartment,
+            @RequestParam("overTimeStart") Date overTimeStart,
+            @RequestParam("overTimeEnd")  Date overTimeEnd,
             @RequestParam("overTimeHour") int overTimeHour,
             @RequestParam("overTimeTypeId") int overTimeTypeId,
             @RequestParam("overTimeTypeForDayId") int overTimeTypeForDayId,
-            @RequestParam("overTimeReason") String overTimeReason) {
+            @RequestParam("overTimeReason") String overTimeReason, Model model) {
 
-        // 在这里你可以将表单数据保存到数据库
+        
         OverTime overTime = new OverTime();
-        // 设置overTime对象的属性值
+        // 表單參數注入加班資料
         overTime.setEmpId(empId);
+        overTime.setEmpName(empName);
+        overTime.setEmpDepartment(empDepartment);
         overTime.setOverTimeStart(overTimeStart);
         overTime.setOverTimeEnd(overTimeEnd);
         overTime.setOverTimeHour(overTimeHour);
@@ -25,10 +25,8 @@ public class YourController {
         overTime.setOverTimeTypeForDayId(overTimeTypeForDayId);
         overTime.setOverTimeReason(overTimeReason);
 
-        overTimeDAO.addOverTime(overTime); // 假设这里是将数据保存到数据库的方法
-
-        // 可以根据需要进行其他处理
-
-        return "redirect:/success"; // 重定向到成功页面
+        overTimeDAO.addOverTime(overTime); 
+        model.addAttribute("overtime",overTime);
+        
+        return "emp/OvertimeSearch"; 
     }
-}
