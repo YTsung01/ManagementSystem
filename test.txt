@@ -1,13 +1,11 @@
-    @GetMapping("/showTime")
-    public String showTime(Model model) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-
-        // 将当地时刻格式化为字符串
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedTime = localDateTime.format(formatter);
-
-        // 将格式化后的时间传递给JSP页面
-        model.addAttribute("formattedTime", formattedTime);
-
-        return "timePage"; // 这里使用的JSP页面的名称
-    }
+		// 根據 bookingId 透過 bookings 集合找到該筆 booking 紀錄
+		Optional<Map<String, Object>> mapOpt = bookings.stream()
+													   .filter(booking -> booking.get("bookingId").equals(bookingId))
+													   .findFirst();
+		if(mapOpt.isPresent()) {
+			Map<String, Object> booking = mapOpt.get(); 
+			bookings.remove(booking);
+			return String.format("取消成功 (預約號碼 = %d)", bookingId);
+		}
+		return String.format("取消失敗 (預約號碼 = %d)", bookingId);
+	}
