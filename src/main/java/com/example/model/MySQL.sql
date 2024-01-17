@@ -73,70 +73,55 @@ drop table if exists overTimeList;
 
 -- 建立 overTimeList
 create table if not exists overTimeList(
-	overTimeFormId int not null,
-	empId int not null primary key,
-	empName varchar(50) not null unique,
-	empDepartment varchar(50) not null,
-    empDeptno int not null,
-    empJob varchar(50) not null,
-    overTimeDate date not null,
-    overTimeHour int not null,
-    overTimeType varchar(50) not null,
-    overTimeTypeForDay varchar(50) not null,
-     overTimeReason varchar(200) not null,
-    verifyState int not null ,
-    overTimeCheckReason varchar(200)
-);
-
-insert into overTimeList(overTimeFormId, empId, empName, empDepartment, empDeptno, empJob, overTimeDate, overTimeHour, overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
-				   values(1,101,"Solar","Sales",1,"Engineer","2024-02-21", 2, "加班費/補修","平日","加班原因",1,"審核不通過原因");
-insert into overTimeList(overTimeFormId, empId, empName, empDepartment, empDeptno, empJob, overTimeDate, overTimeHour, overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
-				   values(2,101,"Solar","Sales",1,"Engineer","2024-02-22", 4, "加班費/補修","平日","加班原因",1,"審核不通過原因");
-insert into overTimeList(overTimeFormId, empId, empName, empDepartment, empDeptno, empJob, overTimeDate, overTimeHour, overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
-				   values(3,103,"Wheein","Sales",1,"Engineer","2024-02-21", 6, "加班費/補修","平日","加班原因",1,"審核不通過原因");
-insert into overTimeList(overTimeFormId, empId, empName, empDepartment, empDeptno, empJob, overTimeDate, overTimeHour, overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
-				   values(3,103,"Wheein","Sales",1,"Engineer","2024-02-22", 8, "加班費/補修","平日","加班原因",0,"審核不通過原因");
-				   
-				
-				   
-------------------------------------------------------------- leaveRequestList ----------------------------------------------------------------------
-drop table if exists overTimeList;
-
-
--- 建立 overTimeList
-create table if not exists overTimeList(
-	overTimeFormId int not null,
+	overTimeFormId int,
 	overTimeDate date ,
-	empId int not null,
-	empName varchar(50) not null,
-	empDepartment varchar(50) not null,
-    empDeptno int not null,
-    empJob varchar(50) not null,
+	empId int,
+	empName varchar(50) ,
+	empDepartment varchar(50) ,
+    empDeptno int,
+    empJob varchar(50) ,
     
     overTimeStart datetime ,
     overTimeEnd datetime ,
     overTimeHour int,
     overTimeLeftHour int ,
-    overTimeType varchar(50) not null,
-    overTimeTypeForDay varchar(50) not null,
-	overTimeReason varchar(200) not null,
-    verifyState int not null ,
+    overTimeType varchar(50) ,
+    overTimeTypeId int,
+    overTimeTypeForDay varchar(50) ,
+	overTimeReason varchar(200) ,
+    verifyState int ,
     overTimeCheckReason varchar(200)
 );
 
 
 -- 預設假資料
-insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob,overTimeStart,overTimeEnd,overTimeHour, overTimeLeftHour,overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
+insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob,overTimeStart,overTimeEnd,overTimeHour, overTimeLeftHour,overTimeType, overTimeTypeId, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
 				   values(1,"2024-02-21",101,"Solar","Sales",1,"Engineer","2024-02-01 18:00:00","2024-02-01 20:00:00",TIMESTAMPDIFF(HOUR,overTimeStart,overTimeEnd),46- (overTimeHour), "加班費/補修","平日","加班原因",1,"審核不通過原因");
-insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob,overTimeStart,overTimeEnd,overTimeHour, overTimeLeftHour,overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
-				   values(2,"2024-02-21",101,"Solar","Sales",1,"Engineer","2024-02-02 18:00:00","2024-02-02 20:00:00",TIMESTAMPDIFF(HOUR,overTimeStart,overTimeEnd),46- (overTimeHour), "加班費/補修","平日","加班原因",1,"審核不通過原因");
-insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob,overTimeStart,overTimeEnd,overTimeHour,overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
-				   values(3,"2024-02-21",101,"Solar","Sales",1,"Engineer","2024-02-02 18:00:00","2024-02-02 20:00:00",TIMESTAMPDIFF(HOUR,overTimeStart,overTimeEnd), "加班費/補修","平日","加班原因",0,"審核不通過原因");
-insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob,overTimeStart,overTimeEnd,overTimeHour,overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
-				   values(4,"2024-02-21",103,"Wheein","Sales",1,"Engineer","2024-02-01 18:00:00","2024-02-01 20:00:00",TIMESTAMPDIFF(HOUR,overTimeStart,overTimeEnd), "加班費/補修","平日","加班原因",1,"審核不通過原因");
-insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob,overTimeStart,overTimeEnd,overTimeHour,overTimeType, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
-				   values(5,"2024-02-21",103,"Wheein","Sales",1,"Engineer","2024-02-02 18:00:00","2024-02-02 20:00:00",TIMESTAMPDIFF(HOUR,overTimeStart,overTimeEnd), "加班費/補修","平日","加班原因",1,"審核不通過原因");
 
 
 -- 利用empId來查找已審核通過的加班時數
 SELECT overTimeHour FROM managementsystem.overTimeList where empId =101 && verifyState=1;
+
+
+-----------------------------------------------------overTimeTypeData----------------------------------------------------------------------------
+drop table if exists overTimeTypeData;
+
+
+-- 建立 ooverTimeTypeData
+create table if not exists overTimeTypeData(
+
+	groupName varchar(50),
+    overTimeTypeId int,
+    overTimeType varchar(50)
+
+	
+);
+
+
+
+insert into overTimeTypeData(groupName,  overTimeTypeId,  overTimeType) values('overTimeType', 1, "加班");
+insert into overTimeTypeData(groupName,  overTimeTypeId,  overTimeType) values('overTimeType', 2, "補修");
+insert into overTimeTypeData(groupName,  overTimeTypeId,  overTimeType) values('overTimeTypeForDay', 1, "平日");
+insert into overTimeTypeData(groupName,  overTimeTypeId,  overTimeType) values('overTimeTypeForDay', 2, "假日")				   
+				
+				   
