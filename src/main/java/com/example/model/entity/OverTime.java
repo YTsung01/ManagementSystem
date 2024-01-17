@@ -1,7 +1,8 @@
 package com.example.model.entity;
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class OverTime {
 	private Integer overTimeFormId;    				            // 加班申請單單號
