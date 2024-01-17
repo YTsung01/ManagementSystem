@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.model.dao.OverTimeDAO;
@@ -52,23 +54,47 @@ public class OverTimeController {
 			return "emp/OvertimeRequest";
 		}
 	
-	// 加班申請
+	// 加班申請頁
 	@GetMapping(value = { "/request" })
 	public String overtimeRequestPage(Model model, HttpSession session) {
 		// 取得登入者的資訊
 		Employee employee = (Employee)session.getAttribute("employee");
 		//System.out.println("overTime = " + overTime);
 		//overTimeDAO.addOverTime(overTime);
-		//Integer deptNo= employee.getEmpDeptno();
+		Integer deptNo= employee.getEmpDeptno();
+		model.addAttribute("overTimes", overTimeDAO.findAllOverTimeByDeptNo(deptNo));
 		
-		OverTime overTime = new OverTime();
-        model.addAttribute("overTime", overTime);
 		//Timestamp overTimeDate=overTime.getOverTimeDate();
 		//model.addAttribute("overTimeDate", overTimeDate + "");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		model.addAttribute("overTimeDate", sdf.format(new Date()));
 		return "emp/OvertimeRequest";
+	
 	}
+	
+	// 加班申請-表單接收並將申請單存入資料庫
+	@PostMapping("/add/{empId}")
+	@ResponseBody
+	public String add(@RequestParam Map<String, Object> formMap , OverTime overTime) {
+	
+		
+	//建立加班資料
+	Map<String, Object> addOverTime = new LinkedHashMap<>();
+	addOverTime.put("empId",overTime.getEmpId());
+	addOverTime.put("empName",overTime.getEmpName());
+	addOverTime.put("empDepartment",overTime.getEmpDepartment());
+	addOverTime.put("overTimeTypeId",overTime.getOverTimeTypeId());
+	addOverTime.put("overTimeTypeForDayId",overTime.getOverTimeTypeForDayId());
+	addOverTime.put("overTimeStart",overTime.getOverTimeStart());
+	addOverTime.put("overTimeEnd",overTime.getOverTimeEnd());
+	addOverTime.put("overTimeReason",overTime.getOverTimeReason());
+	
+	//return formMap + "";
+	return addOverTime+ "";
+	}
+	
+	
+	
 	
 	// 加班查詢(員工查自己)
 	@RequestMapping(value = "/search/{empId}", method = {RequestMethod.GET, RequestMethod.POST})
@@ -84,7 +110,7 @@ public class OverTimeController {
 	
 	// 加班查詢
 	@PostMapping(value = "/search", produces = "text/plain;charset=utf-8")
-	//@ResponseBody
+	@ResponseBody
 	public String overtimeSearchPage(Model model, OverTime overTime, HttpSession session) {
 		// 取得登入者的資訊
 		Employee employee = (Employee)session.getAttribute("employee");

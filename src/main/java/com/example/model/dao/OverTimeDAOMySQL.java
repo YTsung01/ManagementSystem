@@ -24,11 +24,11 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	//加班申請
 	@Override
 	public int addOverTime(OverTime overTime ) {
-		String sql = "insert into overTimeList(overTimeFormId, empId, empName, empDepartment, empDeptno, empJob, overTimeDate, overTimeHour, "
-				+ "overTimeTypeId, overTimeTypeForDayId, overTimeReason, verifyState, overTimeCheckReason) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		return jdbcTemplate.update(sql,overTime.getOverTimeFormId(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),
-									overTime.getEmpDeptno(),overTime.getEmpJob(),overTime.getOverTimeDate(),overTime.getOverTimeHour(),overTime.getOverTimeTypeId(),
-									overTime.getOverTimeTypeForDayId(),overTime.getOverTimeReason(),overTime.getVerifyState(),overTime.getOverTimeCheckReason());
+		String sql = "insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, overTimeEnd, overTimeHour, "
+				+ "overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason, verifyState, overTimeCheckReason) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		return jdbcTemplate.update(sql,overTime.getOverTimeFormId(),overTime.getOverTimeDate(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),overTime.getEmpDeptno(),
+				overTime.getEmpJob(),overTime.getOverTimeStart(),overTime.getOverTimeEnd(),overTime.getOverTimeHour(),overTime.getOverTimeLeftHour(),overTime.getOverTimeTypeId(),
+				overTime.getOverTimeTypeForDayId(),overTime.getOverTimeCheckReason(),overTime.getVerifyState(),overTime.getOverTimeCheckReason());
 		
 		
 	}
@@ -79,9 +79,9 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	//修改加班(注意!! 不能修改已經審核過的申請單)
 	@Override
 	public int updateOverTimeById(Integer empId, OverTime overTime) {
-		String sql ="update overTimeList set  overTimeDate=?, overTimeHour=?, overTimeType=?, overTimeTypeForDay=?, overTimeReason=?";
-		return jdbcTemplate.update(sql,overTime.getOverTimeDate(), overTime.getOverTimeHour(),overTime.getOverTimeType(),
-									overTime.getOverTimeTypeForDay(),overTime.getOverTimeReason());
+		String sql ="update overTimeList set  overTimeStart=?, overTimeEnd=?, overTimeTypeId=?, overTimeTypeForDayId=?, overTimeReason=?, verifyState=?, overTimeCheckReason=?";
+		return jdbcTemplate.update(sql,overTime.getOverTimeStart(),overTime.getOverTimeEnd(),overTime.getOverTimeTypeId(),overTime.getOverTimeTypeForDayId(),
+				overTime.getOverTimeReason(),overTime.getVerifyState(),overTime.getOverTimeCheckReason());
 	}
 	
 	//取消加班
@@ -95,8 +95,9 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	// 依據部門編號 查看所有加班紀錄(主管可看到自己部門所有人的)
 	@Override
 	public List<OverTime> findAllOverTimeByDeptNo(Integer empDeptno) {
-		String sql = "select overTimeFormId, empId, empName, empDepartment, empDeptno, empJob, overTimeDate, overTimeHour, "
-				+ " overTimeTypeId, overTimeTypeForDayId, overTimeReason, verifyState, overTimeCheckReason from overTimeList where empDeptno=?";
+		String sql = "select overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, "
+				+ "overTimeEnd, overTimeHour, overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason,"
+				+ " verifyState, overTimeCheckReason from overTimeList where empDeptno=?";
 		List<OverTime> overTimes= jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empDeptno);
 		return overTimes;
 	}

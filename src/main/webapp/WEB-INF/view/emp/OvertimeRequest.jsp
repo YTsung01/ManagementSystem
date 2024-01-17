@@ -29,7 +29,7 @@ uuid.toString();
 %>
 <%=uuid%>
 
-	<form action="./search/${employee.empId}" method="post" enctype="multipart/form-data"
+	<form action="./add/${employee.empId}" method="post" 
 		class="border rounded mx-auto p-4">
 		<div class="row">
 			<!-- 左側 -->
@@ -76,10 +76,10 @@ uuid.toString();
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
-					<label> <input type="radio" name="overTimeType" id="overTimeType"
-						class="form-check-input" value=" " required> 加班費 <!-- required是設定為必填項目 -->
-					</label> <label class="ms-3"> <input type="radio" name="overTimeType"
-						id="overTimeType" class="form-check-input" value=" " required>
+					<label> <input type="radio" name="overTimeTypeId" id="overTimeTypeId"
+						class="form-check-input" value="1" required> 加班費 <!-- required是設定為必填項目 -->
+					</label> <label class="ms-3"> <input type="radio" name="overTimeTypeId"
+						id="overTimeTypeId" class="form-check-input" value="2" required>
 						補休
 					</label>
 				</div>
@@ -90,10 +90,10 @@ uuid.toString();
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
-					<label> <input type="radio" name="overTimeTypeForDay" id="overTimeTypeForDay"
-						class="form-check-input" value=" " required> 平日加班 <!-- required是設定為必填項目 -->
-					</label> <label class="ms-3"> <input type="radio" name="overTimeTypeForDay"
-						id="overTimeTypeForDay" class="form-check-input" value=" " required>
+					<label> <input type="radio" name="overTimeTypeForDayId" id="overTimeTypeForDayId"
+						class="form-check-input" value="1" required> 平日加班 <!-- required是設定為必填項目 -->
+					</label> <label class="ms-3"> <input type="radio" name="overTimeTypeForDayId"
+						id="overTimeTypeForDayId" class="form-check-input" value="2" required>
 						假日加班
 					</label>
 					<button type="button" class="m-3 col-12 col-md-3 btn btn-light text-nowrap" name="searchDayoff" id="searchDayoff">查詢剩餘時數</button>
