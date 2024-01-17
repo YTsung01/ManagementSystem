@@ -11,7 +11,7 @@
 
 ${ employee }
 <hr>
-${overTimes}
+${overTime}
 
 <div class="container-xl mt-5">
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
@@ -29,7 +29,7 @@ uuid.toString();
 %>
 <%=uuid%>
 
-	<form action="./search/${employee.empId}" method="post" enctype="multipart/form-data"
+	<form action="./add/${employee.empId}" method="post" 
 		class="border rounded mx-auto p-4">
 		<div class="row">
 			<!-- 左側 -->
@@ -39,13 +39,13 @@ uuid.toString();
 			<!-- 填表人 -->
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">員工編號：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-12 col-md-2 position-relative" name="empId">
 					${employee.empId }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表日期：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-12 col-md-2 position-relative" name="overTimeDate">
 					<p>${overTimeDate}</p>
 					<!--<input type="date" name="a_date" id="a_date" class="form-control"
 						style="width: auto;" min="2023-11-01" max="2030-12-31">-->
@@ -57,13 +57,13 @@ uuid.toString();
 			<!-- 申請人 -->
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請人：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-12 col-md-2 position-relative" name="empName">
 					${ employee.empName }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請部門：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-12 col-md-2 position-relative" name="empDepartment">
 					${ employee.empDepartment  }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
@@ -76,10 +76,10 @@ uuid.toString();
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
-					<label> <input type="radio" name="overTimeType" id="overTimeType"
-						class="form-check-input" value=" " required> 加班費 <!-- required是設定為必填項目 -->
-					</label> <label class="ms-3"> <input type="radio" name="overTimeType"
-						id="overTimeType" class="form-check-input" value=" " required>
+					<label> <input type="radio" name="overTimeTypeId" id="overTimeTypeId"
+						class="form-check-input" value="1" required> 加班費 <!-- required是設定為必填項目 -->
+					</label> <label class="ms-3"> <input type="radio" name="overTimeTypeId"
+						id="overTimeTypeId" class="form-check-input" value="2" required>
 						補休
 					</label>
 				</div>
@@ -90,10 +90,10 @@ uuid.toString();
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
-					<label> <input type="radio" name="overTimeTypeForDay" id="overTimeTypeForDay"
-						class="form-check-input" value=" " required> 平日加班 <!-- required是設定為必填項目 -->
-					</label> <label class="ms-3"> <input type="radio" name="overTimeTypeForDay"
-						id="overTimeTypeForDay" class="form-check-input" value=" " required>
+					<label> <input type="radio" name="overTimeTypeForDayId" id="overTimeTypeForDayId"
+						class="form-check-input" value="1" required> 平日加班 <!-- required是設定為必填項目 -->
+					</label> <label class="ms-3"> <input type="radio" name="overTimeTypeForDayId"
+						id="overTimeTypeForDayId" class="form-check-input" value="2" required>
 						假日加班
 					</label>
 					<button type="button" class="m-3 col-12 col-md-3 btn btn-light text-nowrap" name="searchDayoff" id="searchDayoff">查詢剩餘時數</button>
@@ -104,7 +104,7 @@ uuid.toString();
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">加班起始日：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="datetime-local" name="startDate" id="startDate"
+					<input type="datetime-local" name="overTimeStart" id="overTimeStart"
 						class="form-control" style="width: auto;" min="2023-11-01"
 						max="2023-12-31">
 					<!-- 控制日期最大最小值 -->
@@ -112,7 +112,7 @@ uuid.toString();
 
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">結束日：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="datetime-local" name="endDate" id="endDate"
+					<input type="datetime-local" name="overTimeEnd" id="overTimeEnd"
 						class="form-control" style="width: auto;" min="2023-11-01"
 						max="2023-12-31">
 					<!-- 控制日期最大最小值 -->
@@ -123,7 +123,7 @@ uuid.toString();
 			<div class="row align-items-center pe-4 mb-5">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">合計時數：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="resultTime" id="resultTime" class="form-control"
+					<input type="text" name="overTimeHour" id="overTimeHour" class="form-control"
 						required>
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2 ">時</div>
@@ -135,7 +135,7 @@ uuid.toString();
 				<div class="row  pe-4 mb-5 mt-3">
 					<div class="col-12 col-md-2 text-md-end p-md-0">加班事由：</div>
 					<div class="col-12 col-md-10 mb-4">
-						<textarea name="a_content" id="a_content" class="form-control"
+						<textarea name="overTimeReason" id="overTimeReason" class="form-control"
 							rows="5" required></textarea>
 					</div>
 				</div>
@@ -173,12 +173,12 @@ uuid.toString();
 <script>
 
 let  resultDate_msg = $('#resultDate').next();
-let  resultTime_msg = $('#resultTime').next();
+let  resultTime_msg = $('#overTimeHour').next();
 
 
 $('#calculatebtn').on('click', function() {
-    startDate =new Date( $('#startDate').val());
-    endDate = new Date($('#endDate').val());
+    startDate =new Date( $('#overTimeStart').val());
+    endDate = new Date($('#overTimeEnd').val());
         
         var timeDiff =Math.abs(endDate.getTime()- startDate.getTime());
         var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));         
