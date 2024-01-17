@@ -1,32 +1,9 @@
-	// 加班申請-表單接收並將申請單存入資料庫
-	@PostMapping("/add/{empId}")
-	@ResponseBody
-    public String addOverTime(
-            @PathVariable("empId") Integer empId,
-            @RequestParam("empName") String empName,
-            @RequestParam("empDepartment") String empDepartment,
-            @RequestParam("overTimeStart") Date overTimeStart,
-            @RequestParam("overTimeEnd")  Date overTimeEnd,
-            @RequestParam("overTimeHour") int overTimeHour,
-            @RequestParam("overTimeTypeId") int overTimeTypeId,
-            @RequestParam("overTimeTypeForDayId") int overTimeTypeForDayId,
-            @RequestParam("overTimeReason") String overTimeReason, Model model) {
-
-        
-        OverTime overTime = new OverTime();
-        // 表單參數注入加班資料
-        overTime.setEmpId(empId);
-        overTime.setEmpName(empName);
-        overTime.setEmpDepartment(empDepartment);
-        overTime.setOverTimeStart(overTimeStart);
-        overTime.setOverTimeEnd(overTimeEnd);
-        overTime.setOverTimeHour(overTimeHour);
-        overTime.setOverTimeTypeId(overTimeTypeId);
-        overTime.setOverTimeTypeForDayId(overTimeTypeForDayId);
-        overTime.setOverTimeReason(overTimeReason);
-
-        overTimeDAO.addOverTime(overTime); 
-        model.addAttribute("overtime",overTime);
-        
-        return "emp/OvertimeSearch"; 
-    }
+	//加班申請
+	@Override
+	public int addOverTime(OverTime overTime ) {
+		String sql = "insert into overTimeList(overTimeDate, empId, empName, empDepartment, overTimeStart, overTimeEnd, overTimeHour, "
+				+ "overTimeTypeId, overTimeTypeForDayId, overTimeReason) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		return jdbcTemplate.update(sql,overTime.getOverTimeDate(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),
+				overTime.getOverTimeStart(),overTime.getOverTimeEnd(),overTime.getOverTimeHour(),overTime.getOverTimeTypeId(),
+				overTime.getOverTimeTypeForDayId(),overTime.getOverTimeReason());	
+	}
