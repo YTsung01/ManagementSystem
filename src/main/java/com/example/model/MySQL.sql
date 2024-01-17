@@ -85,22 +85,24 @@ create table if not exists overTimeList(
     overTimeEnd datetime ,
     overTimeHour int,
     overTimeLeftHour int ,
-    overTimeType varchar(50) ,
+    -- overTimeType varchar(50) ,
     overTimeTypeId int,
-    overTimeTypeForDay varchar(50) ,
+    overTimeTypeForDayId int,
 	overTimeReason varchar(200) ,
     verifyState int ,
     overTimeCheckReason varchar(200)
 );
 
-
 -- 預設假資料
-insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob,overTimeStart,overTimeEnd,overTimeHour, overTimeLeftHour,overTimeType, overTimeTypeId, overTimeTypeForDay, overTimeReason, verifyState, overTimeCheckReason) 
-				   values(1,"2024-02-21",101,"Solar","Sales",1,"Engineer","2024-02-01 18:00:00","2024-02-01 20:00:00",TIMESTAMPDIFF(HOUR,overTimeStart,overTimeEnd),46- (overTimeHour), "加班費/補修","平日","加班原因",1,"審核不通過原因");
+insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, overTimeEnd, overTimeHour, overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason, verifyState, overTimeCheckReason) 
+				   values(1,"2024-02-21",101,"Solar","Sales",1,"Engineer","2024-02-01 18:00:00","2024-02-01 20:00:00",TIMESTAMPDIFF(HOUR,overTimeStart,overTimeEnd),46- (overTimeHour),1,1,"加班原因",1,"審核不通過原因");
+
 
 
 -- 利用empId來查找已審核通過的加班時數
 SELECT overTimeHour FROM managementsystem.overTimeList where empId =101 && verifyState=1;
+
+
 
 
 -----------------------------------------------------overTimeTypeData----------------------------------------------------------------------------
