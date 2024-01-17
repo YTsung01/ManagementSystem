@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -68,13 +69,11 @@ public class OverTimeController {
 	}
 	
 	// 加班查詢(員工查自己)
-	@GetMapping(value = "/search/{empId}")
-	@ResponseBody
+	@PostMapping(value = "/search/{empId}")
+	
 		public String overtimeSearchPage(@PathVariable("empId") Integer empId,Model model, OverTime overTime, HttpSession session) {
 		
 	
-		
-		
 			List<OverTime> overTimes = overTimeDAO.findOverTimeByEmpId(empId);
 			System.out.println("overTime = " + overTime);
 		
@@ -85,7 +84,7 @@ public class OverTimeController {
 	
 	
 	// 加班查詢
-	@GetMapping(value = "/search", produces = "text/plain;charset=utf-8")
+	@PostMapping(value = "/search", produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String overtimeSearchPage(Model model, OverTime overTime, HttpSession session) {
 		// 取得登入者的資訊
