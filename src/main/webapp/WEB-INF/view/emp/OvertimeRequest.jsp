@@ -29,7 +29,7 @@ uuid.toString();
 %>
 <%=uuid%>
 
-	<form action="./index.html" method="post" enctype="multipart/form-data"
+	<form action="./search/${employee.empId}" method="post" enctype="multipart/form-data"
 		class="border rounded mx-auto p-4">
 		<div class="row">
 			<!-- 左側 -->
