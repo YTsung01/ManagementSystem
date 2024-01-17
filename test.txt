@@ -1,11 +1,34 @@
-		// 根據 bookingId 透過 bookings 集合找到該筆 booking 紀錄
-		Optional<Map<String, Object>> mapOpt = bookings.stream()
-													   .filter(booking -> booking.get("bookingId").equals(bookingId))
-													   .findFirst();
-		if(mapOpt.isPresent()) {
-			Map<String, Object> booking = mapOpt.get(); 
-			bookings.remove(booking);
-			return String.format("取消成功 (預約號碼 = %d)", bookingId);
-		}
-		return String.format("取消失敗 (預約號碼 = %d)", bookingId);
-	}
+@Controller
+public class YourController {
+
+    @Autowired
+    private OverTimeDAO overTimeDAO; // 假设你有一个用于访问数据库的DAO层
+
+    @PostMapping("/add/{empId}")
+    public String addOverTime(
+            @PathVariable("empId") Integer empId,
+            @RequestParam("overTimeStart") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime overTimeStart,
+            @RequestParam("overTimeEnd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime overTimeEnd,
+            @RequestParam("overTimeHour") int overTimeHour,
+            @RequestParam("overTimeTypeId") int overTimeTypeId,
+            @RequestParam("overTimeTypeForDayId") int overTimeTypeForDayId,
+            @RequestParam("overTimeReason") String overTimeReason) {
+
+        // 在这里你可以将表单数据保存到数据库
+        OverTime overTime = new OverTime();
+        // 设置overTime对象的属性值
+        overTime.setEmpId(empId);
+        overTime.setOverTimeStart(overTimeStart);
+        overTime.setOverTimeEnd(overTimeEnd);
+        overTime.setOverTimeHour(overTimeHour);
+        overTime.setOverTimeTypeId(overTimeTypeId);
+        overTime.setOverTimeTypeForDayId(overTimeTypeForDayId);
+        overTime.setOverTimeReason(overTimeReason);
+
+        overTimeDAO.addOverTime(overTime); // 假设这里是将数据保存到数据库的方法
+
+        // 可以根据需要进行其他处理
+
+        return "redirect:/success"; // 重定向到成功页面
+    }
+}
