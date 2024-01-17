@@ -21,6 +21,7 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	/*
 	//加班申請
 	@Override
 	public int addOverTime(OverTime overTime ) {
@@ -29,8 +30,16 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 		return jdbcTemplate.update(sql,overTime.getOverTimeFormId(),overTime.getOverTimeDate(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),overTime.getEmpDeptno(),
 				overTime.getEmpJob(),overTime.getOverTimeStart(),overTime.getOverTimeEnd(),overTime.getOverTimeHour(),overTime.getOverTimeLeftHour(),overTime.getOverTimeTypeId(),
 				overTime.getOverTimeTypeForDayId(),overTime.getOverTimeCheckReason(),overTime.getVerifyState(),overTime.getOverTimeCheckReason());
-		
-		
+	}
+	*/
+	//加班申請
+	@Override
+	public int addOverTime(OverTime overTime ) {
+		String sql = "insert into overTimeList(overTimeDate, empId, empName, empDepartment, overTimeStart, overTimeEnd, overTimeHour, "
+				+ "overTimeTypeId, overTimeTypeForDayId, overTimeReason) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		return jdbcTemplate.update(sql,overTime.getOverTimeDate(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),
+				overTime.getOverTimeStart(),overTime.getOverTimeEnd(),overTime.getOverTimeHour(),overTime.getOverTimeTypeId(),
+				overTime.getOverTimeTypeForDayId(),overTime.getOverTimeReason());	
 	}
 	
 	
