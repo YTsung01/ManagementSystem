@@ -3,10 +3,12 @@ package com.example.controller;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +28,9 @@ import com.example.model.dao.OverTimeDAO;
 import com.example.model.dao.OverTimeTypeDataDAO;
 import com.example.model.entity.Employee;
 import com.example.model.entity.OverTime;
+import com.example.util.Qrcode;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 @Controller
 @RequestMapping("/overtime")
@@ -37,6 +42,9 @@ public class OverTimeController {
 	@Autowired
 	private OverTimeTypeDataDAO overTimeTypeDataDAO;
 	
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
+    
 	/**
 
 	 * 打卡紀錄
@@ -77,31 +85,105 @@ public class OverTimeController {
 	// 加班申請-表單接收並將申請單存入資料庫
 	@PostMapping("/add/{empId}")
 	@ResponseBody
-    public String addOverTime(
-            @PathVariable("empId") Integer empId,
-            @RequestParam("overTimeStart") Date overTimeStart,
-            @RequestParam("overTimeEnd")  Date overTimeEnd,
-            @RequestParam("overTimeHour") int overTimeHour,
-            @RequestParam("overTimeTypeId") int overTimeTypeId,
-            @RequestParam("overTimeTypeForDayId") int overTimeTypeForDayId,
-            @RequestParam("overTimeReason") String overTimeReason) {
-
-        // 在这里你可以将表单数据保存到数据库
-        OverTime overTime = new OverTime();
-        // 设置overTime对象的属性值
-        overTime.setEmpId(empId);
-        overTime.setOverTimeStart(overTimeStart);
-        overTime.setOverTimeEnd(overTimeEnd);
+    public String addOverTime(@RequestParam Map<String, Object> formMap, Model model, HttpSession session) {
+		/* 
+		 * {
+		 * overTimeTypeId=1, overTimeTypeForDayId=1, overTimeStart=2024-01-17T15:36,
+		 * overTimeEnd=2024-01-17T19:36, overTimeHour=4, overTimeReason=1212}
+		 *  
+		 *  OverTime [
+		 *  overTimeFormId=null, 
+		 *  overTimeDate=null, 
+		 *  empId=101, 
+		 *  empName=Solar, 
+		 *  empDepartment=Sales, 
+		 *  empDeptno=null, 
+		 *  empJob=null, 
+		 *  overTimeStart=Wed Jan 17 16:46:00 CST 2024, 
+		 *  overTimeEnd=Wed Jan 17 18:46:00 CST 2024, 
+		 *  overTimeHour=2, 
+		 *  overTimeLeftHour=null, 
+		 *  overTimeType=null, 
+		 *  overTimeTypeId=1, 
+		 *  overTimeTypeForDay=null, 
+		 *  overTimeTypeForDayId=1,
+		 *  overTimeReason=212, 
+		 *  verifyState=null,
+		 *  overTimeCheckReason=null, 
+		 *  employee=null]
+		 */
+		// 
+		
+		// 產生 QR CODE
+		String uuid = UUID.randomUUID().toString();
+		String path = Qrcode.generateQRcode(uuid);
+		
+		Employee employee = (Employee)session.getAttribute("employee");
+		
+		OverTime overTime = new OverTime();
+        // 表單參數注入加班資料
+        overTime.setEmpId(employee.getEmpId());
+        overTime.setEmpName(employee.getEmpName());
+        overTime.setEmpDepartment(employee.getEmpDepartment());
+    
+        
+        try {
+        	Date overTimeStart = sdf.parse(formMap.get("overTimeStart") + "");
+            overTime.setOverTimeStart(overTimeStart);
+            
+            Date overTimeEnd = sdf.parse(formMap.get("overTimeEnd") + "");
+            overTime.setOverTimeEnd(overTimeEnd);
+            	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
+        Integer overTimeHour = Integer.parseInt(formMap.get("overTimeHour") + "");
         overTime.setOverTimeHour(overTimeHour);
+        
+        Integer overTimeTypeId = Integer.parseInt(formMap.get("overTimeTypeId") + "");
         overTime.setOverTimeTypeId(overTimeTypeId);
+        
+        Integer overTimeTypeForDayId = Integer.parseInt(formMap.get("overTimeTypeForDayId") + "");
         overTime.setOverTimeTypeForDayId(overTimeTypeForDayId);
+        
+        String overTimeReason = formMap.get("overTimeReason") + "";
         overTime.setOverTimeReason(overTimeReason);
-
-        overTimeDAO.addOverTime(overTime); // 假设这里是将数据保存到数据库的方法
-
-        // 可以根据需要进行其他处理
-
-        return "redirect:/success"; // 重定向到成功页面
+        
+        
+        overTime.setOverTimeFormId(uuid);
+        
+        
+        overTime.setOverTimeDate(sdf.format(new Date()));
+        
+        Integer EmpDeptno = Integer.parseInt(formMap.get("EmpDeptno") + "");
+        overTime.setEmpDeptno(EmpDeptno);
+        
+        String EmpJob = formMap.get("EmpJob") + "";
+        overTime.setEmpJob(EmpJob);
+        
+        Integer OverTimeLeftHour = Integer.parseInt(formMap.get("OverTimeLeftHour") + "");
+        overTime.setOverTimeLeftHour(OverTimeLeftHour);
+        
+        String OverTimeType = formMap.get("OverTimeType") + "";
+        overTime.setOverTimeType(OverTimeType);
+        
+        String OverTimeTypeForDay = formMap.get("OverTimeTypeForDay") + "";
+        overTime.setOverTimeTypeForDay();
+        
+        Integer VerifyState = Integer.parseInt(formMap.get("EmpDeptno") + "");
+        overTime.setVerifyState(VerifyState);
+        
+        String OverTimeCheckReason = formMap.get("OverTimeCheckReason") + "";
+        overTime.setOverTimeCheckReason(OverTimeCheckReason);
+        
+        overTime.setEmployee(employee);
+        //overTimeDAO.addOverTime(overTime); 
+        //model.addAttribute("overtime",overTime);
+        
+        return formMap + "<hr>" + overTime + "";
+        
+        //return "redirect:../search/" + employee.getEmpId();
     }
 	
 	

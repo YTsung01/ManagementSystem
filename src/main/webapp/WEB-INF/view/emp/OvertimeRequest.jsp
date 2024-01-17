@@ -149,6 +149,23 @@ uuid.toString();
 						class="btn btn-primary align-items-center m-4" value="送出">送出</button>
 					<button type="reset" class="btn btn-danger">清除</button>
 				</div>
+				
+				
+				<div>
+				<input name="overTimeFormId",id="overTimeFormId",type="hidden",value="">		
+				<input name="overTimeDate",id="overTimeDate",type="hidden",value="">		
+				<input name="empDeptno",id="empDeptno",type="hidden",value="">		
+				<input name="empJob",id="empJob",type="hidden",value="">		
+				<input name="overTimeLeftHour",id="overTimeLeftHour",type="hidden",value="">		
+				<input name="overTimeType",id="overTimeType",type="hidden",value="">		
+				<input name="overTimeTypeForDay",id="overTimeTypeForDay",type="hidden",value="">		
+				<input name="verifyState",id="verifyState",type="hidden",value="">		
+				<input name="overTimeCheckReason",id="overTimeCheckReason",type="hidden",value="">		
+				<input name="employee",id="employee",type="hidden",value="">		
+					
+					
+				</div>
+					
 
 			</div>
 			</div>
