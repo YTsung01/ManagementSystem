@@ -1,10 +1,11 @@
 package com.example.model.entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class OverTime {
 	private Integer overTimeFormId;    				            // 加班申請單單號
-	private Date overTimeDate;               					// 加班申請日期
+	private Timestamp overTimeDate;               				// 加班申請日期
 	private Integer empId;        								//員工代號
 	private String empName;       								// 員工名稱
 	private String empDepartment; 								// 部門
@@ -23,13 +24,13 @@ public class OverTime {
 	private Integer verifyState;           						// 加班審核結果 (通過:1 /不通過:0 )
 	private String overTimeCheckReason;           				// 審核結果是否通過原因 
 	
-	private Employee employee;            //員工物件(關聯欄位)
+	private Employee employee;            						//員工物件(關聯欄位)
 	
 	public OverTime() {
 		
 	}
 
-	public OverTime(Integer overTimeFormId, Date overTimeDate, Integer empId, String empName, String empDepartment,
+	public OverTime(Integer overTimeFormId, Timestamp overTimeDate, Integer empId, String empName, String empDepartment,
 			Integer empDeptno, String empJob, Date overTimeStart, Date overTimeEnd, Integer overTimeHour,
 			Integer overTimeLeftHour, OverTimeTypeData overTimeType, Integer overTimeTypeId,
 			OverTimeTypeForSalaryData overTimeTypeForDay, Integer overTimeTypeForDayId, String overTimeReason,
@@ -63,11 +64,11 @@ public class OverTime {
 		this.overTimeFormId = overTimeFormId;
 	}
 
-	public Date getOverTimeDate() {
+	public Timestamp getOverTimeDate() {
 		return overTimeDate;
 	}
 
-	public void setOverTimeDate(Date overTimeDate) {
+	public void setOverTimeDate(Timestamp overTimeDate) {
 		this.overTimeDate = overTimeDate;
 	}
 

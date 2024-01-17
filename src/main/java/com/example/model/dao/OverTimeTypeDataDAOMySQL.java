@@ -18,8 +18,8 @@ public class OverTimeTypeDataDAOMySQL implements OverTimeTypeDataDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	private final String sqlAll = "SELECT OverTimeTypeId as id, OverTimeType as name FROM managementsystem.overTimeTypeBaseData where groupName = ?";
-	private final String sqlSingle = "SELECT OverTimeTypeId as id, OverTimeType as name FROM managementsystem.overTimeTypeBaseData where groupName = ? and OverTimeTypeId = ?";
+	private final String sqlAll = "SELECT overTimeTypeId as id, overTimeType as name FROM managementsystem.overTimeTypeData where groupName = ?";
+	private final String sqlSingle = "SELECT overTimeTypeId as id, overTimeType as name FROM managementsystem.overTimeTypeData where groupName = ? and overTimeTypeId = ?";
 	
 	@Override
 	public List<OverTimeTypeData> findAllOverTimeTypeDatas() {
@@ -45,4 +45,3 @@ public class OverTimeTypeDataDAOMySQL implements OverTimeTypeDataDAO {
 	}
 	}
 	
-

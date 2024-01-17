@@ -17,14 +17,14 @@
 	    	  <h4 class="text-center mb-3">Login</h4>
 			  <div>
 			    <label for="username" class="form-label">🙋‍♀帳號:</label>
-			    <input type="text" class="form-control" id="empname" name="empname" value=""  placeholder="請輸入員工編號" required>
+			    <input type="text" class="form-control" id="empname" name="empname" value="Solar"  placeholder="請輸入員工編號" required>
 			    <div class="invalid-feedback">
 			      請輸入帳號
 			    </div>
 			  </div>
 			  <div>
 			    <label for="password" class="form-label">🔑密碼:</label>
-			    <input type="password" class="form-control" id="password" name="password" value="" placeholder="請輸入密碼"required>
+			    <input type="password" class="form-control" id="password" name="password" value="pass101" placeholder="請輸入密碼"required>
 			    <div class="invalid-feedback">
 			      請輸入密碼
 			    </div>
