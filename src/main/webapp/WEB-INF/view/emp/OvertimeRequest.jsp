@@ -10,6 +10,8 @@
 <%@ page import="java.util.UUID" %>
 
 ${ employee }
+<hr>
+${overTimes}
 
 <div class="container-xl mt-5">
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
@@ -44,8 +46,7 @@ uuid.toString();
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表日期：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="formattedDate" />
-					<p>${formattedDate}</p>
+					<p>${overTimeDate}</p>
 					<!--<input type="date" name="a_date" id="a_date" class="form-control"
 						style="width: auto;" min="2023-11-01" max="2030-12-31">-->
 					<!-- 控制日期最大最小值 -->
@@ -75,10 +76,10 @@ uuid.toString();
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
-					<label> <input type="radio" name="overTimeType1" id="overTimeType"
-						class="form-check-input" value=" 先生" required> 加班費 <!-- required是設定為必填項目 -->
-					</label> <label class="ms-3"> <input type="radio" name="overTimeType2"
-						id="a_sex_2" class="form-check-input" value=" 小姐" required>
+					<label> <input type="radio" name="overTimeType" id="overTimeType"
+						class="form-check-input" value=" " required> 加班費 <!-- required是設定為必填項目 -->
+					</label> <label class="ms-3"> <input type="radio" name="overTimeType"
+						id="overTimeType" class="form-check-input" value=" " required>
 						補休
 					</label>
 				</div>
@@ -89,10 +90,10 @@ uuid.toString();
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
-					<label> <input type="radio" name="overTimeTypeForDay1" id="overTimeTypeForDay"
-						class="form-check-input" value=" 先生" required> 平日加班 <!-- required是設定為必填項目 -->
-					</label> <label class="ms-3"> <input type="radio" name="overTimeTypeForDay2"
-						id="a_sex_2" class="form-check-input" value=" 小姐" required>
+					<label> <input type="radio" name="overTimeTypeForDay" id="overTimeTypeForDay"
+						class="form-check-input" value=" " required> 平日加班 <!-- required是設定為必填項目 -->
+					</label> <label class="ms-3"> <input type="radio" name="overTimeTypeForDay"
+						id="overTimeTypeForDay" class="form-check-input" value=" " required>
 						假日加班
 					</label>
 					<button type="button" class="m-3 col-12 col-md-3 btn btn-light text-nowrap" name="searchDayoff" id="searchDayoff">查詢剩餘時數</button>

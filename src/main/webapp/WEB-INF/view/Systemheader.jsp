@@ -56,8 +56,8 @@
 	    加班
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-	    <li><a class="dropdown-item" href="/ManagementSystem/app/overtime/">加班申請</a></li>
-	    <li><a class="dropdown-item" href="'/ManagementSystem/app/overtime/search/'+ document.getElementById('bookingId').value">加班查詢</a></li>
+	    <li><a class="dropdown-item" href="/ManagementSystem/app/overtime/request">加班申請</a></li>
+	    <li><a class="dropdown-item" href="/ManagementSystem/app/overtime/search/${empId}">加班查詢</a></li>
 	    <li><a class="dropdown-item" href="/ManagementSystem/app/overtime/check">加班管理</a></li>
 	  </ul>
 	</div>
