@@ -79,9 +79,9 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	//修改加班(注意!! 不能修改已經審核過的申請單)
 	@Override
 	public int updateOverTimeById(Integer empId, OverTime overTime) {
-		String sql ="update overTimeList set  overTimeDate=?, overTimeHour=?, overTimeTypeId=?, overTimeTypeForDayId=?, overTimeReason=?";
-		return jdbcTemplate.update(sql,overTime.getOverTimeDate(), overTime.getOverTimeHour(),overTime.getOverTimeTypeId(),
-									overTime.getOverTimeTypeForDayId(),overTime.getOverTimeReason());
+		String sql ="update overTimeList set  overTimeDate=?, overTimeHour=?, overTimeType=?, overTimeTypeForDay=?, overTimeReason=?";
+		return jdbcTemplate.update(sql,overTime.getOverTimeDate(), overTime.getOverTimeHour(),overTime.getOverTimeType(),
+									overTime.getOverTimeTypeForDay(),overTime.getOverTimeReason());
 	}
 	
 	//取消加班

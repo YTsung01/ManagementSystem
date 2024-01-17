@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.model.dao.OverTimeDAO;
@@ -58,9 +59,10 @@ public class OverTimeController {
 		Employee employee = (Employee)session.getAttribute("employee");
 		//System.out.println("overTime = " + overTime);
 		//overTimeDAO.addOverTime(overTime);
-		Integer deptNo= employee.getEmpDeptno();
-		model.addAttribute("overTimes", overTimeDAO.findAllOverTimeByDeptNo(deptNo));
+		//Integer deptNo= employee.getEmpDeptno();
 		
+		OverTime overTime = new OverTime();
+        model.addAttribute("overTime", overTime);
 		//Timestamp overTimeDate=overTime.getOverTimeDate();
 		//model.addAttribute("overTimeDate", overTimeDate + "");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -69,14 +71,11 @@ public class OverTimeController {
 	}
 	
 	// 加班查詢(員工查自己)
-	@PostMapping(value = "/search/{empId}")
-	
+	@RequestMapping(value = "/search/{empId}", method = {RequestMethod.GET, RequestMethod.POST})
 		public String overtimeSearchPage(@PathVariable("empId") Integer empId,Model model, OverTime overTime, HttpSession session) {
-		
-	
+			
 			List<OverTime> overTimes = overTimeDAO.findOverTimeByEmpId(empId);
-			System.out.println("overTime = " + overTime);
-		
+			System.out.println("overTime = " + overTimes);
 			model.addAttribute("overTimes", overTimeDAO.findOverTimeByEmpId(empId));
 			return "emp/OvertimeSearch";
 		}
@@ -85,7 +84,7 @@ public class OverTimeController {
 	
 	// 加班查詢
 	@PostMapping(value = "/search", produces = "text/plain;charset=utf-8")
-	@ResponseBody
+	//@ResponseBody
 	public String overtimeSearchPage(Model model, OverTime overTime, HttpSession session) {
 		// 取得登入者的資訊
 		Employee employee = (Employee)session.getAttribute("employee");
