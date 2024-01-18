@@ -6,7 +6,7 @@ import java.util.Optional;
 
 
 import com.example.model.entity.OverTimeTypeData;
-import com.example.model.entity.OverTimeTypeForSalaryData;
+import com.example.model.entity.OverTimeTypeForDayData;
 
 
 
@@ -15,7 +15,7 @@ public interface OverTimeTypeDataDAO {
 	List<OverTimeTypeData> findAllOverTimeTypeDatas();
 	Optional<OverTimeTypeData> getOverTimeTypeDataById(Integer id);
 	
-	List<OverTimeTypeForSalaryData> findAllOverTimeTypeForSalaryDatas();
-	Optional<OverTimeTypeForSalaryData> getOverTimeTypeForSalaryDataById(Integer id);
+	List<OverTimeTypeForDayData> findAllOverTimeTypeForSalaryDatas();
+	Optional<OverTimeTypeForDayData> getOverTimeTypeForSalaryDataById(Integer id);
 
 }

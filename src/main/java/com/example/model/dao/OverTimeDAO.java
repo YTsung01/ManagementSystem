@@ -19,10 +19,10 @@ public interface OverTimeDAO {
 	Optional<Employee>findEmpById(Integer empId);
 	
 	
-	/*
+	
 	//依據empId查詢目前加班的累積時數
-	List<OverTime> findOverTimeHourByEmpId(Integer empId);
-	*/
+	Optional<OverTime> findOverTimeHourByEmpId(Integer empId);
+	
 	
 	
 	//修改加班(注意!! 不能修改已經審核過的申請單)

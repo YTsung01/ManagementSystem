@@ -1,37 +1,48 @@
 package com.example.model.entity;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 //Entity
 public class OverTimeTypeData {
 	
 	// 一般欄位
-		private Integer empId;
-		private String empName;
+		protected Integer id;
+		protected String name;
+		
 		
 		public OverTimeTypeData() {}
+		
+		
 
-		public Integer getEmpId() {
-			return empId;
+		public Integer getId() {
+			return id;
 		}
 
-		public void setEmpId(Integer empId) {
-			this.empId = empId;
+
+
+		public void setId(Integer id) {
+			this.id = id;
 		}
 
-		public String getEmpName() {
-			return empName;
+
+
+		public String getName() {
+			return name;
 		}
 
-		public void setEmpName(String empName) {
-			this.empName = empName;
+
+
+		public void setName(String name) {
+			this.name = name;
 		}
+
+
 
 		@Override
 		public String toString() {
-			return "OverTimeTypeData [empId=" + empId + ", empName=" + empName + "]";
+			return "OverTimeTypeData [id=" + id + ", name=" + name + "]";
 		}
 		
+		
+
+
 
 }

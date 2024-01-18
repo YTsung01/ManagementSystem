@@ -35,11 +35,11 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	//加班申請
 	@Override
 	public int addOverTime(OverTime overTime ) {
-		String sql = "insert into overTimeList(overTimeDate, empId, empName, empDepartment, overTimeStart, overTimeEnd, overTimeHour, "
-				+ "overTimeTypeId, overTimeTypeForDayId, overTimeReason) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into overTimeList(overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, overTimeEnd, overTimeHour, "
+				+ "overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason,verifyState, overTimeCheckReason) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 		return jdbcTemplate.update(sql,overTime.getOverTimeDate(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),
-				overTime.getOverTimeStart(),overTime.getOverTimeEnd(),overTime.getOverTimeHour(),overTime.getOverTimeTypeId(),
-				overTime.getOverTimeTypeForDayId(),overTime.getOverTimeReason());	
+				overTime.getEmpDeptno(),overTime.getEmpJob(), overTime.getOverTimeStart(),overTime.getOverTimeEnd(),overTime.getOverTimeHour(),overTime.getOverTimeLeftHour(), overTime.getOverTimeTypeId(),
+				overTime.getOverTimeTypeForDayId(),overTime.getOverTimeReason(), overTime.getVerifyState(),overTime.getOverTimeCheckReason());	
 	}
 	
 	
@@ -68,13 +68,16 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 		findEmpById(overTime.getEmpId()).ifPresent(overTime :: setEmployee);
 	}
 
-	/*
+	
 	//依據empId查詢目前加班的累積時數
 	@Override
-	public List<OverTime> findOverTimeHourByEmpId(Integer empId) {
-		String sql = "select empId, overTimeHour, verifyState from overTimeList where empId=? and verifyState=1";
+	public Optional<OverTime> findOverTimeHourByEmpId(Integer empId) {
+		String sql = "SELECT SUM(overTimeHour) FROM managementsystem.overTimeList WHERE empId = ? && verifyState = 1";
+		OverTime overTime= jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
+		return Optional.ofNullable(overTime);
 	}
-	*/
+	
+	
 
 	//加班查詢
 	@Override
