@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -17,6 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +31,11 @@ import com.example.model.dao.OverTimeDAO;
 import com.example.model.dao.OverTimeTypeDataDAO;
 import com.example.model.entity.Employee;
 import com.example.model.entity.OverTime;
+import com.example.model.entity.OverTimeTypeData;
+import com.example.model.entity.OverTimeTypeForDayData;
 import com.example.util.Qrcode;
 import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 @Controller
@@ -58,15 +64,12 @@ public class OverTimeController {
 	 +-------+---------+---------------+--------+---------------------+
 	*/
 
-	// 打卡首頁
-	@GetMapping(value = { "/" })
-		public String overTimePage(Model model) {
-			return "emp/OvertimeRequest";
-		}
+	
 	
 	// 加班申請頁
 	@GetMapping(value = { "/request" })
-	public String overtimeRequestPage(Model model, HttpSession session) {
+	public String overtimeRequestPage(Model model, HttpSession session, 
+			@ModelAttribute OverTime overTime ,@ModelAttribute OverTimeTypeData overTimeTypeData) throws WriterException, IOException {
 		// 取得登入者的資訊
 		Employee employee = (Employee)session.getAttribute("employee");
 		//System.out.println("overTime = " + overTime);
@@ -78,6 +81,14 @@ public class OverTimeController {
 		//model.addAttribute("overTimeDate", overTimeDate + "");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		model.addAttribute("overTimeDate", sdf.format(new Date()));
+		
+		 //把basedata傳給jsp
+        List<OverTimeTypeData> overTimeTypeDatas = overTimeTypeDataDAO.findAllOverTimeTypeDatas();
+        List<OverTimeTypeForDayData> overTimeTypeForDayDatas = overTimeTypeDataDAO.findAllOverTimeTypeForSalaryDatas();
+        model.addAttribute("overTimeTypeForDayDatas",overTimeTypeForDayDatas);
+        model.addAttribute("overTimeTypeDatas",overTimeTypeDatas);
+    
+		
 		return "emp/OvertimeRequest";
 	
 	}
@@ -85,7 +96,7 @@ public class OverTimeController {
 	// 加班申請-表單接收並將申請單存入資料庫
 	@PostMapping("/add/{empId}")
 	@ResponseBody
-    public String addOverTime(@RequestParam Map<String, Object> formMap, Model model, HttpSession session) {
+    public String addOverTime(@RequestParam Map<String, Object> formMap, Model model, HttpSession session) throws ParseException, WriterException, IOException {
 		/* 
 		 * {
 		 * overTimeTypeId=1, overTimeTypeForDayId=1, overTimeStart=2024-01-17T15:36,
@@ -118,15 +129,21 @@ public class OverTimeController {
 		String uuid = UUID.randomUUID().toString();
 		String path = Qrcode.generateQRcode(uuid);
 		
+		
+		
 		Employee employee = (Employee)session.getAttribute("employee");
 		
 		OverTime overTime = new OverTime();
+		OverTimeTypeData overTimeTypeData = new OverTimeTypeData();
+		
         // 表單參數注入加班資料
         overTime.setEmpId(employee.getEmpId());
         overTime.setEmpName(employee.getEmpName());
         overTime.setEmpDepartment(employee.getEmpDepartment());
-    
-        
+        overTime.setEmpDeptno(employee.getEmpDeptno());
+        overTime.setEmpJob(employee.getEmpJob());
+        overTime.setEmployee(employee);
+      
         try {
         	Date overTimeStart = sdf.parse(formMap.get("overTimeStart") + "");
             overTime.setOverTimeStart(overTimeStart);
@@ -141,6 +158,14 @@ public class OverTimeController {
         Integer overTimeHour = Integer.parseInt(formMap.get("overTimeHour") + "");
         overTime.setOverTimeHour(overTimeHour);
         
+        
+        String overTimeType = formMap.get("overTimeTypeId") + "";
+        overTimeTypeData.setName(overTimeType);
+        
+        String overTimeTypeForDay = formMap.get("overTimeTypeForDayId") + "";
+        overTimeTypeData.setName(overTimeTypeForDay);
+        
+        
         Integer overTimeTypeId = Integer.parseInt(formMap.get("overTimeTypeId") + "");
         overTime.setOverTimeTypeId(overTimeTypeId);
         
@@ -151,42 +176,46 @@ public class OverTimeController {
         overTime.setOverTimeReason(overTimeReason);
         
         
-        overTime.setOverTimeFormId(uuid);
+        overTime.setOverTimeFormId(uuid.toString());
+        
+       // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		//model.addAttribute("overTimeDate", sdf.format(new Date()));
+       // Date OverTimeDate = sdf.parse(formMap.get("OverTimeDate") + "");
+        Date OverTimeDate = sdf.parse(sdf.format(new Date()));
+        overTime.setOverTimeDate(OverTimeDate);
+       
+        
+       
+        String overTimeLeftHourString = formMap.get("OverTimeLeftHour") + "";
+        Integer overTimeLeftHour = null;
+
+        if (!"null".equals(overTimeLeftHourString)) {
+            overTimeLeftHour = Integer.parseInt(overTimeLeftHourString);
+        }
         
         
-        overTime.setOverTimeDate(sdf.format(new Date()));
+       /* //把basedata傳給jsp
+        List<OverTimeTypeData> overTimeTypeDatas = overTimeTypeDataDAO.findAllOverTimeTypeDatas();
+        List<OverTimeTypeForDayData> overTimeTypeForDayDatas = overTimeTypeDataDAO.findAllOverTimeTypeForSalaryDatas();
+        model.addAttribute("overTimeTypeForDayDatas",overTimeTypeForDayDatas);
+        model.addAttribute("overTimeTypeDatas",overTimeTypeDatas);*/
         
-        Integer EmpDeptno = Integer.parseInt(formMap.get("EmpDeptno") + "");
-        overTime.setEmpDeptno(EmpDeptno);
         
-        String EmpJob = formMap.get("EmpJob") + "";
-        overTime.setEmpJob(EmpJob);
-        
-        Integer OverTimeLeftHour = Integer.parseInt(formMap.get("OverTimeLeftHour") + "");
-        overTime.setOverTimeLeftHour(OverTimeLeftHour);
-        
-        String OverTimeType = formMap.get("OverTimeType") + "";
-        overTime.setOverTimeType(OverTimeType);
-        
-        String OverTimeTypeForDay = formMap.get("OverTimeTypeForDay") + "";
-        overTime.setOverTimeTypeForDay();
-        
-        Integer VerifyState = Integer.parseInt(formMap.get("EmpDeptno") + "");
+        Integer VerifyState = 2;
         overTime.setVerifyState(VerifyState);
         
-        String OverTimeCheckReason = formMap.get("OverTimeCheckReason") + "";
+        
+        String OverTimeCheckReason = "待審核";
         overTime.setOverTimeCheckReason(OverTimeCheckReason);
         
-        overTime.setEmployee(employee);
-        //overTimeDAO.addOverTime(overTime); 
-        //model.addAttribute("overtime",overTime);
+       
+        overTimeDAO.addOverTime(overTime); 
+        model.addAttribute("overtime",overTime);
         
-        return formMap + "<hr>" + overTime + "";
+       return formMap + "<hr>" + overTime + "";
         
         //return "redirect:../search/" + employee.getEmpId();
     }
-	
-	
 	
 	
 	// 加班查詢(員工查自己)
