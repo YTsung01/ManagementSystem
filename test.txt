@@ -1,9 +1,3 @@
-	//加班申請
-	@Override
-	public int addOverTime(OverTime overTime ) {
-		String sql = "insert into overTimeList(overTimeDate, empId, empName, empDepartment, overTimeStart, overTimeEnd, overTimeHour, "
-				+ "overTimeTypeId, overTimeTypeForDayId, overTimeReason) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		return jdbcTemplate.update(sql,overTime.getOverTimeDate(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),
-				overTime.getOverTimeStart(),overTime.getOverTimeEnd(),overTime.getOverTimeHour(),overTime.getOverTimeTypeId(),
-				overTime.getOverTimeTypeForDayId(),overTime.getOverTimeReason());	
-	}
+Date OverTimeDate = sdf.parse(sdf.format(new Date()));
+        overTime.setOverTimeDate(OverTimeDate);
+       
