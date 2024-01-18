@@ -1,3 +1,1 @@
-Date OverTimeDate = sdf.parse(sdf.format(new Date()));
-        overTime.setOverTimeDate(OverTimeDate);
-       
+SELECT overTimeTypeId as id, overTimeType as name FROM managementsystem.overtimelistbasedata where groupName = overtimetype
