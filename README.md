@@ -2,8 +2,6 @@
 
 ## 專案介紹
 員工管理考勤系統(現正進行中 尚未完成)
-+ document.getElementById('bookingId').value
-
 ## 技術棧
 ### Backend
 * JAVA
