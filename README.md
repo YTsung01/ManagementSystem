@@ -1,12 +1,12 @@
+
+
 ## 專案介紹
 員工管理考勤系統(現正進行中 尚未完成)
-
-
-
 ## 技術棧
 ### Backend
 * JAVA
 * MySQL
+* SpringMVC
 
 
 ### Frontend

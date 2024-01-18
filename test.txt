@@ -1,0 +1,1 @@
+SELECT overTimeTypeId as id, overTimeType as name FROM managementsystem.overtimelistbasedata where groupName = overtimetype
