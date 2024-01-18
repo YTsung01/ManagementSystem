@@ -14,6 +14,8 @@
 ${ employee }
 <hr>
 ${overTimes}
+<hr>
+${overTimesbyId}
 
 <div class="container-xl mt-5">
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
@@ -146,7 +148,6 @@ ${overTimes}
 				</div>
 				<div>
 				<input name="overTimeFormId" id="overTimeFormId" type="hidden" value="${overTimeformId}" /> 
-				<sp:input path="overTimeDate" id="overTimeDate" type="hidden" value="${overTimeDate}" /> 
 				<input name="empDeptno" id="empDeptno" type="hidden" value="${ employee.empDeptno }"/>		
 				<input name="empJob" id="empJob" type="hidden" value="${ employee.empJob }"/>	
 				<sp:input path="overTimeLeftHour" id="overTimeLeftHour" type="hidden" value="${overTimeLeftHour} " />

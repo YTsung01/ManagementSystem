@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class OverTime {
-	private Integer overTimeFormId;    				            // 加班申請單單號
-	private Timestamp overTimeDate;               				// 加班申請日期
+	private String overTimeFormId;    				            // 加班申請單單號
+	private Date overTimeDate;               				// 加班申請日期
 	private Integer empId;        								//員工代號
 	private String empName;       								// 員工名稱
 	private String empDepartment; 								// 部門
@@ -19,7 +19,7 @@ public class OverTime {
 	private Integer overTimeLeftHour;            				// 加班剩餘時數
 	private OverTimeTypeData overTimeType;             			// 加班類型(加班/補修)
 	private Integer overTimeTypeId;             				// 加班類型Id(給表單用)
-	private OverTimeTypeForSalaryData overTimeTypeForDay;       // 加班類型(平/假日 加班費不同)
+	private OverTimeTypeForDayData overTimeTypeForDay;       // 加班類型(平/假日 加班費不同)
 	private Integer overTimeTypeForDayId;    				    // 加班類型Id(給表單用)
 	private String overTimeReason;           					// 加班事由
 	private Integer verifyState;           						// 加班審核結果 (通過:1 /不通過:0 )
@@ -31,10 +31,10 @@ public class OverTime {
 		
 	}
 
-	public OverTime(Integer overTimeFormId, Timestamp overTimeDate, Integer empId, String empName, String empDepartment,
+	public OverTime(String overTimeFormId, Timestamp overTimeDate, Integer empId, String empName, String empDepartment,
 			Integer empDeptno, String empJob, Date overTimeStart, Date overTimeEnd, Integer overTimeHour,
 			Integer overTimeLeftHour, OverTimeTypeData overTimeType, Integer overTimeTypeId,
-			OverTimeTypeForSalaryData overTimeTypeForDay, Integer overTimeTypeForDayId, String overTimeReason,
+			OverTimeTypeForDayData overTimeTypeForDay, Integer overTimeTypeForDayId, String overTimeReason,
 			Integer verifyState, String overTimeCheckReason, Employee employee) {
 		this.overTimeFormId = overTimeFormId;
 		this.overTimeDate = overTimeDate;
@@ -57,19 +57,21 @@ public class OverTime {
 		this.employee = employee;
 	}
 
-	public Integer getOverTimeFormId() {
+	public String getOverTimeFormId() {
 		return overTimeFormId;
 	}
 
-	public void setOverTimeFormId(Integer overTimeFormId) {
+	public void setOverTimeFormId(String overTimeFormId) {
 		this.overTimeFormId = overTimeFormId;
 	}
 
-	public Timestamp getOverTimeDate() {
+	
+
+	public Date getOverTimeDate() {
 		return overTimeDate;
 	}
 
-	public void setOverTimeDate(Timestamp overTimeDate) {
+	public void setOverTimeDate(Date overTimeDate) {
 		this.overTimeDate = overTimeDate;
 	}
 
@@ -161,11 +163,11 @@ public class OverTime {
 		this.overTimeTypeId = overTimeTypeId;
 	}
 
-	public OverTimeTypeForSalaryData getOverTimeTypeForDay() {
+	public OverTimeTypeForDayData getOverTimeTypeForDay() {
 		return overTimeTypeForDay;
 	}
 
-	public void setOverTimeTypeForDay(OverTimeTypeForSalaryData overTimeTypeForDay) {
+	public void setOverTimeTypeForDay(OverTimeTypeForDayData overTimeTypeForDay) {
 		this.overTimeTypeForDay = overTimeTypeForDay;
 	}
 
