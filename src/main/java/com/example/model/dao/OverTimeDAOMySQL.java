@@ -71,21 +71,15 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	
 	//依據empId查詢已經審核過的加班資料(單筆)
 	@Override
-	public Optional<OverTime> findNoneCheckoutOverTimeHourByEmpId(Integer empId) {
-		try {
-		String sql = "SELECT empId, overTimeHour, SUM(overTimeHour) OVER (PARTITION BY empId) AS totalOverTime, "
-				+ "verifyState FROM overTimeList WHERE empId = ? AND verifyState = 2 LIMIT 0, 1000";
-		OverTime overTime= jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
-		
-		if(overTime != null) {
-			enrichOverTimeListWithDetails(overTime);
-		}
-		return Optional.ofNullable(overTime);
-	
-	} catch (EmptyResultDataAccessException e) {
-		return Optional.empty();
+	public List<OverTime> findNoneCheckoutOverTimeHourByEmpId(Integer empId) {
+	    String sql = "SELECT empId, MAX(overTimeHour) AS overTimeHour, SUM(overTimeHour) AS totalOverTime, verifyState " +
+	                 "FROM overTimeList " +
+	                 "WHERE empId = ? AND verifyState = 2 " +
+	                 "GROUP BY empId, verifyState " +
+	                 "LIMIT 0, 1000";
+
+	    return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
 	}
-}
 	
 
 	//依據empId查詢目前加班的清單
