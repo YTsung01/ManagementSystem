@@ -21,7 +21,7 @@ public interface OverTimeDAO {
 
 	//依據empId查詢已經審核過的加班資料
 		
-	List<OverTime> findNoneCheckoutOverTimeHourByEmpId(Integer empId);
+	List<OverTime> findCheckoutOverTimeHourByEmpId(Integer empId);
 	
 	//修改加班(注意!! 不能修改已經審核過的申請單)
 	int updateOverTimeById(Integer empId, OverTime overTime);

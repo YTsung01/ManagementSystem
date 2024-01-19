@@ -1,7 +1,4 @@
 package com.example.model.dao;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +8,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.model.entity.CheckIn;
+
 import com.example.model.entity.Employee;
 import com.example.model.entity.OverTime;
 
@@ -61,22 +58,18 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	}
 
 
-
-
 	//將加班資訊注入overTimeList
 	public void enrichOverTimeListWithDetails(OverTime overTime) {
 		findEmpById(overTime.getEmpId()).ifPresent(overTime :: setEmployee);
 	}
 
 	
-	//依據empId查詢已經審核過的加班資料(單筆)
+	//依據empId查詢所有已經審核過的加班資料(多筆)
 	@Override
-	public List<OverTime> findNoneCheckoutOverTimeHourByEmpId(Integer empId) {
-	    String sql = "SELECT empId, MAX(overTimeHour) AS overTimeHour, SUM(overTimeHour) AS totalOverTime, verifyState " +
+	public List<OverTime> findCheckoutOverTimeHourByEmpId(Integer empId) {
+	    String sql = "SELECT empId, overTimeHour, verifyState " +
 	                 "FROM overTimeList " +
-	                 "WHERE empId = ? AND verifyState = 2 " +
-	                 "GROUP BY empId, verifyState " +
-	                 "LIMIT 0, 1000";
+	                 "WHERE empId = ? AND verifyState = 2 " ;
 
 	    return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
 	}

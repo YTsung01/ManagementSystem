@@ -1,7 +1,6 @@
 package com.example.model.entity;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Date;
 
 //Entity
 public class CheckIn {
@@ -10,20 +9,15 @@ public class CheckIn {
 		private Integer empId;
 		private String empName;
 		private String empDepartment;
+		private Integer empDetno;
 		private String empJob;
-		private String checkInTime;
+		private Date checkInTime;
+		private Date checkOutTime;
+		private Date todayDate;
+		
 
 		public CheckIn() {
 			
-		}
-
-		public CheckIn(Integer empId, String empName, String empDepartment, String empJob, String checkInTime) {
-			super();
-			this.empId = empId;
-			this.empName = empName;
-			this.empDepartment = empDepartment;
-			this.empJob = empJob;
-			this.checkInTime = checkInTime;
 		}
 
 		public Integer getEmpId() {
@@ -50,6 +44,14 @@ public class CheckIn {
 			this.empDepartment = empDepartment;
 		}
 
+		public Integer getEmpDetno() {
+			return empDetno;
+		}
+
+		public void setEmpDetno(Integer empDetno) {
+			this.empDetno = empDetno;
+		}
+
 		public String getEmpJob() {
 			return empJob;
 		}
@@ -58,13 +60,42 @@ public class CheckIn {
 			this.empJob = empJob;
 		}
 
-		public String getCheckInTime() {
+		public Date getCheckInTime() {
 			return checkInTime;
 		}
 
-		public void setCheckInTime(String checkInTime) {
+		public void setCheckInTime(Date checkInTime) {
 			this.checkInTime = checkInTime;
 		}
+
+		public Date getCheckOutTime() {
+			return checkOutTime;
+		}
+
+		public void setCheckOutTime(Date checkOutTime) {
+			this.checkOutTime = checkOutTime;
+		}
+
+		public Date getTodayDate() {
+			return todayDate;
+		}
+
+		public void setTodayDate(Date todayDate) {
+			this.todayDate = todayDate;
+		}
+
+		@Override
+		public String toString() {
+			return "CheckIn [empId=" + empId + ", empName=" + empName + ", empDepartment=" + empDepartment
+					+ ", empDetno=" + empDetno + ", empJob=" + empJob + ", checkInTime=" + checkInTime
+					+ ", checkOutTime=" + checkOutTime + ", todayDate=" + todayDate + "]";
+		}
+
+		
+
+		
+		
+
 		
 		
 
