@@ -27,33 +27,33 @@ insert into empBook(empId,empName,empPassword,empSex,empDepartment,empDeptno,emp
 insert into empBook(empId,empName,empPassword,empSex,empDepartment,empDeptno,empJob,levelId,hireDate,salary) values(206,"Ryeowook","pass206","female","Admin",2,"Engineer",1,"1987-06-21",80000);
 
 -- 建立薪水
-select id, empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, DATE_FORMAT(salaryDate, "%Y-%m") salaryDate, createDate from salary;
-insert into salary (empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, salaryDate) values(101, 35000, 2000, 5000, 38000, '2024-01-31');
+select id, empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, salaryDate, createDate from salary;
+insert into salary (empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, salaryDate) values(101, 35000, 2000, 5000, 38000, '2024-01');
 
 -- 建立表單(+請假表單+附件)
 select formId, type, applier, applyDate from form;
 -- insert into form(formId,type, applier, applyDate) values(UUID(),1,101,'2024-01-18'); -- b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b
-insert into form(formId,type, applier, applyDate) values(1,1,101,'2024-01-18');
+insert into form(formId,type, applier, applyDate) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b',1,101,'2024-01-18');
 
 
 select formId, agent, takeoffType, startTime, endTime, reason, verifyState, checkReason, takeoffDay, takeoffHour from takeoff;
 -- insert into takeoff(formId, agent,takeoffType, startTime, endTime, reason, takeoffDay, takeoffHour) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b', 102, 2 ,'2024-01-18 09:00','2024-01-18 18:00','事假', 0, 8);
-insert into takeoff(formId, agent,takeoffType, startTime, endTime, reason, takeoffDay, takeoffHour) values('1', 102, 2 ,'2024-01-18 09:00','2024-01-18 18:00','事假', 0, 8);
+insert into takeoff(formId, agent,takeoffType, startTime, endTime, reason, takeoffDay, takeoffHour) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b', 102, 2 ,'2024-01-18 09:00','2024-01-18 18:00','事假', 0, 8);
 
 select attachId, form_id, filePath, createTime, updateTime from attachement;
 -- insert into attachement(form_id, filePath) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b','證明.pdf');
- insert into attachement(form_id, filePath) values('1','證明.pdf');
+ insert into attachement(form_id, filePath) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b','證明.pdf');
  
 -- 建立表單(+加班表單)
 
 select formId, type, applier, applyDate from form;
--- insert into form(formId,type, applier, applyDate) values(UUID(),1,101,'2024-01-18'); -- b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b
-insert into form(formId,type, applier, applyDate) values(2,2,101,'2024-01-19');
+-- insert into form(formId,type, applier, applyDate) values(UUID(),1,101,'2024-01-18'); -- a1fd4ec1-b681-11ee-adf1-6c3c8c3db22a
+insert into form(formId,type, applier, applyDate) values('a1fd4ec1-b681-11ee-adf1-6c3c8c3db22a',2,101,'2024-01-19');
 
 select formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason, verifyState, checkReason from overtime;
 -- insert into overtime(formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b', '2024-01-19 17:00','2024-01-19 19:00',TIMESTAMPDIFF(HOUR,startTime,endTime),1, 1, '工作太多');
 insert into overtime(formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason) 
-values('2','2024-01-19 17:00','2024-01-19 19:00',TIMESTAMPDIFF(HOUR,startTime,endTime),1, 1, '工作太多');
+values('a1fd4ec1-b681-11ee-adf1-6c3c8c3db22a','2024-01-19 17:00','2024-01-19 19:00',TIMESTAMPDIFF(HOUR,startTime,endTime),1, 1, '工作太多');
 
 -- 建立CheckIN
 

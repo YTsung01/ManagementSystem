@@ -34,7 +34,7 @@
 
     <bean id="loggingAspect" class="com.example.aop.LoggingAspect"/>
 
-    <!-- 定義切面和通知 -->
+    <!-- 定義切面和通知
     <aop:config>
         <aop:aspect id="myAspect" ref="loggingAspect">
             <aop:pointcut id="logMethod"
@@ -42,7 +42,7 @@
             <aop:before pointcut-ref="logMethod" method="logMethodParams"/>
         </aop:aspect>
     </aop:config>
-
+ 	-->
      
 	<mvc:annotation-driven />
 	
