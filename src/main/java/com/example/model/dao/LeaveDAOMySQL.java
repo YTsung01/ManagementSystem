@@ -31,7 +31,7 @@ public class LeaveDAOMySQL implements OverTimeDAO {
 	*/
 	//請假申請
 	@Override
-	public int addLeaveOverTime(Leave Leave ) {
+	public int addLeaveOverTime(Takeoff Leave ) {
 		String sql = "insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, overTimeEnd, overTimeHour, "
 				+ "overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason,verifyState, overTimeCheckReason) values(? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 		return jdbcTemplate.update(sql,overTime.getOverTimeFormId(), overTime.getOverTimeDate(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),
