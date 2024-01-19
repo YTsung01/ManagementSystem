@@ -39,10 +39,11 @@ String formNumber = dateFormat.format(new Date());
 <body>
 
 ${ employee }
+<hr>
 ${ checkInList }
 
 <div class="d-flex justify-content-center mx-auto p-4">
-	<form action="http://localhost:8080/ManagementSystem_my/CheckInDao"
+	<sp:form modelAttribute="checkIn" action="./add/${employee.empId}
 		method="post" enctype="multipart/form-data"
 		class="border rounded mx-auto p-4">
 
@@ -105,7 +106,7 @@ ${ checkInList }
 			</tbody>
 		</table>
 
-	</form>
+	</sp:form>
 </div>
 </body>
 

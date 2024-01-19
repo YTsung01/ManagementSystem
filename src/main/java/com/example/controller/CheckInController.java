@@ -3,25 +3,22 @@ package com.example.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
-import javax.crypto.spec.SecretKeySpec;
+import java.util.Date;
+
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.example.model.dao.CheckInDao;
 import com.example.model.entity.CheckIn;
@@ -56,34 +53,22 @@ public class CheckInController {
 	@GetMapping(value = { "/" })
 		public String checkinPage(Model model, HttpSession session) {
 			Employee employee = (Employee)session.getAttribute("employee");
-			List<CheckIn> checkIn =checkInDao.findAllCheckInByEmpId(employee.getEmpId());
-			model.addAttribute("checkIn",checkIn);
+			Integer empId = employee.getEmpId();
+			model.addAttribute("checkInList",checkInDao.findAllCheckInByEmpId(empId));
 			return "emp/CheckIn";
 		}
 		
 		
-		/** 1.打卡上班：
-		 * 路徑：/bookingMySQL/bookRoom
-		 * 參數：會議室ID (roomId), 使用者名稱 (name), 預訂日期 (date)
-		 * 返回：預訂成功(會得到預約號碼 bookingId)或失敗的消息
-		 * 範例：http://localhost:8080/SpringMVC/mvc/bookingMySQL/bookRoom?roomId=101&name=Tom&date=2023-12-04
-		 * @throws ParseException 
-		*/
-		
-		
+	//新增打卡資料	
 	@PostMapping(value = {"/add/{empId}"} , produces = "text/plain;charset=utf-8")
 		//@ResponseBody
-		public String checkIn(@RequestParam Map<String, Object> formMap, Model model, HttpSession session) throws ParseException {
+		public String addcheckIn(@RequestParam Map<String, Object> formMap, Model model, HttpSession session  ) throws ParseException {
 			
 			//取得登入者資料
 			Employee employee = (Employee)session.getAttribute("employee");
 			
-			Integer empId= employee.getEmpId();
-			model.addAttribute("overTimes", overTimeDAO.findAllOverTimeByDeptNo(deptNo));
 			
 			
-
-		
 			// 將表單參數逐一注入到 checkInList 物件中
 			CheckIn checkInList= new CheckIn();
 			checkInList.setEmpId(employee.getEmpId());

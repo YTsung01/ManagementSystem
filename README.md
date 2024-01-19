@@ -25,6 +25,9 @@
   *考勤
 *薪資計算 
 
+## ER圖
+![ER圖](management.png)
+
 
 
 

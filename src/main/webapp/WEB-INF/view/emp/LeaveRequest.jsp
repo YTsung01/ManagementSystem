@@ -52,19 +52,7 @@
 
 
 			</div>
-			<div class="row align-items-center pe-4 mb-3">
-				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請人性別：</div>
-				<div class="col-12 col-md-8">
-					<label> <input type="radio" name="a_sex" id="a_sex_1"
-						class="form-check-input" value=" 先生" required> 男 <!-- required是設定為必填項目 -->
-					</label> <label class="ms-3"> <input type="radio" name="a_sex"
-						id="a_sex_2" class="form-check-input" value=" 小姐" required>
-						女
-					</label>
-				</div>
-			</div>
-
-
+			
 			<!-- 代理人 -->
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">代理人：</div>
