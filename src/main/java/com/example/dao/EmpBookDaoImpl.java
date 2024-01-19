@@ -39,5 +39,14 @@ public class EmpBookDaoImpl implements EmpBookDao {
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(EmpBook.class),empDeptno);
 	}
 
-
+	@Override
+	public Optional<EmpBook> findEmpBookByEmpDeptNoAndLevelId(Integer empDeptno, Integer levelId) {
+		String sql = "SELECT empId, empName, empPassword, empSex, empDepartment, empDeptno, empJob, levelId, hireDate, salary, overTimeLeftHour, overTimeTotalHour, takeoffTotalHours, empAcator FROM empbook where empDeptno = ? and levelId=?";
+		try {
+			EmpBook empBook = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(EmpBook.class), empDeptno,levelId);
+			return Optional.of(empBook);
+		} catch (Exception e) {
+			return Optional.empty();
+		}
+		}
 }

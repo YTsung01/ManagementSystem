@@ -12,4 +12,6 @@ public interface EmpBookDao {
 	Optional<EmpBook> findEmpBookByEmpId(Integer empId);
 
 	List<EmpBook> findEmpBooksByEmpDeptNo(Integer empDeptno);
+	
+	Optional<EmpBook> findEmpBookByEmpDeptNoAndLevelId(Integer empDeptno, Integer levelId);
 }

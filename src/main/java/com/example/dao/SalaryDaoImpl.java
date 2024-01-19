@@ -21,12 +21,13 @@ public class SalaryDaoImpl implements SalaryDao {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
+	//1. 查詢所有員工的薪水資料(多筆)
 	@Override
 	public List<Salary> findAllSalarys() {
 		String sql = "SELECT id, empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, salaryDate, createDate FROM salary";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Salary.class));
 	}
-
+	//2. 依據EmpId查詢此員工的薪水資料(單筆)
 	@Override
 	public Optional<Salary> findSalaryByEmpId(Integer empId) {
 		String sql = "SELECT id, empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, salaryDate, createDate FROM salary where empId = ?";
@@ -37,13 +38,14 @@ public class SalaryDaoImpl implements SalaryDao {
 			return Optional.empty();
 		}
 	}
-
+	
 	/**
 	 * SELECT id, empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, salaryDate, createDate FROM managementsystem.salary where empId=101 AND DATE_FORMAT(salaryDate, "%Y-%m") = '2024-01';
 	 */
+	//3. 依據EmpId和發薪月份查找員工的薪水資料(單筆)
 	@Override
 	public Optional<Salary> findSalaryByEmpIdAndSalaryDate(Integer empId, String salaryDate) {
-		String sql = "SELECT id, empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, salaryDate, createDate FROM managementsystem.salary where empId=? AND DATE_FORMAT(salaryDate, \"%Y-%m\") = ?";
+		String sql = "SELECT id, empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, salaryDate, createDate FROM managementsystem.salary where empId=? AND salaryDate = ?";
 		try {
 			Salary salary = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Salary.class), empId,salaryDate);
 			return Optional.of(salary);
@@ -55,6 +57,7 @@ public class SalaryDaoImpl implements SalaryDao {
 	/**
 	 * insert into salary (empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, salaryDate) values(101, 35000, 2000, 5000, 38000, '2024-01-31')
 	 */
+	//4. 依據薪水單號查找員工的薪水資料(單筆)
 	@Override
 	public int addSalary(Salary salary) {
 		String sql = "insert into salary (empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount,salaryDate) values(?,?,?,?,?,?)";
@@ -80,7 +83,7 @@ public class SalaryDaoImpl implements SalaryDao {
 		return rowsAffected;
 
 	}
-
+	//5. 新增薪水資料
 	@Override
 	public Optional<Salary> findSalaryBySalaryId(Integer salaryId) {
 		String sql = "SELECT id, empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmount, salaryDate, createDate FROM salary where id = ?";
