@@ -200,10 +200,11 @@ CREATE TABLE IF NOT EXISTS `managementsystem`.`salary` (
   `takeoffAmount` INT NOT NULL default 0,
   `overtimeAmount` INT NOT NULL default 0,
   `totalAmount` INT NOT NULL default 0,
-  `salaryDate` DATETIME NOT NULL default current_timestamp,
+  `salaryDate` varchar(7) not null,
   `createDate` DATETIME NULL default current_timestamp,
   PRIMARY KEY (`id`),
   INDEX `salary_empId_idx` (`empId` ASC) VISIBLE,
+  UNIQUE(empId,salaryDate),
   CONSTRAINT `salary_empId`
     FOREIGN KEY (`empId`)
     REFERENCES `managementsystem`.`empbook` (`empId`)
