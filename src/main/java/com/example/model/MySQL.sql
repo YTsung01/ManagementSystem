@@ -63,17 +63,18 @@ from empBook where empDeptno = 1 && levelId = 2
 ------------------------------------------------------------------- CheckinList-----------------------------------------------------------------------
 
 
+drop table if exists checkinlist;
 create table if not exists checkinlist(
 	empId int not null primary key,
 	empName varchar(50) not null unique,
 	empDepartment varchar(50) not null,
+    empDeptno int,
 	empJob varchar(50) not null,
     checkInTime date,
-    checkOutTime date
+    checkOutTime date,
+    todayDate date
 	
 )
-
-
 
 
 ------------------------------------------------------------------- overTimeList-----------------------------------------------------------------------
