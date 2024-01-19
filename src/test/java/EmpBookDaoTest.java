@@ -1,5 +1,6 @@
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,12 +16,15 @@ public class EmpBookDaoTest {
 		
 		EmpBookDao empBookDao = ctx.getBean("empBookDaoImpl", EmpBookDao.class);
 		
-		//List<EmpBook> empBooks = empBookDao.findAllEmpBooks();
-		//System.out.println(empBooks);
+		List<EmpBook> empBooks = empBookDao.findAllEmpBooks();
+		System.out.println(empBooks);
 		
 		EmpBook empBook = empBookDao.findEmpBookByEmpId(101).get();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println(sdf.format(empBook.getHireDate()));
+		
+		//Optional<EmpBook> empBooks = empBookDao.findEmpBooksByEmpDeptNoAndLevelId(1,2);
+		//System.out.println(empBooks);
 
 	}
 
