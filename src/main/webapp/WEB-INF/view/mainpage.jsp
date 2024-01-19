@@ -16,8 +16,8 @@ ${ employee }
 
 			<div class="col-12 col-md-6 border-end">
 
-				<img src="img/1.jpg" class="d-block mx-auto w-100 rounded c-p "
-					data-img="p1_1.jpg" data-title="頭像" alt="">
+				<img src="../images/default_user.jpg" class="d-block mx-auto w-100 rounded c-p "
+					data-img="./img/1.jpg" data-title="頭像" alt="">
 
 
 			</div>
