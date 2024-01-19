@@ -26,9 +26,7 @@
 *薪資計算 
 
 ## ER圖
-![ER圖](management.png)
-
-
+![management](https://github.com/YTsung01/ManagementSystem/assets/85811176/68d08acf-714a-4aa9-9300-3f595d36086e)
 
 
 
