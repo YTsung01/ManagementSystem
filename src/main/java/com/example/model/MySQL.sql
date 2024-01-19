@@ -1,4 +1,4 @@
---------------------------------------------------------- empBook----------------------------------------------------------------------
+-- ------------------------------------------------------- empBook----------------------------------------------------------------------
 drop table if exists empBook;
 drop table if exists service;
 
@@ -57,10 +57,10 @@ SELECT * FROM managementsystem.service where levelId <= (select levelId from emp
 -- boss: 根據姓名查找 menu
 SELECT * FROM managementsystem.service where levelId <= (select levelId from empbook where empName = 'Heechul') order by sort;
 
---根據部門ID查找主管
+-- 根據部門ID查找主管
 select empId,empName,empDeptno,levelId
-from empBook where empDeptno = 1 && levelId = 2
-------------------------------------------------------------------- CheckinList-----------------------------------------------------------------------
+from empBook where empDeptno = 1 && levelId = 2;
+-- ----------------------------------------------------------------- CheckinList-----------------------------------------------------------------------
 
 
 drop table if exists checkinlist;
@@ -73,11 +73,10 @@ create table if not exists checkinlist(
     checkInTime date,
     checkOutTime date,
     todayDate date
-	
-)
+);
 
 
-------------------------------------------------------------------- overTimeList-----------------------------------------------------------------------
+-- ----------------------------------------------------------------- overTimeList-----------------------------------------------------------------------
 drop table if exists overTimeList;
 
 
@@ -116,7 +115,7 @@ SELECT overTimeHour FROM managementsystem.overTimeList where empId =101 && verif
 
 
 
------------------------------------------------------overtimelistbasedata----------------------------------------------------------------------------
+-- ---------------------------------------------------overtimelistbasedata----------------------------------------------------------------------------
 drop table if exists overtimelistbasedata;
 
 
