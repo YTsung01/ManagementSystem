@@ -1,3 +1,5 @@
+![image](https://github.com/YTsung01/ManagementSystem/assets/85811176/d6895e15-304a-4993-aefd-7d046f4b5a26)
+![image](https://github.com/YTsung01/ManagementSystem/assets/85811176/fddec15a-1996-4f32-8f85-50dfac22fe30)
 
 
 ## 專案介紹
