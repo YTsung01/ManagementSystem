@@ -31,6 +31,12 @@
 							<td width="200px" ;align='center' valign="middle">123</td>
 
 						</tr>
+						<tr>
+							<th width="100px" ;align='center' valign="middle">代理人編號</th>
+							<td width="200px" ;align='center' valign="middle">123</td>
+							<th width="100px" ;align='center' valign="middle">代理人</th>
+							<td width="200px" ;align='center' valign="middle">123</td>
+						<tr>
 							<th width="100px" ;align='center' valign="middle">請假類型</th>
 							<td colspan="3" ;width="200px" ;align='center' valign="middle">123</td>
 						</tr>
@@ -61,8 +67,8 @@
 		<p>剩餘請假時數:</p>
 		<ol>
 			<p>【備註事項】:</p>
-			<li>員工請假規定及薪資核定辦法依勞基法規定</li>
-			<li>簽章須包含部門主管及代理人同意</li>
+			<li>員工請假規定及薪資核定辦法依照勞基法規定</li>
+			<li>請假需經過部門主管以及代理人簽章</li>
 		</ol>
 		
 		<form>

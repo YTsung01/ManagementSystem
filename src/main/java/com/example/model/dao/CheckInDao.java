@@ -1,5 +1,6 @@
 package com.example.model.dao;
 
+
 import java.util.List;
 
 import com.example.model.entity.CheckIn;
@@ -10,16 +11,21 @@ public interface CheckInDao {
 	
 	
 	
-	//打卡上班
+	//新增上班時間
 	
 	int addCheckIn(CheckIn checkIn);
 	
-	//打卡下班
+	//新增下班時間
 	//test
-
+	int addCheckOut(CheckIn checkIn);
 	
-	// 查看所有預訂打卡紀錄
-	List<CheckIn> findAllCheckIn();
+	// 依據empId查詢自己的打卡紀錄
+	List<CheckIn> findAllCheckInByEmpId(Integer empId);
+	
+	// 依據empDeptno查詢部門的打卡紀錄
+	List<CheckIn> findAllCheckInByDeptNo(Integer empDeptno);
+		
+
 	
 
 }

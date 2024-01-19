@@ -13,7 +13,7 @@
 
 		<form action="http://localhost:8080/ManagementSystem_my/checkin"
 			method="post" class="border rounded mx-auto p-4 ">
-			<p class="fs-3 fw-bold text-center">請假申請單</p>
+			<p class="fs-3 fw-bold text-center">加班申請單</p>
 			<p class="fs-6 fw-bold text-end">申請單號: ______-______-______</p>
 			<div class="p-3">
 				<table class="table table-bordered ">
@@ -31,11 +31,11 @@
 							<td width="200px" ;align='center' valign="middle">123</td>
 
 						</tr>
-							<th width="100px" ;align='center' valign="middle">請假類型</th>
+							<th width="100px" ;align='center' valign="middle">加班類型</th>
 							<td colspan="3" ;width="200px" ;align='center' valign="middle">123</td>
 						</tr>
 						<tr>
-							<th width="100px" ;align='center' valign="middle">請假事由</th>
+							<th width="100px" ;align='center' valign="middle">加班事由</th>
 							<td colspan="3" ;width="200px" ; height="100px" ;align='center'
 								valign="middle">123</td>
 						</tr>
@@ -57,12 +57,12 @@
 					</tbody>
 				</table>
 		</form>
-		<p>總計請假時數:</p>
-		<p>剩餘請假時數:</p>
+		<p>總計加班時數:</p>
+		<p>剩餘加班時數:</p>
 		<ol>
 			<p>【備註事項】:</p>
-			<li>員工請假規定及薪資核定辦法依勞基法規定</li>
-			<li>簽章須包含部門主管及代理人同意</li>
+			<li>加班採預先申請制度</li>
+			<li>加班時數請以小時為單位計算</li>
 		</ol>
 		
 		<form>
@@ -70,8 +70,6 @@
 				<thead>
 					<tr>
 						<th width="100px" ;align='center' valign="middle">部門主管</th>
-						<td width="100px" ; height="100px"></td>
-						<th width="100px" ;align='center' valign="middle">代理人</th>
 						<td width="100px" ; height="100px"></td>
 						<th width="100px" ;align='center' valign="middle">申請人</th>
 						<td width="100px" ; height="100px"></td>

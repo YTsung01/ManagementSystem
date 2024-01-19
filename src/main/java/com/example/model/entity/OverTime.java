@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class OverTime {
 	private String overTimeFormId;    				            // 加班申請單單號
-	private Date overTimeDate;               					// 加班申請日期
+	private Date overTimeDate;               				// 加班申請日期
 	private Integer empId;        								//員工代號
 	private String empName;       								// 員工名稱
 	private String empDepartment; 								// 部門
@@ -22,7 +22,7 @@ public class OverTime {
 	private OverTimeTypeForDayData overTimeTypeForDay;       // 加班類型(平/假日 加班費不同)
 	private Integer overTimeTypeForDayId;    				    // 加班類型Id(給表單用)
 	private String overTimeReason;           					// 加班事由
-	private Integer verifyState;           						// 加班審核結果 (通過:1 /不通過:0 /審核中:2 )
+	private Integer verifyState;           						// 加班審核結果 (通過:1 /不通過:0 )
 	private String overTimeCheckReason;           				// 審核結果是否通過原因 
 	
 	private Employee employee;            						//員工物件(關聯欄位)
@@ -56,9 +56,6 @@ public class OverTime {
 		this.overTimeCheckReason = overTimeCheckReason;
 		this.employee = employee;
 	}
-	
-
-	
 
 	public String getOverTimeFormId() {
 		return overTimeFormId;
@@ -67,6 +64,8 @@ public class OverTime {
 	public void setOverTimeFormId(String overTimeFormId) {
 		this.overTimeFormId = overTimeFormId;
 	}
+
+	
 
 	public Date getOverTimeDate() {
 		return overTimeDate;

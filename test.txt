@@ -1,0 +1,7 @@
+	//依據empId查詢目前加班的累積時數
+	@Override
+	public Optional<OverTime> findOverTimeHourByEmpId(Integer empId) {
+		String sql = "SELECT SUM(overTimeHour) AS totalOverTime FROM managementsystem.overTimeList WHERE empId = ? && verifyState = 1";
+		OverTime overTime= jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
+		return Optional.ofNullable(overTime);
+	}

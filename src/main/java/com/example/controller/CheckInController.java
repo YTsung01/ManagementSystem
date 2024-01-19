@@ -1,9 +1,12 @@
 package com.example.controller;
 
-import java.sql.Date;
+
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -22,13 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.model.dao.CheckInDao;
 import com.example.model.entity.CheckIn;
-
-
-
-
-
-
-
+import com.example.model.entity.Employee;
 
 
 @Controller
@@ -37,6 +34,9 @@ public class CheckInController {
 	
 	@Autowired
 	private CheckInDao checkInDao;
+	
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
 	
 	/**
 
@@ -54,8 +54,9 @@ public class CheckInController {
 	
 	// 打卡首頁
 	@GetMapping(value = { "/" })
-		public String checkinPage(Model model) {
-			List<CheckIn> checkIn =checkInDao.findAllCheckIn();
+		public String checkinPage(Model model, HttpSession session) {
+			Employee employee = (Employee)session.getAttribute("employee");
+			List<CheckIn> checkIn =checkInDao.findAllCheckInByEmpId(employee.getEmpId());
 			model.addAttribute("checkIn",checkIn);
 			return "emp/CheckIn";
 		}
@@ -70,26 +71,47 @@ public class CheckInController {
 		*/
 		
 		
-		@RequestMapping(value = {"/checkinpage"} ,method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain;charset=utf-8")
-		@ResponseBody
-		public String checkIn(@RequestParam(name="empId") Integer empId,
-							  @RequestParam(name="empName") String empName,
-							  @RequestParam(name="empDepartment") String empDepartment,
-							  @RequestParam(name="empJob") String empJob,
-							  @RequestParam(name="date") String date, Model model) throws ParseException {
+	@PostMapping(value = {"/add/{empId}"} , produces = "text/plain;charset=utf-8")
+		//@ResponseBody
+		public String checkIn(@RequestParam Map<String, Object> formMap, Model model, HttpSession session) throws ParseException {
 			
+			//取得登入者資料
+			Employee employee = (Employee)session.getAttribute("employee");
+			
+			Integer empId= employee.getEmpId();
+			model.addAttribute("overTimes", overTimeDAO.findAllOverTimeByDeptNo(deptNo));
+			
+			
+
+		
 			// 將表單參數逐一注入到 checkInList 物件中
 			CheckIn checkInList= new CheckIn();
-			checkInList.setEmpId(empId);
-			checkInList.setEmpName(empName);
-			checkInList.setEmpDepartment(empDepartment);
-			checkInList.setEmpJob(empJob);
-			checkInList.setCheckInTime(date);
+			checkInList.setEmpId(employee.getEmpId());
+			checkInList.setEmpName(employee.getEmpName());
+			checkInList.setEmpDepartment(employee.getEmpDepartment());
+			checkInList.setEmpJob(employee.getEmpJob());
 			
-			model.addAttribute("date",date);
+			//新增打卡時間
+			 
+		    try {
+	        	Date checkInTime = sdf.parse(formMap.get("checkInTime") + "");
+	        	checkInList.setCheckInTime(checkInTime);
+	            
+	            Date checkOutTime = sdf.parse(formMap.get("overTimeEnd") + "");
+	            checkInList.setCheckOutTime(checkOutTime);
+	            	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		    
+		    //取得今日時間
 			
-		
-			// 新增打卡紀錄 (rowcount 資料表異動筆數)
+		    Date todayDate = sdf.parse(sdf.format(new Date()));
+		    checkInList.setTodayDate(todayDate);
+	        model.addAttribute("todayDate",todayDate);
+			
+	        return formMap + "<hr>" + checkInList + "";
+			/*/ 新增打卡紀錄 (rowcount 資料表異動筆數)
 			try {
 				int rowcount = checkInDao.addCheckIn(checkInList);
 				if(rowcount == 0) {
@@ -99,12 +121,13 @@ public class CheckInController {
 				}
 			} catch (Exception e) {
 				return "打卡失敗: " + (e.getMessage().contains("Duplicate entry") ? "已打卡" : e.getMessage());
-			}
+			}*/
 		
 		}
 		
+	 
 	
-		
+
 		
 
 }

@@ -10,6 +10,7 @@ import com.example.model.entity.OverTimeTypeForDayData;
 
 
 
+
 public interface OverTimeTypeDataDAO {
 	
 	List<OverTimeTypeData> findAllOverTimeTypeDatas();

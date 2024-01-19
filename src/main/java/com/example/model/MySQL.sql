@@ -60,9 +60,18 @@ SELECT * FROM managementsystem.service where levelId <= (select levelId from emp
 --根據部門ID查找主管
 select empId,empName,empDeptno,levelId
 from empBook where empDeptno = 1 && levelId = 2
+------------------------------------------------------------------- CheckinList-----------------------------------------------------------------------
 
 
-
+create table if not exists checkinlist(
+	empId int not null primary key,
+	empName varchar(50) not null unique,
+	empDepartment varchar(50) not null,
+	empJob varchar(50) not null,
+    checkInTime date,
+    checkOutTime date
+	
+)
 
 
 
@@ -73,7 +82,7 @@ drop table if exists overTimeList;
 
 -- 建立 overTimeList
 create table if not exists overTimeList(
-	overTimeFormId int,
+	overTimeFormId varchar(50),
 	overTimeDate date ,
 	empId int,
 	empName varchar(50) ,
@@ -100,17 +109,18 @@ insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepart
 
 
 -- 利用empId來查找已審核通過的加班時數
-SELECT overTimeHour FROM managementsystem.overTimeList where empId =101 && verifyState=1;
+SELECT overTimeHour FROM managementsystem.overTimeList where empId =101 && verifyState=2;
 
 
 
 
------------------------------------------------------overTimeTypeData----------------------------------------------------------------------------
-drop table if exists overTimeTypeData;
+
+-----------------------------------------------------overtimelistbasedata----------------------------------------------------------------------------
+drop table if exists overtimelistbasedata;
 
 
--- 建立 ooverTimeTypeData
-create table if not exists overTimeTypeData(
+-- 建立 overtimelistbasedata
+create table if not exists overtimelistbasedata(
 
 	groupName varchar(50),
     overTimeTypeId int,
@@ -121,9 +131,7 @@ create table if not exists overTimeTypeData(
 
 
 
-insert into overTimeTypeData(groupName,  overTimeTypeId,  overTimeType) values('overTimeType', 1, "加班");
-insert into overTimeTypeData(groupName,  overTimeTypeId,  overTimeType) values('overTimeType', 2, "補修");
-insert into overTimeTypeData(groupName,  overTimeTypeId,  overTimeType) values('overTimeTypeForDay', 1, "平日");
-insert into overTimeTypeData(groupName,  overTimeTypeId,  overTimeType) values('overTimeTypeForDay', 2, "假日")				   
-				
-				   
+insert into overtimelistbasedata(groupName,  overTimeTypeId,  overTimeType) values('overTimeType', 1, "加班");
+insert into overtimelistbasedata(groupName,  overTimeTypeId,  overTimeType) values('overTimeType', 2, "補修");
+insert into overtimelistbasedata(groupName,  overTimeTypeId,  overTimeType) values('overTimeTypeForDay', 1, "平日");
+insert into overtimelistbasedata(groupName,  overTimeTypeId,  overTimeType) values('overTimeTypeForDay', 2, "假日")
