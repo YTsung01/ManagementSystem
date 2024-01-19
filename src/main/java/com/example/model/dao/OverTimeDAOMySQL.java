@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.example.model.entity.Employee;
 import com.example.model.entity.OverTime;
 
-@Repository
+//@Repository
 public class OverTimeDAOMySQL implements OverTimeDAO {
 	
 	@Autowired

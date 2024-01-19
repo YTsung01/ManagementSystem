@@ -34,14 +34,14 @@ import com.example.util.Qrcode;
 import com.google.zxing.WriterException;
 
 
-@Controller
-@RequestMapping("/overtime")
+//@Controller
+//@RequestMapping("/overtime")
 public class LeaveController {
 	
-	@Autowired
+	//@Autowired
 	private OverTimeDAO overTimeDAO;
 	
-	@Autowired
+	//@Autowired
 	private OverTimeTypeDataDAO overTimeTypeDataDAO;
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
@@ -62,25 +62,25 @@ public class LeaveController {
 		Integer empId = employee.getEmpId();
 		model.addAttribute("overTimesbyId", overTimeDAO.findCheckoutOverTimeHourByEmpId(empId));
 		
-		//計算目前已審核的總加班時數	
-		List<OverTime> calculateOverTimeHourList = overTimeDAO.findCheckoutOverTimeHourByEmpId(empId);
-		int totalOvertimeHour = calculateOverTimeHourList.stream().mapToInt(OverTime::getOverTimeHour).sum();
-		model.addAttribute("totalOvertimeHour", totalOvertimeHour);
-		
-		//計算目前所剩下的加班時數
-		int overIimeLeftHour = 46-totalOvertimeHour;
-		model.addAttribute("overIimeLeftHour", overIimeLeftHour);
-		overTime.setOverTimeLeftHour(overIimeLeftHour);
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		model.addAttribute("overTimeDate", sdf.format(new Date()));
-		
-		 //把basedata傳給jsp
-        List<OverTimeTypeData> overTimeTypeDatas = overTimeTypeDataDAO.findAllOverTimeTypeDatas();
-        List<OverTimeTypeForDayData> overTimeTypeForDayDatas = overTimeTypeDataDAO.findAllOverTimeTypeForSalaryDatas();
-        model.addAttribute("overTimeTypeForDayDatas",overTimeTypeForDayDatas);
-        model.addAttribute("overTimeTypeDatas",overTimeTypeDatas);
-    
+//		//計算目前已審核的總加班時數	
+//		List<OverTime> calculateOverTimeHourList = overTimeDAO.findCheckoutOverTimeHourByEmpId(empId);
+//		int totalOvertimeHour = calculateOverTimeHourList.stream().mapToInt(OverTime::getOverTimeHour).sum();
+//		model.addAttribute("totalOvertimeHour", totalOvertimeHour);
+//		
+//		//計算目前所剩下的加班時數
+//		int overIimeLeftHour = 46-totalOvertimeHour;
+//		model.addAttribute("overIimeLeftHour", overIimeLeftHour);
+//		overTime.setOverTimeLeftHour(overIimeLeftHour);
+//
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		model.addAttribute("overTimeDate", sdf.format(new Date()));
+//		
+//		 //把basedata傳給jsp
+//        List<OverTimeTypeData> overTimeTypeDatas = overTimeTypeDataDAO.findAllOverTimeTypeDatas();
+//        List<OverTimeTypeForDayData> overTimeTypeForDayDatas = overTimeTypeDataDAO.findAllOverTimeTypeForSalaryDatas();
+//        model.addAttribute("overTimeTypeForDayDatas",overTimeTypeForDayDatas);
+//        model.addAttribute("overTimeTypeDatas",overTimeTypeDatas);
+//    
 		
 		return "emp/OvertimeRequest";
 	
@@ -101,29 +101,29 @@ public class LeaveController {
 		OverTime overTime = new OverTime();
 		
         // 表單參數注入加班資料
-        overTime.setEmpId(employee.getEmpId());
-        overTime.setEmpName(employee.getEmpName());
-        overTime.setEmpDepartment(employee.getEmpDepartment());
-        overTime.setEmpDeptno(employee.getEmpDeptno());
-        overTime.setEmpJob(employee.getEmpJob());
-        overTime.setEmployee(employee);
+//        overTime.setEmpId(employee.getEmpId());
+//        overTime.setEmpName(employee.getEmpName());
+//        overTime.setEmpDepartment(employee.getEmpDepartment());
+//        overTime.setEmpDeptno(employee.getEmpDeptno());
+//        overTime.setEmpJob(employee.getEmpJob());
+//        overTime.setEmployee(employee);
         
       //表單號碼
-       overTime.setOverTimeFormId(uuid.toString());
-        
-        try {
-        	Date overTimeStart = sdf.parse(formMap.get("overTimeStart") + "");
-            overTime.setOverTimeStart(overTimeStart);
-            
-            Date overTimeEnd = sdf.parse(formMap.get("overTimeEnd") + "");
-            overTime.setOverTimeEnd(overTimeEnd);
-            	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        //取得本次申請的加班時數
-        Integer overTimeHour = Integer.parseInt(formMap.get("overTimeHour") + "");
-        overTime.setOverTimeHour(overTimeHour);
+//       overTime.setOverTimeFormId(uuid.toString());
+//        
+//        try {
+//        	Date overTimeStart = sdf.parse(formMap.get("overTimeStart") + "");
+//            overTime.setOverTimeStart(overTimeStart);
+//            
+//            Date overTimeEnd = sdf.parse(formMap.get("overTimeEnd") + "");
+//            overTime.setOverTimeEnd(overTimeEnd);
+//            	
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//        //取得本次申請的加班時數
+//        Integer overTimeHour = Integer.parseInt(formMap.get("overTimeHour") + "");
+//        overTime.setOverTimeHour(overTimeHour);
         
         /*取得申請類型的名稱(加班/補修) --沒顯示!
         String overTimeType = formMap.get("overTimeTypeId") + "";

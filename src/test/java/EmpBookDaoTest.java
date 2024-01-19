@@ -19,9 +19,9 @@ public class EmpBookDaoTest {
 		List<EmpBook> empBooks = empBookDao.findAllEmpBooks();
 		System.out.println(empBooks);
 		
-		EmpBook empBook = empBookDao.findEmpBookByEmpId(101).get();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(sdf.format(empBook.getHireDate()));
+//		EmpBook empBook = empBookDao.findEmpBookByEmpId(101).get();
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		System.out.println(sdf.format(empBook.getHireDate()));
 		
 		//Optional<EmpBook> empBooks = empBookDao.findEmpBooksByEmpDeptNoAndLevelId(1,2);
 		//System.out.println(empBooks);
