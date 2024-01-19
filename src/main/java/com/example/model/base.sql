@@ -32,25 +32,49 @@ insert into salary (empId, basicAmonut, takeoffAmount, overtimeAmount, totalAmou
 
 -- 建立表單(+請假表單+附件)
 select formId, type, applier, applyDate from form;
-insert into form(formId,type, applier, applyDate) values(UUID(),1,101,'2024-01-18'); -- b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b
+-- insert into form(formId,type, applier, applyDate) values(UUID(),1,101,'2024-01-18'); -- b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b
+insert into form(formId,type, applier, applyDate) values(1,1,101,'2024-01-18');
+
 
 select formId, agent, takeoffType, startTime, endTime, reason, verifyState, checkReason, takeoffDay, takeoffHour from takeoff;
-insert into takeoff(formId, agent,takeoffType, startTime, endTime, reason, takeoffDay, takeoffHour) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b', 102, 2 ,'2024-01-18 09:00','2024-01-18 18:00','事假', 0, 8);
+-- insert into takeoff(formId, agent,takeoffType, startTime, endTime, reason, takeoffDay, takeoffHour) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b', 102, 2 ,'2024-01-18 09:00','2024-01-18 18:00','事假', 0, 8);
+insert into takeoff(formId, agent,takeoffType, startTime, endTime, reason, takeoffDay, takeoffHour) values('1', 102, 2 ,'2024-01-18 09:00','2024-01-18 18:00','事假', 0, 8);
 
 select attachId, form_id, filePath, createTime, updateTime from attachement;
-insert into attachement(form_id, filePath) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b','證明.pdf');
-
+-- insert into attachement(form_id, filePath) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b','證明.pdf');
+ insert into attachement(form_id, filePath) values('1','證明.pdf');
+ 
 -- 建立表單(+加班表單)
 
+select formId, type, applier, applyDate from form;
+-- insert into form(formId,type, applier, applyDate) values(UUID(),1,101,'2024-01-18'); -- b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b
+insert into form(formId,type, applier, applyDate) values(2,2,101,'2024-01-19');
+
+select formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason, verifyState, checkReason from overtime;
+-- insert into overtime(formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b', '2024-01-19 17:00','2024-01-19 19:00',TIMESTAMPDIFF(HOUR,startTime,endTime),1, 1, '工作太多');
+insert into overtime(formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason) 
+values('2','2024-01-19 17:00','2024-01-19 19:00',TIMESTAMPDIFF(HOUR,startTime,endTime),1, 1, '工作太多');
 
 -- 建立CheckIN
 
+select checkInId, empId, checkInTime, checkOutTime from checkin;
+insert into checkin( empId) values ('101');
+update checkin set checkOutTime = current_timestamp() where empId=101;
 
 -- -------------------------------
 
--- 查詢用戶 101 所有表單
+-- 查詢用戶 101 請假的所有表單
 select emp.empName, f.formId, f.type, t.* from empbook emp , form f, takeoff t 
 where f.applier = emp.empId and f.formId = t.formId;
+
+-- 查詢用戶 101 加班的所有表單
+
+select emp.empName, f.formId, f.type, o.* from empbook emp , form f, overtime o
+where f.applier = emp.empId and f.formId = o.formId;
+
+-- 查詢用戶 101 的所有相關表單
+select emp.empName, f.formId, f.type, o.* ,t.* from empbook emp , form f, overtime o,takeoff t 
+where f.applier = emp.empId;
 
 
 

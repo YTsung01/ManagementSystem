@@ -97,14 +97,14 @@ DROP TABLE IF EXISTS `managementsystem`.`overtime` ;
 
 CREATE TABLE IF NOT EXISTS `managementsystem`.`overtime` (
   `formId` VARCHAR(100) NOT NULL,
-  `stratTime` DATETIME NOT NULL,
+  `startTime` DATETIME NOT NULL,
   `endTime` DATETIME NOT NULL,
   `applyHour` INT NOT NULL default 0,
   `overtimeType` INT NOT NULL DEFAULT 2 comment '1:加班 2:補休',
   `dayOrHoilday` INT NOT NULL DEFAULT 1 comment '1:平日 2:假日',
   `reason` VARCHAR(200) NOT NULL,
-  `verifyState` INT NOT NULL DEFAULT 2 comment '0:未通過 1:通過 2:審核中',
-  `checkReason` VARCHAR(200) NOT NULL,
+  `verifyState` INT NOT NULL default 2 comment '0:未通過 1:通過 2:審核中',
+  `checkReason` VARCHAR(200) NULL DEFAULT NULL,
   INDEX `overtime_formId_idx` (`formId` ASC) VISIBLE,
   PRIMARY KEY (`formId`),
   CONSTRAINT `overtime_formId`
