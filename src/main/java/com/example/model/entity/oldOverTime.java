@@ -4,7 +4,7 @@ package com.example.model.entity;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class OverTime {
+public class oldOverTime {
 	private String overTimeFormId;    				            // 加班申請單單號
 	private Date overTimeDate;               				// 加班申請日期
 	private Integer empId;        								//員工代號
@@ -17,25 +17,25 @@ public class OverTime {
 	private Date overTimeEnd;               					// 加班結束的時間
 	private Integer overTimeHour;            					// 加班時數
 	private Integer overTimeLeftHour;            				// 加班剩餘時數
-	private OverTimeTypeData overTimeType;             			// 加班類型(加班/補修)
+	private oldOverTimeTypeData overTimeType;             			// 加班類型(加班/補修)
 	private Integer overTimeTypeId;             				// 加班類型Id(給表單用)
-	private OverTimeTypeForDayData overTimeTypeForDay;       // 加班類型(平/假日 加班費不同)
+	private oldOverTimeTypeForDayData overTimeTypeForDay;       // 加班類型(平/假日 加班費不同)
 	private Integer overTimeTypeForDayId;    				    // 加班類型Id(給表單用)
 	private String overTimeReason;           					// 加班事由
 	private Integer verifyState;           						// 加班審核結果 (通過:1 /不通過:0 )
 	private String overTimeCheckReason;           				// 審核結果是否通過原因 
 	
-	private Employee employee;            						//員工物件(關聯欄位)
+	private oldEmployee employee;            						//員工物件(關聯欄位)
 	
-	public OverTime() {
+	public oldOverTime() {
 		
 	}
 
-	public OverTime(String overTimeFormId, Timestamp overTimeDate, Integer empId, String empName, String empDepartment,
+	public oldOverTime(String overTimeFormId, Timestamp overTimeDate, Integer empId, String empName, String empDepartment,
 			Integer empDeptno, String empJob, Date overTimeStart, Date overTimeEnd, Integer overTimeHour,
-			Integer overTimeLeftHour, OverTimeTypeData overTimeType, Integer overTimeTypeId,
-			OverTimeTypeForDayData overTimeTypeForDay, Integer overTimeTypeForDayId, String overTimeReason,
-			Integer verifyState, String overTimeCheckReason, Employee employee) {
+			Integer overTimeLeftHour, oldOverTimeTypeData overTimeType, Integer overTimeTypeId,
+			oldOverTimeTypeForDayData overTimeTypeForDay, Integer overTimeTypeForDayId, String overTimeReason,
+			Integer verifyState, String overTimeCheckReason, oldEmployee employee) {
 		this.overTimeFormId = overTimeFormId;
 		this.overTimeDate = overTimeDate;
 		this.empId = empId;
@@ -147,11 +147,11 @@ public class OverTime {
 		this.overTimeLeftHour = overTimeLeftHour;
 	}
 
-	public OverTimeTypeData getOverTimeType() {
+	public oldOverTimeTypeData getOverTimeType() {
 		return overTimeType;
 	}
 
-	public void setOverTimeType(OverTimeTypeData overTimeType) {
+	public void setOverTimeType(oldOverTimeTypeData overTimeType) {
 		this.overTimeType = overTimeType;
 	}
 
@@ -163,11 +163,11 @@ public class OverTime {
 		this.overTimeTypeId = overTimeTypeId;
 	}
 
-	public OverTimeTypeForDayData getOverTimeTypeForDay() {
+	public oldOverTimeTypeForDayData getOverTimeTypeForDay() {
 		return overTimeTypeForDay;
 	}
 
-	public void setOverTimeTypeForDay(OverTimeTypeForDayData overTimeTypeForDay) {
+	public void setOverTimeTypeForDay(oldOverTimeTypeForDayData overTimeTypeForDay) {
 		this.overTimeTypeForDay = overTimeTypeForDay;
 	}
 
@@ -203,11 +203,11 @@ public class OverTime {
 		this.overTimeCheckReason = overTimeCheckReason;
 	}
 
-	public Employee getEmployee() {
+	public oldEmployee getEmployee() {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
+	public void setEmployee(oldEmployee employee) {
 		this.employee = employee;
 	}
 

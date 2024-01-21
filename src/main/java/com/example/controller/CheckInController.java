@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-import com.example.model.dao.CheckInDao;
-import com.example.model.entity.CheckIn;
-import com.example.model.entity.Employee;
+import com.example.model.dao.oldCheckInDao;
+import com.example.model.entity.oldCheckIn;
+import com.example.model.entity.oldEmployee;
 
 
 @Controller
@@ -30,7 +30,7 @@ import com.example.model.entity.Employee;
 public class CheckInController {
 	
 	@Autowired
-	private CheckInDao checkInDao;
+	private oldCheckInDao checkInDao;
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
@@ -52,7 +52,7 @@ public class CheckInController {
 	// 打卡首頁
 	@GetMapping(value = { "/" })
 		public String checkinPage(Model model, HttpSession session) {
-			Employee employee = (Employee)session.getAttribute("employee");
+			oldEmployee employee = (oldEmployee)session.getAttribute("employee");
 			Integer empId = employee.getEmpId();
 			model.addAttribute("checkInList",checkInDao.findAllCheckInByEmpId(empId));
 			return "emp/CheckIn";
@@ -65,12 +65,12 @@ public class CheckInController {
 		public String addcheckIn(@RequestParam Map<String, Object> formMap, Model model, HttpSession session  ) throws ParseException {
 			
 			//取得登入者資料
-			Employee employee = (Employee)session.getAttribute("employee");
+			oldEmployee employee = (oldEmployee)session.getAttribute("employee");
 			
 			
 			
 			// 將表單參數逐一注入到 checkInList 物件中
-			CheckIn checkInList= new CheckIn();
+			oldCheckIn checkInList= new oldCheckIn();
 			checkInList.setEmpId(employee.getEmpId());
 			checkInList.setEmpName(employee.getEmpName());
 			checkInList.setEmpDepartment(employee.getEmpDepartment());

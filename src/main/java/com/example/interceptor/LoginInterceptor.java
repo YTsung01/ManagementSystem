@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.model.entity.Employee;
+import com.example.model.entity.oldEmployee;
 
 
 public class LoginInterceptor implements HandlerInterceptor {
@@ -18,7 +18,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		// 檢查 session 中是否有 user 的物件資料(意味著用戶已經登入)
 		if(session.getAttribute("employee") != null) {
-			Employee employee = (Employee)session.getAttribute("employee");
+			oldEmployee employee = (oldEmployee)session.getAttribute("employee");
 			// 路徑的權限檢查
 			// "/group_buy/backend", user level = 2 才可以進入
 			System.out.println("RequestURI = " + request.getRequestURI());

@@ -13,9 +13,9 @@ public class leaveRequest {
 	
 	private Date leaveRequestDate;               				//請假日期
 	private Integer leaveRequestHour;            				//請假時數
-	private OverTimeTypeData leaveRequestType;             		//請假類型(加班/補修)
+	private oldOverTimeTypeData leaveRequestType;             		//請假類型(加班/補修)
 	private Integer leaveRequestTypeId;             			//請假類型Id(給表單用)
-	private OverTimeTypeForDayData leaveRequestTypeForDay;   //請假類型(平/假日 加班費不同)
+	private oldOverTimeTypeForDayData leaveRequestTypeForDay;   //請假類型(平/假日 加班費不同)
 	private Integer leaveRequestTypeForDayId;    				//請假類型Id(給表單用)
 	private String leaveRequestReason;           				//請假事由
 	private Integer verifyState;           						//請假審核結果 (通過:1 /不通過:0 )
