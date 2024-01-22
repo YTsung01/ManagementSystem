@@ -40,7 +40,7 @@ public class OverTimeDaoImpl implements OverTimeDao {
 	
 	//3. 依據empId查詢加班資料
 	@Override
-	public List<OverTime> findOverTimeByEmpId(Integer empId) {
+	public List<OverTime> findAllOverTimeByEmpId(Integer empId) {
 		String sql = "SELECT emp.empName, f.formId, f.type, o.* " + "FROM empbook emp, form f, overtime o "
 				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ?";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);

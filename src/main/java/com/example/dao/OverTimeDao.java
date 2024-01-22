@@ -16,7 +16,7 @@ public interface OverTimeDao {
 		Optional<EmpBook>findEmpByEmpId(Integer empId);
 		
 		//3. 依據empId查詢加班資料
-		List<OverTime> findOverTimeByEmpId(Integer empId);
+		List<OverTime> findAllOverTimeByEmpId(Integer empId);
 		
 		//4. 依據empId查詢已經審核過的加班資料
 		List<OverTime> findCheckoutOverTimeFormByEmpId(Integer empId);

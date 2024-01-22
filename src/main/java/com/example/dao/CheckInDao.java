@@ -4,14 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.entity.CheckIn;
-import com.example.entity.EmpBook;
 
 public interface CheckInDao {
 	
-	
-	
 	//1. 新增上班時間
-	
 	int addCheckIn(CheckIn checkIn);
 	
 	//2. 新增下班時間
@@ -35,10 +31,9 @@ public interface CheckInDao {
 	//9.  查詢最近一次打卡紀錄
 	Optional<CheckIn> findLatestCheckInByEmpId(Integer empId);
 
-	
 	//11. 上班時間限制
-	 boolean isOnTime(CheckIn checkIn);
+	boolean isOnTime(CheckIn checkIn);
 	
-
-
+	//12. 查詢員工打卡紀錄(根據起始日期與員工ID)
+	List<CheckIn> findAllCheckInByEmpIdAndStartDateAndEndDate(Integer empId,Date startDate,Date endDate);
 }
