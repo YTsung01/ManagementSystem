@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.example.dao.OverTimeDao;
+import com.example.entity.Form;
 import com.example.entity.OverTime;
 
 public class OverTimeDaoImplTest {
@@ -18,7 +19,8 @@ public class OverTimeDaoImplTest {
 		OverTimeDao overTimeDao = ctx.getBean("overTimeDaoImpl", OverTimeDao.class);
 		
 		//1. 新增加班申請 -- 如何連動到FORM?
-		/*OverTime overTime = new OverTime();
+		
+		OverTime overTime = new OverTime();
 		overTime.setFormId("d1fd4ec1-b681-11ee-adf1-6c3c8c3db22d");
 		   // 使用者輸入的日期時間字串
         String startTimeStr = "2024-01-25 17:00";
@@ -38,6 +40,7 @@ public class OverTimeDaoImplTest {
             overTime.setDayOrHoilday(1);
             overTime.setOvertimeType(2);
             overTime.setReason("加班原因");
+            overTime.setApplyHour(8);
 
             // 執行新增加班申請
             int result = overTimeDao.addOverTime(overTime);
@@ -51,7 +54,7 @@ public class OverTimeDaoImplTest {
             e.printStackTrace();
         }
         
-        System.out.println("新增成功");*/
+        System.out.println("新增成功");
 		
 		//2. 依據empId查詢使用者 (??還需要存在嗎?)
 		

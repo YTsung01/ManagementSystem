@@ -23,7 +23,7 @@ public class OverTimeDaoImpl implements OverTimeDao {
 	public int addOverTime(OverTime overTime) {
 		String sql = "insert into overtime(formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason)  values(?, ?, ?, ?, ?, ?,?)";
 		return jdbcTemplate.update(sql,overTime.getFormId(),overTime.getStartTime(),overTime.getEndTime(),overTime.getApplyHour(),
-				overTime.getOvertimeType(),overTime.getDayOrHoilday(),overTime.getReason(),overTime.getVerifyState());	
+				overTime.getOvertimeType(),overTime.getDayOrHoilday(),overTime.getReason());	
 	
 	}
 	
