@@ -108,6 +108,7 @@ public class OverTime {
 				+ applyHour + ", overtimeType=" + overtimeType + ", dayOrHoilday=" + dayOrHoilday + ", reason=" + reason
 				+ ", verifyState=" + verifyState + ", checkReason=" + checkReason + "]";
 	}
+
 	
 	
 	

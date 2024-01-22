@@ -60,18 +60,42 @@ public class OverTimeDaoImplTest {
 		 //System.out.println(overTimes);
 		 
 		//4.  依據empId查詢已經審核過的加班資料
-		 List<OverTime> overTimes = overTimeDao.findCheckoutOverTimeFormByEmpId(101);
-		 System.out.println(overTimes);
+		 //List<OverTime> overTimes = overTimeDao.findCheckoutOverTimeFormByEmpId(101);
+		 
 		 
 		//5. 修改加班(注意!! 不能修改已經審核過的申請單)
-		 
-		 
-		 
-		 
-		 
-		 
+		/*List<OverTime> overTimes = overTimeDao.findNonCheckoutOverTimeFormByEmpId(101);
+		overTimes.get(0).setReason("測試");
 		
-	
+		overTimeDao.updateOverTimeByFormId(overTimes.get(0).getFormId(),overTimes);
+		
+		System.out.print(overTimes.get(0));
+		if (!overTimes.isEmpty()) {
+		    OverTime firstNonCheckoutOverTime = overTimes.get(0);
+		    firstNonCheckoutOverTime.setReason("修改的測試");
+
+		    // 調用更新操作，不需要將整個列表傳遞給更新方法
+		    int updateResult = overTimeDao.updateOverTimeByFormId(firstNonCheckoutOverTime.getFormId(), firstNonCheckoutOverTime);
+
+		    if (updateResult > 0) {
+		        System.out.println("加班申請更新成功");
+		    } else {
+		        System.out.println("加班申請更新失敗");
+		    }
+		} else {
+		    System.out.println("未找到未審核的加班申請");
+		}*/
+		
+		//6. 依照FormId取消加班申請 -> 要怎麼連form部分的一起刪掉RRRRR
+		//int rowcount = overTimeDao.cancelOverTimeByFormId("a1fd4ec1-b681-11ee-adf1-6c3c8c3db22a");
+		//System.out.println("刪除成功");
+		
+		//7.  依據DeptNo查詢部門的加班資料
+		List<OverTime> overTimes = overTimeDao.findAllOverTimeByDeptNo(1);
+		System.out.println(overTimes);
+		
+		
+    }
 	}
 
-}
+

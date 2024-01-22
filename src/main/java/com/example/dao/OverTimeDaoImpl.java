@@ -50,8 +50,8 @@ public class OverTimeDaoImpl implements OverTimeDao {
 	}
 	//5. 依據formid修改加班(注意!! 不能修改已經審核過的申請單)
 	@Override
-	public int updateOverTimeByEmpId(String formId, OverTime overTime) {
-	    String sql = "UPDATE overTime SET startTime = ?, endTime = ?, applyHour = ?, overtimeType = ?, dayOrHoliday = ?, reason = ? WHERE formId = ?";
+	public int updateOverTimeByFormId(String formId,OverTime overTime) {
+	    String sql = "UPDATE overTime SET startTime = ?, endTime = ?, applyHour = ?, overtimeType = ?, dayOrHoliday = ?, reason = ? WHERE formId = ? and verifyState = 2";
 	    return jdbcTemplate.update(sql, overTime.getStartTime(), overTime.getEndTime(), overTime.getApplyHour(), overTime.getOvertimeType(), overTime.getDayOrHoilday(), overTime.getReason(), formId);
 	}
 	//6. 依照FormId取消加班申請
@@ -69,6 +69,14 @@ public class OverTimeDaoImpl implements OverTimeDao {
 				+ "from empbook emp , form f, overtime o "
 				+ "where f.applier = emp.empId and f.formId = o.formId and emp.empDeptno= ?";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empDeptno);
+	}
+	
+	//8. 依照empId查詢尚未審核的加班資料
+	@Override
+	public List<OverTime> findNonCheckoutOverTimeFormByEmpId(Integer empId) {
+		String sql = "SELECT emp.empName, f.formId, f.type, o.* " + "FROM empbook emp, form f, overtime o "
+				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? and o.verifyState = 2";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
 	}
 
 }

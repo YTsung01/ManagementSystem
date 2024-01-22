@@ -72,23 +72,5 @@ public class FormDaoImpl implements FormDao {
 		String sql = "select formId, type, applier, applyDate from form"; 
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Form.class));
 	}
-
-	@Override
-	public int updateFormByFormID(String formId, Form form) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteFormByFormId(String formId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
-	//6. 依據formId修改表單
-	
-	
-	
-	//7. 依據formId刪除表單
-
 }

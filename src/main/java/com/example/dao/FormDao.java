@@ -22,15 +22,6 @@ public interface FormDao {
 	//5. 查找所有表單
 	List<Form> findAllForms();
 	
-	//6. 依據formId修改表單
-	
-	int updateFormByFormID(String formId, Form form);
-	
-	//7. 依據formId刪除表單
-	
-	int deleteFormByFormId(String formId);
-	
-	
 	
 
 }
