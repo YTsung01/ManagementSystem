@@ -1,14 +1,14 @@
 package com.example.model.entity;
 
 //Entity
-public class OverTimeTypeData {
+public class oldOverTimeTypeData {
 	
 	// 一般欄位
 		protected Integer id;
 		protected String name;
 		
 		
-		public OverTimeTypeData() {}
+		public oldOverTimeTypeData() {}
 		
 		
 

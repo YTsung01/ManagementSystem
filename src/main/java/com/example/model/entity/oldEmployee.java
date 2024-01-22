@@ -17,7 +17,7 @@ import java.util.List;
 
 */
 
-public class Employee {
+public class oldEmployee {
 	
 	private Integer empId;        //員工代號
 	private String empName;       // 員工名稱
@@ -32,9 +32,9 @@ public class Employee {
 	
 
 	
-	private List<Service> services;
+	private List<oldService> services;
 	
-	public Employee() {
+	public oldEmployee() {
 		
 	}
 
@@ -43,8 +43,8 @@ public class Employee {
 	
 
 
-	public Employee(Integer empId, String empName, String emppassword, String empSex, String empDepartment,
-			Integer empDeptno, String empJob, Integer levelId, Date hireDate, Float salary, List<Service> services) {
+	public oldEmployee(Integer empId, String empName, String emppassword, String empSex, String empDepartment,
+			Integer empDeptno, String empJob, Integer levelId, Date hireDate, Float salary, List<oldService> services) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
@@ -150,11 +150,11 @@ public class Employee {
 
 
 
-	public List<Service> getServices() {
+	public List<oldService> getServices() {
 		return services;
 	}
 
-	public void setServices(List<Service> services) {
+	public void setServices(List<oldService> services) {
 		this.services = services;
 	}
 

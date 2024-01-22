@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.model.dao.EmployeeDao;
-import com.example.model.entity.Employee;
+import com.example.model.dao.oldEmployeeDao;
+import com.example.model.entity.oldEmployee;
 import com.example.util.KeyUtil;
 
 @Controller
@@ -24,7 +24,7 @@ import com.example.util.KeyUtil;
 public class LoginController {
 
 	@Autowired
-	private EmployeeDao dao;
+	private oldEmployeeDao dao;
 
 	// 登入首頁
 	@GetMapping("/login")
@@ -38,9 +38,9 @@ public class LoginController {
 			HttpSession session, Model model) throws Exception {
 
 		// 根據 EmployeeName 查找 emp 物件
-		Optional<Employee> empOpt = dao.findEmployeeByEmployeeName(empname);
+		Optional<oldEmployee> empOpt = dao.findEmployeeByEmployeeName(empname);
 		if (empOpt.isPresent()) {
-			Employee employee = empOpt.get();
+			oldEmployee employee = empOpt.get();
 			// 將 password 進行 AES 加密
 			// -------------------------------------------------------------------
 			final String KEY = KeyUtil.getSecretKey();
@@ -69,9 +69,9 @@ public class LoginController {
 	public String loginBackend(@RequestParam("empname") String empname, @RequestParam("password") String password,
 			HttpSession session, Model model) throws Exception {
 		// 根據 empname 查找 emp 物件
-		Optional<Employee> empOpt = dao.findEmployeeByEmployeeName(empname);
+		Optional<oldEmployee> empOpt = dao.findEmployeeByEmployeeName(empname);
 		if (empOpt.isPresent()) {
-			Employee employee = empOpt.get();
+			oldEmployee employee = empOpt.get();
 			// 將 password 進行 AES 加密
 			// -------------------------------------------------------------------
 			final String KEY = KeyUtil.getSecretKey();
