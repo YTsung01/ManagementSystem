@@ -6,7 +6,8 @@ import java.sql.Timestamp;
 //formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason, verifyState, checkReason
 import java.util.Date;
 
-public class Takeoff {
+/*
+public class oldTakeoff {
 	private String formId;    				            // 加班申請單單號
 	private Date startTime;               				// 加班開始的時間
 	private Date endTime;               				// 加班結束的時間
@@ -19,11 +20,11 @@ public class Takeoff {
 	
 	private Employee employee;            				//員工物件(關聯欄位)
 	
-	public Takeoff() {
+	public oldTakeoff() {
 		
 	}
 
-	public Takeoff(String formId, Date startTime, Date endTime, Integer applyHour, Integer overtimeType,
+	public oldTakeoff(String formId, Date startTime, Date endTime, Integer applyHour, Integer overtimeType,
 			Integer dayOrHoilday, String reason, Integer verifyState, String checkReason, Employee employee) {
 		super();
 		this.formId = formId;
@@ -125,6 +126,8 @@ public class Takeoff {
 				+ ", verifyState=" + verifyState + ", checkReason=" + checkReason + ", employee=" + employee + "]";
 	}
 
+
 	
 
 }
+*/

@@ -3,7 +3,7 @@ package com.example.model.entity;
 
 import java.sql.Timestamp;
 import java.util.Date;
-
+/*
 public class LeaveTime {
 	private String leaveFormId;    				            // 加班申請單單號
 	private Date leaveDate;               				    // 加班申請日期
@@ -17,20 +17,21 @@ public class LeaveTime {
 	private Date leaveEnd;               					// 加班結束的時間
 	private Integer leaveHour;            					// 加班時數
 	private Integer leaveLeftHour;            				// 加班剩餘時數
-	private OverTimeTypeData leaveType;             	    // 加班類型(加班/補修)
+	//private OverTimeTypeData leaveType;             	    // 加班類型(加班/補修)
 	private Integer leaveTypeId;             				// 加班類型Id(給表單用)
-	private OverTimeTypeForDayData leaveTypeForDay;         // 加班類型(平/假日 加班費不同)
+	//private OverTimeTypeForDayData leaveTypeForDay;         // 加班類型(平/假日 加班費不同)
 	private Integer leaveTypeForDayId;    				    // 加班類型Id(給表單用)
 	private String overTimeReason;           					// 加班事由
-	private Integer verifyState;           						// 加班審核結果 (通過:1 /不通過:0 )
-	private String overTimeCheckReason;           				// 審核結果是否通過原因 
+	//private Integer verifyState;           						// 加班審核結果 (通過:1 /不通過:0 )
+	//private String overTimeCheckReason;           				// 審核結果是否通過原因 
 	
-	private Employee employee;            						//員工物件(關聯欄位)
+	//private Employee employee;            						//員工物件(關聯欄位)
 	
-	public LeaveTime() {
+	//public LeaveTime() {
 		
-	}
+	//}
 
+	
 	public LeaveTime(String overTimeFormId, Timestamp overTimeDate, Integer empId, String empName, String empDepartment,
 			Integer empDeptno, String empJob, Date overTimeStart, Date overTimeEnd, Integer overTimeHour,
 			Integer overTimeLeftHour, OverTimeTypeData overTimeType, Integer overTimeTypeId,
@@ -226,3 +227,4 @@ public class LeaveTime {
 	
 
 }
+	*/

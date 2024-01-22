@@ -9,16 +9,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 
-import com.example.model.entity.Employee;
-import com.example.model.entity.OverTime;
 
+/*
 @Repository
 public class LeaveDAOMySQL implements OverTimeDAO {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	/*
+	
 	//加班申請
 	@Override
 	public int addOverTime(OverTime overTime ) {
@@ -28,10 +27,10 @@ public class LeaveDAOMySQL implements OverTimeDAO {
 				overTime.getEmpJob(),overTime.getOverTimeStart(),overTime.getOverTimeEnd(),overTime.getOverTimeHour(),overTime.getOverTimeLeftHour(),overTime.getOverTimeTypeId(),
 				overTime.getOverTimeTypeForDayId(),overTime.getOverTimeCheckReason(),overTime.getVerifyState(),overTime.getOverTimeCheckReason());
 	}
-	*/
+	
 	//請假申請
 	@Override
-	public int addLeaveOverTime(Takeoff Leave ) {
+	public int addLeaveOverTime(oldTakeoff Leave ) {
 		String sql = "insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, overTimeEnd, overTimeHour, "
 				+ "overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason,verifyState, overTimeCheckReason) values(? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 		return jdbcTemplate.update(sql,overTime.getOverTimeFormId(), overTime.getOverTimeDate(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),
@@ -116,3 +115,4 @@ public class LeaveDAOMySQL implements OverTimeDAO {
 	
 
 }
+*/

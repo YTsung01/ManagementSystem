@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+/*
 import com.example.model.dao.OverTimeDAO;
 import com.example.model.dao.OverTimeTypeDataDAO;
 import com.example.model.entity.Employee;
@@ -125,12 +127,12 @@ public class LeaveController {
 //        Integer overTimeHour = Integer.parseInt(formMap.get("overTimeHour") + "");
 //        overTime.setOverTimeHour(overTimeHour);
         
-        /*取得申請類型的名稱(加班/補修) --沒顯示!
+        取得申請類型的名稱(加班/補修) --沒顯示!
         String overTimeType = formMap.get("overTimeTypeId") + "";
         overTimeTypeData.setName(overTimeType);
       //取得申請類型的名稱(平日加班/假日加班) --沒顯示!
         String overTimeTypeForDay = formMap.get("overTimeTypeForDayId") + "";
-        overTimeTypeData.setName(overTimeTypeForDay);*/
+        overTimeTypeData.setName(overTimeTypeForDay);
         
         //取得申請類型(加班/補修)
         Integer overTimeTypeId = Integer.parseInt(formMap.get("overTimeTypeId") + "");
@@ -214,8 +216,6 @@ public class LeaveController {
 	}
 	
 	
-	
-
-		
 
 }
+*/
