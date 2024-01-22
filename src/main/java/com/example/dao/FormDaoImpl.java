@@ -12,7 +12,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.entity.EmpBook;
 import com.example.entity.Form;
 import com.example.entity.Salary;
 
@@ -26,6 +29,7 @@ public class FormDaoImpl implements FormDao {
 	 * insert into form(formId,type, applier, applyDate) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b',1,101,'2024-01-18');
 	 * */
 	// 1. 新增表單以及附件
+	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
 	public int addForm(Form form) {
 		String sql = "insert into form(formId, type, applier, applyDate) values(?,?,?,?)";
@@ -71,6 +75,18 @@ public class FormDaoImpl implements FormDao {
 	public List<Form> findAllForms() {
 		String sql = "select formId, type, applier, applyDate from form"; 
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Form.class));
+	}
+
+	@Override
+	public Optional<EmpBook> findEmpBookByFormId(String formId) {
+		String sql = "select e.empId, e.empName, e.empPassword, e.empSex, e.empDepartment, e.empDeptno, e.empJob, e.levelId, e.hireDate, e.salary, e.overTimeLeftHour, e.overTimeTotalHour, e.takeoffTotalHours, e.empAcator from form f, empbook e where f.applier = e.empId and f.formId = ?";
+		try {
+			EmpBook empBook = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(EmpBook.class), formId);
+			return Optional.of(empBook);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Optional.empty();
+		}
 	}
 	
 }

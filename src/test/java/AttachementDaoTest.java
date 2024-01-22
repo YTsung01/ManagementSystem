@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -53,25 +52,21 @@ public class AttachementDaoTest {
 		//7. 大量新增附件(批量上傳)
 		
         // 大量新增的數據
-       /* Attachement[] attachementsArray = {
-                //new Attachement(1, "a1fd4ec1-b681-11ee-adf1-6c3c8c3db22a", "大量測試1.pdf", new Date(), new Date()),
-                new Attachement(1, "b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b", "大量測試2.pdf", new Date(), new Date()),
-                new Attachement(2, "a1fd4ec1-b681-11ee-adf1-6c3c8c3db22a", "大量測試2.pdf", new Date(), new Date())
-                // 添加更多附件对象
-        };
-
         // 使用 Arrays.asList 方法将数组转换为 List
-        List<Attachement> attachementsToAdd = Arrays.asList(attachementsArray);
+        List<Attachement> attachements = Arrays.asList(
+        	new Attachement("0ee91d5b-d4ad-42dd-bc90-ea32d7bda4d2", "大量測試1.pdf", new Date(), new Date()),
+        	new Attachement("0ee91d5b-d4ad-42dd-bc90-ea32d7bda4d2", "大量測試2.pdf", new Date(), new Date())
+        );
 
-        // 执行批量添加操作
-        int[] addBatchResult = attachementDao.addBatchAttachements(attachementsToAdd);
-        System.out.println("大量新增結果 " + Arrays.toString(addBatchResult));*/
+        //执行批量添加操作
+        int[] addBatchResult = attachementDao.addBatchAttachements(attachements);
+        System.out.println("大量新增結果 " + Arrays.toString(addBatchResult));
 		
 		//8.大量刪除附件
 		// 輸入attachId進行刪除
-        List<String> attachementIdsToDelete = Arrays.asList("10", "4");
-        int[] deleteBatchResult = attachementDao.deleteBatchAttachements(attachementIdsToDelete);
-        System.out.println("刪除成功 " + Arrays.toString(deleteBatchResult));
+        //List<String> attachementIdsToDelete = Arrays.asList("10", "4");
+        //int[] deleteBatchResult = attachementDao.deleteBatchAttachements(attachementIdsToDelete);
+        //System.out.println("刪除成功 " + Arrays.toString(deleteBatchResult));
 	}
 
 }

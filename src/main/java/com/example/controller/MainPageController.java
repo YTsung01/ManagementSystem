@@ -13,38 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.dao.EmpBookDao;
 import com.example.entity.EmpBook;
+import com.example.service.MainPageImpl;
+import com.example.service.MainPageStatus;
 
 @Controller
 @RequestMapping("/main")
 public class MainPageController {
-	
+
 	@Autowired
 	EmpBookDao empBookDao;
 
+	@Autowired
+	MainPageImpl mainPageImpl;
+
 	@GetMapping
-	public String mainPage(Model model,HttpSession session) {
-		EmpBook empBook = (EmpBook)session.getAttribute("empBook");
-		Integer empDeptno = empBook.getEmpDeptno();
-		Optional<EmpBook> empBoss =empBookDao.findEmpBookByEmpDeptNoAndLevelId(empDeptno);
-		model.addAttribute("empBoss", empBoss);
-		
-		 if (empBoss.isPresent()) {
-	            String empBossName = empBoss.get().getEmpName();
-	            model.addAttribute("empBossName", empBossName);
-	        } else {
-	            // 如果 empName 不存在，可以根据需要添加默认值或处理逻辑
-	        	 model.addAttribute("empName", "Default Name");
-	        }
-		//控制levelId==2時才可以顯示員工列表
-		 boolean showEmployeeList = empBoss.isPresent() && empBook.getLevelId() == 2;
+	public String mainPage(Model model, HttpSession session) {
 
-		 if (showEmployeeList) {
-		     List<EmpBook> employeeList = empBookDao.findEmpBooksByEmpDeptNo(empDeptno);
-		     model.addAttribute("employeeList", employeeList);
-		 }
+		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
+		MainPageStatus mainPageStatus = mainPageImpl.getMainPageStatusByEmpBook(empBook, empBossOpt);
 
-		 model.addAttribute("showEmployeeList", showEmployeeList);
-		    
+		if (mainPageStatus == MainPageStatus.EXIST_BOSS_EMP_LEVEL_1) {
+			model.addAttribute("empBossName", empBossOpt.get().getEmpName());
+			model.addAttribute("showEmployeeList", false);
+		} else if (mainPageStatus == MainPageStatus.EXIST_BOSS_EMP_LEVEL_2) {
+			List<EmpBook> employeeList = empBookDao.findEmpBooksByEmpDeptNo(empBook.getEmpDeptno());
+			model.addAttribute("employeeList", employeeList);
+			model.addAttribute("showEmployeeList", true);
+		} else if (mainPageStatus == MainPageStatus.NON_EXIST_BOSS) {
+			model.addAttribute("empName", "Default Name");
+			model.addAttribute("showEmployeeList", false);
+		}
+
 		return "mainpage";
 	}
 }

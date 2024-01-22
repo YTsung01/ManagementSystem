@@ -2,6 +2,8 @@ package com.example.dao;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.example.entity.EmpBook;
 import com.example.entity.Form;
 
 public interface FormDao {
@@ -11,7 +13,7 @@ public interface FormDao {
 	
 
 	//2. 依據formId查找表單(單筆)
-	Optional<Form> findFormByFormId(String FormId);
+	Optional<Form> findFormByFormId(String formId);
 	
 	//3. 依據empId查找其所有表單(多筆)
 	List<Form> findAllFormsByEmpId(Integer empId);
@@ -22,6 +24,6 @@ public interface FormDao {
 	//5. 查找所有表單
 	List<Form> findAllForms();
 	
+	Optional<EmpBook> findEmpBookByFormId(String formId);
 	
-
 }

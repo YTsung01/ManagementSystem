@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.entity.EmpBook;
 import com.example.entity.OverTime;
@@ -19,6 +21,8 @@ public class OverTimeDaoImpl implements OverTimeDao {
 	
 	//1. 新增加班申請
 	//insert into overtime(formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason)values('a1fd4ec1-b681-11ee-adf1-6c3c8c3db22a','2024-01-19 17:00','2024-01-19 19:00',TIMESTAMPDIFF(HOUR,startTime,endTime),1, 1, '工作太多');
+	
+	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
 	public int addOverTime(OverTime overTime) {
 		String sql = "insert into overtime(formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason)  values(?, ?, ?, ?, ?, ?,?)";
@@ -51,7 +55,7 @@ public class OverTimeDaoImpl implements OverTimeDao {
 	//5. 依據formid修改加班(注意!! 不能修改已經審核過的申請單)
 	@Override
 	public int updateOverTimeByFormId(String formId,OverTime overTime) {
-	    String sql = "UPDATE overTime SET startTime = ?, endTime = ?, applyHour = ?, overtimeType = ?, dayOrHoliday = ?, reason = ? WHERE formId = ? and verifyState = 2";
+	    String sql = "UPDATE overTime SET startTime = ?, endTime = ?, applyHour = ?, overtimeType = ?, dayOrHoilday = ?, reason = ? WHERE formId = ? and verifyState = 2";
 	    return jdbcTemplate.update(sql, overTime.getStartTime(), overTime.getEndTime(), overTime.getApplyHour(), overTime.getOvertimeType(), overTime.getDayOrHoilday(), overTime.getReason(), formId);
 	}
 	//6. 依照FormId取消加班申請
