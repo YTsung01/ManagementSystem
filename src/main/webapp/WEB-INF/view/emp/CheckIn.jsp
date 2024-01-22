@@ -38,29 +38,29 @@ String formNumber = dateFormat.format(new Date());
 </head>
 <body>
 
-${ employee }
+${ empBook }
 <hr>
-${ checkInList }
+${ checkIn }
 
 <div class="d-flex justify-content-center mx-auto p-4">
-	<sp:form modelAttribute="checkIn" action="./add/${employee.empId}
+	<sp:form modelAttribute="checkIn" action="./add/${empBook.empId}"
 		method="post" enctype="multipart/form-data"
 		class="border rounded mx-auto p-4">
 
 		<div class="pb-2">
-			員工編號: ${employee.empId }
+			員工編號: ${empBook.empId }
 			<p />
 		</div>
 		<div class="pb-2">
-			姓名: ${ employee.empName }
+			姓名: ${ empBook.empName }
 			<p />
 		</div>
 		<div class="pb-2">
-			部門: ${ employee.empDepartment  }
+			部門: ${ empBook.empDepartment  }
 			<p />
 		</div>
 		<div class="pb-2">
-			職位: ${ employee.empJob }
+			職位: ${ empBook.empJob }
 			<p />
 		</div>
 		<div class="pb-2">
@@ -95,13 +95,13 @@ ${ checkInList }
 			</thead>
 			<tbody>
 				<tr>
-					<td>${ employee.empId }</td>
-					<td>${ employee.empName }</td>
-					<td>${ employee.empDepartment  }</td>
-					<td>${ employee.empJob }
+					<td>${ empBook.empId }</td>
+					<td>${ empBook.empName }</td>
+					<td>${ empBook.empDepartment  }</td>
+					<td>${ empBook.empJob }
 					</th>
-					<td>${ checkin.checkInTime }</td>
-					<td>${ checkin.checkInTime }</td>
+					<td>2023-01-10</td>
+					<td>2023-01-10</td>
 				</tr>
 			</tbody>
 		</table>

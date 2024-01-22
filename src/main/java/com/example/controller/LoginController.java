@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.dao.EmpBookDao;
 import com.example.entity.EmpBook;
+import com.example.service.LoginImpl;
+import com.example.service.LoginStatus;
 import com.example.util.KeyUtil;
 
 @Controller
@@ -25,6 +27,9 @@ public class LoginController {
 
 	@Autowired
 	private EmpBookDao dao;
+	
+	@Autowired
+	LoginImpl loginImpl;
 
 	// 登入首頁
 	@GetMapping("/login")
@@ -50,20 +55,22 @@ public class LoginController {
 			String encryptedPasswordECBBase64 = Base64.getEncoder().encodeToString(encryptedPasswordECB);
 			// -------------------------------------------------------------------------------------------
 //			if (employee.getEmppassword().equals(encryptedPasswordECBBase64)) { // 比對加密過後的 password 是否相同
-			if (empBook.getEmpPassword().equals(password)) { // 比對加密過後的 password 是否相同
+			if (empBook.getEmpPassword().equals(encryptedPasswordECBBase64)) { // 比對加密過後的 password 是否相同
 				session.setAttribute("empBook", empBook); // 將 employee 物件放入到 session 變數中
 				return "redirect:/app/main"; // OK, 導向前台首頁
 			} else {
 				session.invalidate(); // session 過期失效
-				model.addAttribute("loginMessage", "密碼錯誤");
+				model.addAttribute("loginMessage", "密碼錯誤,請重新確認");
 				return "login";
 			}
 		} else {
 			session.invalidate(); // session 過期失效
-			model.addAttribute("loginMessage", "無此使用者");
+			model.addAttribute("loginMessage", "無此使用者,請重新確認");
 			return "login";
 		}
 	}
+	
+
 
 	// 主管登入處理
 	@PostMapping("/login_boss")
@@ -85,7 +92,7 @@ public class LoginController {
 				// 比對 level = 2 才可以登入後台
 				if (empBook.getLevelId() == 2) {
 					session.setAttribute("empBook", empBook); // 將 employee 物件放入到 session 變數中
-					return "redirect:/example/mainpage"; // OK, 導向後台首頁
+					return "redirect:/app/main"; // OK, 導向後台首頁
 					
 				}
 				session.invalidate(); // session 過期失效
@@ -93,12 +100,12 @@ public class LoginController {
 				return "login";
 			} else {
 				session.invalidate(); // session 過期失效
-				model.addAttribute("loginMessage", "密碼錯誤");
+				model.addAttribute("loginMessage", "密碼錯誤,請重新確認");
 				return "login";
 			}
 		} else {
 			session.invalidate(); // session 過期失效
-			model.addAttribute("loginMessage", "無此使用者");
+			model.addAttribute("loginMessage", "無此使用者,請重新確認");
 			return "login";
 		}
 	}
@@ -107,7 +114,7 @@ public class LoginController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/example/login";
+		return "redirect:/app/login";
 
 	}
 

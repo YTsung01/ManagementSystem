@@ -4,9 +4,6 @@ package com.example.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import java.util.Date;
-
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 import com.example.dao.CheckInDao;
 import com.example.entity.CheckIn;
@@ -35,7 +31,6 @@ public class CheckInController {
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
-	
 	/**
 
 	 * 打卡紀錄
@@ -51,12 +46,17 @@ public class CheckInController {
 	
 	
 	// 打卡首頁
-	@GetMapping(value = { "/" })
-		public String checkinPage(Model model, HttpSession session) {
-		EmpBook empBook = (EmpBook)session.getAttribute("employee");
-			Integer empId = empBook.getEmpId();
-			model.addAttribute("checkInList",checkInDao.findAllCheckInByEmpId(empId));
-			return "emp/CheckIn";
+	@GetMapping(value = { "/{empId}" })
+		public String checkInPage(@RequestParam("empId") Integer empId,Model model, HttpSession session) {
+		//取得登入者資料
+		EmpBook empBook = (EmpBook)session.getAttribute("empBook");
+	    
+	    if (empBook == null) {
+	        return "redirect:/login";
+	    }
+		Integer empId = empBook.getEmpId();
+		model.addAttribute("checkIn",checkInDao.findAllCheckInByEmpId(empId));
+		return "emp/CheckIn";
 		}
 		
 		
