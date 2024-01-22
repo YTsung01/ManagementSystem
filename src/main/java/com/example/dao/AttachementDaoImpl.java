@@ -60,9 +60,9 @@ public class AttachementDaoImpl implements AttachementDao {
 	
 	//6. 依據附件編號及路徑刪除附件
 	@Override
-	public int deleteAttachement(Integer attachId, String filePath) {
-		 String sql = "DELETE FROM attachement WHERE attachId = ? and filePath= ?";
-		 return jdbcTemplate.update(sql, attachId, filePath);
+	public int deleteAttachement(Integer attachId) {
+		 String sql = "DELETE FROM attachement WHERE attachId = ?";
+		 return jdbcTemplate.update(sql, attachId);
 	}
 	
 	//7.大量新增附件
