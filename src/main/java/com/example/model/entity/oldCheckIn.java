@@ -3,7 +3,7 @@ package com.example.model.entity;
 import java.util.Date;
 
 //Entity
-public class CheckIn {
+public class oldCheckIn {
 	
 	// 一般欄位
 		private Integer empId;
@@ -16,7 +16,7 @@ public class CheckIn {
 		private Date todayDate;
 		
 
-		public CheckIn() {
+		public oldCheckIn() {
 			
 		}
 

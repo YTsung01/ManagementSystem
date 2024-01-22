@@ -9,11 +9,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 
-import com.example.model.entity.Employee;
-import com.example.model.entity.OverTime;
+import com.example.model.entity.oldEmployee;
+import com.example.model.entity.oldOverTime;
 
 @Repository
-public class OverTimeDAOMySQL implements OverTimeDAO {
+public class oldOverTimeDAOMySQL implements oldOverTimeDAO {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -31,7 +31,7 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	*/
 	//加班申請
 	@Override
-	public int addOverTime(OverTime overTime ) {
+	public int addOverTime(oldOverTime overTime ) {
 		String sql = "insert into overTimeList(overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, overTimeEnd, overTimeHour, "
 				+ "overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason,verifyState, overTimeCheckReason) values(? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 		return jdbcTemplate.update(sql,overTime.getOverTimeFormId(), overTime.getOverTimeDate(),overTime.getEmpId(),overTime.getEmpName(),overTime.getEmpDepartment(),
@@ -45,12 +45,12 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 	
 	//依據empId查詢使用者
 	@Override
-	public Optional<Employee> findEmpById(Integer empId) {
+	public Optional<oldEmployee> findEmpById(Integer empId) {
 		String sql = "select overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, overTimeEnd, overTimeHour, "
 				+ "overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason, verifyState, overTimeCheckReason from overTimeList where empId = ?";
 	
 		try {
-			Employee employee = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Employee.class),empId);
+			oldEmployee employee = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(oldEmployee.class),empId);
 			return Optional.ofNullable(employee);
 		}catch (EmptyResultDataAccessException e) {
 			return Optional.empty();
@@ -59,29 +59,29 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 
 
 	//將加班資訊注入overTimeList
-	public void enrichOverTimeListWithDetails(OverTime overTime) {
+	public void enrichOverTimeListWithDetails(oldOverTime overTime) {
 		findEmpById(overTime.getEmpId()).ifPresent(overTime :: setEmployee);
 	}
 
 	
 	//依據empId查詢所有已經審核過的加班資料(多筆)
 	@Override
-	public List<OverTime> findCheckoutOverTimeHourByEmpId(Integer empId) {
+	public List<oldOverTime> findCheckoutOverTimeHourByEmpId(Integer empId) {
 	    String sql = "SELECT empId, overTimeHour, verifyState " +
 	                 "FROM overTimeList " +
 	                 "WHERE empId = ? AND verifyState = 2 " ;
 
-	    return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
+	    return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(oldOverTime.class), empId);
 	}
 	
 
 	//依據empId查詢目前加班的清單
 	@Override
-	public List<OverTime> findOverTimeByEmpId(Integer empId) {
+	public List<oldOverTime> findOverTimeByEmpId(Integer empId) {
 		String sql = "select overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, "
 				+ "overTimeEnd, overTimeHour, overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason, "
 				+ " verifyState, overTimeCheckReason from overTimeList where empId = ?";
-		List<OverTime> OverTimesByempId = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
+		List<oldOverTime> OverTimesByempId = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(oldOverTime.class), empId);
 		return OverTimesByempId;
 	}
 	
@@ -90,7 +90,7 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 
 	//修改加班(注意!! 不能修改已經審核過的申請單)
 	@Override
-	public int updateOverTimeById(Integer empId, OverTime overTime) {
+	public int updateOverTimeById(Integer empId, oldOverTime overTime) {
 		String sql ="update overTimeList set  overTimeStart=?, overTimeEnd=?, overTimeTypeId=?, overTimeTypeForDayId=?, overTimeReason=?, verifyState=?, overTimeCheckReason=?";
 		return jdbcTemplate.update(sql,overTime.getOverTimeStart(),overTime.getOverTimeEnd(),overTime.getOverTimeTypeId(),overTime.getOverTimeTypeForDayId(),
 				overTime.getOverTimeReason(),overTime.getVerifyState(),overTime.getOverTimeCheckReason());
@@ -106,11 +106,11 @@ public class OverTimeDAOMySQL implements OverTimeDAO {
 
 	// 依據部門編號 查看所有加班紀錄(主管可看到自己部門所有人的)
 	@Override
-	public List<OverTime> findAllOverTimeByDeptNo(Integer empDeptno) {
+	public List<oldOverTime> findAllOverTimeByDeptNo(Integer empDeptno) {
 		String sql = "select overTimeFormId, overTimeDate, empId, empName, empDepartment, empDeptno, empJob, overTimeStart, "
 				+ "overTimeEnd, overTimeHour, overTimeLeftHour, overTimeTypeId, overTimeTypeForDayId, overTimeReason,"
 				+ " verifyState, overTimeCheckReason from overTimeList where empDeptno=?";
-		List<OverTime> overTimes= jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empDeptno);
+		List<oldOverTime> overTimes= jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(oldOverTime.class), empDeptno);
 		return overTimes;
 	}
 	

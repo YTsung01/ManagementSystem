@@ -9,29 +9,29 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.model.entity.Employee;
+import com.example.model.entity.oldEmployee;
 
-import com.example.model.entity.Service;
+import com.example.model.entity.oldService;
 
 @Repository
-public class EmployeeDaoMySQL implements EmployeeDao {
+public class oldEmployeeDaoMySQL implements oldEmployeeDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	private EmployeeDao employeeDao;
+	private oldEmployeeDao employeeDao;
 
 //	1. 查詢所有員工(多筆)
 	@Override
-	public List<Employee> findAllEmployees() {
+	public List<oldEmployee> findAllEmployees() {
 		String sql = "select empId,empName,emppassword,empSex,empDepartment,empDeptno,empJob,levelId,hireDate,salary from empBook";
-		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Employee.class));
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(oldEmployee.class));
 	}
 
 //	2. 新增員工
 	@Override
-	public void addEmployee(Employee employee) {
+	public void addEmployee(oldEmployee employee) {
 		String sql = "insert into empBook(empId,empName,emppassword,empSex,empDepartment,empDeptno,empJob,levelId,hireDate,salary) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql, employee.getEmpId(), employee.getEmpName(), employee.getEmppassword(),
 				employee.getEmpSex(), employee.getEmpDepartment(), employee.getEmpDeptno(), employee.getEmpJob(),
@@ -48,14 +48,14 @@ public class EmployeeDaoMySQL implements EmployeeDao {
 
 //	4. 根據員工名稱查找員工(登入用-單筆)
 	@Override
-	public Optional<Employee> findEmployeeByEmployeeName(String empname) {
+	public Optional<oldEmployee> findEmployeeByEmployeeName(String empname) {
 		String sql = "select empId,empPassword,empName,empSex,empDepartment,empDeptno,empJob,levelId,hireDate,salary "
 				+ "from empBook where empName = ?";
 		try {
-			Employee employee = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Employee.class), empname);
+			oldEmployee employee = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(oldEmployee.class), empname);
 			// 查找使用者可以使用的服務(授權)
 			String sql2 = "SELECT serviceId,serviceLocation,serviceSubject,serviceName,serviceUrl,levelId,sort FROM managementsystem.service where levelId <= (select levelId from empbook where empName = ?) order by sort";
-			List<Service> services = jdbcTemplate.query(sql2, new BeanPropertyRowMapper<>(Service.class),
+			List<oldService> services = jdbcTemplate.query(sql2, new BeanPropertyRowMapper<>(oldService.class),
 					employee.getEmpName());
 			employee.setServices(services);
 			return Optional.ofNullable(employee);
@@ -66,14 +66,14 @@ public class EmployeeDaoMySQL implements EmployeeDao {
 
 //	5. 根據員工ID查找員工(單筆)
 	@Override
-	public Optional<Employee> findEmployeeByEmployeeId(Integer empId) {
+	public Optional<oldEmployee> findEmployeeByEmployeeId(Integer empId) {
 		String sql = "select empId,emppassword,empName,empSex,empDepartment,empDeptno,empJob,levelId,hireDate,salary "
 				+ "from empBook where empId = ?";
 		try {
-			Employee employee = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Employee.class), empId);
+			oldEmployee employee = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(oldEmployee.class), empId);
 			// 查找使用者可以使用的服務(授權)
 			String sql2 = "SELECT serviceId,serviceLocation,serviceSubject,serviceName,serviceUrl,levelId,sort FROM service where levelId <= (select levelId from empbook where EmpId = ?) order by sort";
-			List<Service> services = jdbcTemplate.query(sql2, new BeanPropertyRowMapper<>(Service.class),
+			List<oldService> services = jdbcTemplate.query(sql2, new BeanPropertyRowMapper<>(oldService.class),
 					employee.getEmpId());
 			employee.setServices(services);
 			return Optional.ofNullable(employee);
@@ -84,7 +84,7 @@ public class EmployeeDaoMySQL implements EmployeeDao {
 
 //	6. 根據部門ID查找主管(單筆)
 	@Override
-	public Optional<Employee> findSupervisorByempDeptno(Integer empDeptno) {
+	public Optional<oldEmployee> findSupervisorByempDeptno(Integer empDeptno) {
 		String sql = "select empId,empName,empDeptno,levelId "
 				+ "from empBook where empDeptno = ? && levelId = ?";
 

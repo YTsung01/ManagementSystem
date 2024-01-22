@@ -1,4 +1,4 @@
-package com.example.model.entity;
+package com.example.dao;
 
 public class Service {
 	

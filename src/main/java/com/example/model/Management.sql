@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `managementsystem`.`empbook` (
   `empDepartment` VARCHAR(100) NOT NULL,
   `empDeptno` INT NOT NULL,
   `empJob` VARCHAR(50) NOT NULL,
-  `levelId` INT NOT NULL default 1,
+  `levelId` INT NOT NULL default 1 comment '1:員工 2:主管',
   `hireDate` DATETIME NOT NULL default current_timestamp,
   `salary` INT NOT NULL default 28000,
   `overTimeLeftHour` INT NOT NULL DEFAULT 46,
