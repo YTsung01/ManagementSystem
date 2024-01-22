@@ -50,7 +50,7 @@ public class FormDaoImpl implements FormDao {
 	}
 	/*
 	 * select emp.empName, f.formId, f.type, o.* ,t.* from empbook emp , form f, overtime o,takeoff t 
-where f.applier = emp.empId;
+		where f.applier = emp.empId;
 	 * */
 	//3. 依據empId查找其所有表單(多筆)
 	@Override
@@ -59,18 +59,12 @@ where f.applier = emp.empId;
 				+ "where f.applier = emp.empId and emp.empId=?";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Form.class),empId);
 	}
-	//4.
+	//4.依據EmpId和申請類型Type查找表單(多筆)
 	@Override
-	public Optional<Form> findFormByEmpIdAndType(Integer applier, Integer type) {
+	public List<Form> findFormByEmpIdAndType(Integer applier, Integer type) {
 		String sql = "SELECT formId, type, applier, applyDate from form where applier = ? and type =?";
-		try {
-			Form form = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Form.class), applier, type);
-			return Optional.of(form);
-		} catch (Exception e) {
-			return Optional.empty();
-		}
-		
-		
+		return  jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Form.class), applier, type);
+			 
 	}
 	//5. 查找所有表單
 	@Override
@@ -78,5 +72,23 @@ where f.applier = emp.empId;
 		String sql = "select formId, type, applier, applyDate from form"; 
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Form.class));
 	}
+
+	@Override
+	public int updateFormByFormID(String formId, Form form) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteFormByFormId(String formId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	//6. 依據formId修改表單
+	
+	
+	
+	//7. 依據formId刪除表單
 
 }

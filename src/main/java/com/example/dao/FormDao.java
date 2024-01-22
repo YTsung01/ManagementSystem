@@ -17,10 +17,20 @@ public interface FormDao {
 	List<Form> findAllFormsByEmpId(Integer empId);
 
 	//4. 依據empId以及申請類型(type)查找表單(單筆)
-	Optional<Form> findFormByEmpIdAndType(Integer empId,Integer type);
+	List<Form> findFormByEmpIdAndType(Integer empId,Integer type);
 	
 	//5. 查找所有表單
 	List<Form> findAllForms();
+	
+	//6. 依據formId修改表單
+	
+	int updateFormByFormID(String formId, Form form);
+	
+	//7. 依據formId刪除表單
+	
+	int deleteFormByFormId(String formId);
+	
+	
 	
 
 }

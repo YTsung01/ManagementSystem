@@ -1,5 +1,6 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.context.ApplicationContext;
@@ -52,7 +53,23 @@ public class OverTimeDaoImplTest {
         
         System.out.println("新增成功");*/
 		
-		//2. 
+		//2. 依據empId查詢使用者 (??還需要存在嗎?)
+		
+		//3. 依據empId查詢加班資料
+		//List<OverTime> overTimes = overTimeDao.findOverTimeByEmpId(102);
+		 //System.out.println(overTimes);
+		 
+		//4.  依據empId查詢已經審核過的加班資料
+		 List<OverTime> overTimes = overTimeDao.findCheckoutOverTimeFormByEmpId(101);
+		 System.out.println(overTimes);
+		 
+		//5. 修改加班(注意!! 不能修改已經審核過的申請單)
+		 
+		 
+		 
+		 
+		 
+		 
 		
 	
 	}

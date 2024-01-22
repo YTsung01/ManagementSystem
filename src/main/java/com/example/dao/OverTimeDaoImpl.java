@@ -45,14 +45,14 @@ public class OverTimeDaoImpl implements OverTimeDao {
 	@Override
 	public List<OverTime> findCheckoutOverTimeFormByEmpId(Integer empId) {
 		String sql = "SELECT emp.empName, f.formId, f.type, o.* " + "FROM empbook emp, form f, overtime o "
-				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? and f.verifyState = 2";
+				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? and o.verifyState = 1";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
 	}
-	//5. 修改加班(注意!! 不能修改已經審核過的申請單)
+	//5. 依據formid修改加班(注意!! 不能修改已經審核過的申請單)
 	@Override
-	public int updateOverTimeByEmpId(Integer empId, OverTime overTime) {
-	    String sql = "UPDATE overTime SET startTime = ?, endTime = ?, applyHour = ?, overtimeType = ?, dayOrHoliday = ?, reason = ? WHERE empId = ?";
-	    return jdbcTemplate.update(sql, overTime.getStartTime(), overTime.getEndTime(), overTime.getApplyHour(), overTime.getOvertimeType(), overTime.getDayOrHoilday(), overTime.getReason(), empId);
+	public int updateOverTimeByEmpId(String formId, OverTime overTime) {
+	    String sql = "UPDATE overTime SET startTime = ?, endTime = ?, applyHour = ?, overtimeType = ?, dayOrHoliday = ?, reason = ? WHERE formId = ?";
+	    return jdbcTemplate.update(sql, overTime.getStartTime(), overTime.getEndTime(), overTime.getApplyHour(), overTime.getOvertimeType(), overTime.getDayOrHoilday(), overTime.getReason(), formId);
 	}
 	//6. 依照FormId取消加班申請
 	@Override

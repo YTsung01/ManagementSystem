@@ -21,8 +21,8 @@ public interface OverTimeDao {
 		//4. 依據empId查詢已經審核過的加班資料
 		List<OverTime> findCheckoutOverTimeFormByEmpId(Integer empId);
 		
-		//5. 修改加班(注意!! 不能修改已經審核過的申請單)
-		int updateOverTimeByEmpId(Integer empId, OverTime overTime);
+		//5. 依據formid修改加班(注意!! 不能修改已經審核過的申請單)
+		int updateOverTimeByEmpId(String formId, OverTime overTime);
 		
 		//6. 依照FormId取消加班申請
 		int cancelOverTimeByFormId(String formId);
