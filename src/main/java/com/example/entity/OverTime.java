@@ -1,31 +1,24 @@
-package com.example.model.entity;
+package com.example.entity;
 
-
-import java.sql.Timestamp;
-
-//formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason, verifyState, checkReason
 import java.util.Date;
 
 public class OverTime {
-	private String formId;    				            // 加班申請單單號
-	private Date startTime;               				// 加班開始的時間
-	private Date endTime;               				// 加班結束的時間
-	private Integer applyHour;            				// 加班時數
-	private Integer overtimeType;             			// 加班類型 1:加班 2:補休
-	private Integer dayOrHoilday;    				    // 加班類型Id(1:平日 2:假日)
-	private String reason;           					// 加班事由
-	private Integer verifyState;           				// 加班審核結果 (通過:1 /不通過:0 )
-	private String checkReason;           				// 審核結果是否通過原因 
 	
-	private Employee employee;            				//員工物件(關聯欄位)
+	String formId;
+	Date startTime;
+	Date endTime;
+	Integer applyHour;
+	Integer overtimeType;	//1:加班 2:補休
+	Integer dayOrHoilday; 	//1:平日 2:假日
+	String reason;
+	Integer verifyState; 	//0:未通過 1:通過 2:審核中
+	String checkReason;
 	
-	public OverTime() {
-		
-	}
+	public OverTime() {}
 
 	public OverTime(String formId, Date startTime, Date endTime, Integer applyHour, Integer overtimeType,
-			Integer dayOrHoilday, String reason, Integer verifyState, String checkReason, Employee employee) {
-		super();
+			Integer dayOrHoilday, String reason, Integer verifyState, String checkReason) {
+		
 		this.formId = formId;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -35,7 +28,6 @@ public class OverTime {
 		this.reason = reason;
 		this.verifyState = verifyState;
 		this.checkReason = checkReason;
-		this.employee = employee;
 	}
 
 	public String getFormId() {
@@ -110,21 +102,14 @@ public class OverTime {
 		this.checkReason = checkReason;
 	}
 
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
 	@Override
 	public String toString() {
 		return "OverTime [formId=" + formId + ", startTime=" + startTime + ", endTime=" + endTime + ", applyHour="
 				+ applyHour + ", overtimeType=" + overtimeType + ", dayOrHoilday=" + dayOrHoilday + ", reason=" + reason
-				+ ", verifyState=" + verifyState + ", checkReason=" + checkReason + ", employee=" + employee + "]";
+				+ ", verifyState=" + verifyState + ", checkReason=" + checkReason + "]";
 	}
-
+	
+	
 	
 
 }

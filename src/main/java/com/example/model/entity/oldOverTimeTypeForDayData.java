@@ -2,14 +2,14 @@ package com.example.model.entity;
 
 
 //Entity
-public class OverTimeTypeForDayData {
+public class oldOverTimeTypeForDayData {
 	
 	// 一般欄位
 	protected Integer id;
 	protected String name;
 
 	
-	public OverTimeTypeForDayData() {}
+	public oldOverTimeTypeForDayData() {}
 	
 	public Integer getId() {
 		return id;
