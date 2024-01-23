@@ -46,11 +46,22 @@
 						onclick="loginBackend()">主管登入</button>
 				</div>
 				<div class="d-flex justify-content-center mt-4 mx-auto ">
-					<a href=#>忘記密碼?</a>
+					<a href=#  onclick="showForgotPasswordMessage()">忘記密碼?</a>
 				</div>
+				<div id="forgotPasswordMessage" class="text-danger"></div>
 			</fieldset>
 
 		</form>
 	</div>
 </body>
+<script>
+    function showForgotPasswordMessage() {
+        // 找到提示字串的 div
+        var messageDiv = document.getElementById('forgotPasswordMessage');
+        
+        // 顯示提示字串
+        messageDiv.innerHTML = '請洽詢部門主管';
+    }
+</script>
+
 </html>

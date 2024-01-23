@@ -28,7 +28,8 @@ public class CheckInDaoImpl implements CheckInDao {
 	// update checkin set checkOutTime = current_timestamp() where empId=101;
 	@Override
 	public int addCheckOut(CheckIn checkIn) {
-		String sql = "update checkin set checkOutTime = current_timestamp() where empId = ?";
+		String sql = "update checkin set checkOutTime = current_timestamp() where empId = ? ORDER BY checkInTime DESC"
+				+ "LIMIT 1?";
 		return jdbcTemplate.update(sql, checkIn.getEmpId());
 	}
 

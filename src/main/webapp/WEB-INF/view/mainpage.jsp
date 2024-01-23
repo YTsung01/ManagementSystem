@@ -26,23 +26,23 @@
             <!-- 右側 -->
             <div class="col-12 col-md-6 ">
                 <ul>
-                    <li>姓名 :</li>
+                    <li>姓名 : ${ empBook.empName }</li>
                     <p />
-                    ${ empBook.empName }
-                    <li>員工編號 :</li>
+                    
+                    <li>員工編號 :${ empBook.empId }</li>
                     <p />
-                    ${ empBook.empId }
-                    <li>部門 :</li>
+                    
+                    <li>部門 :${ empBook.empDepartment  }</li>
                     <p />
-                    ${ empBook.empDepartment  }
-                    <li>主管 :</li>
+                    <div> <c:if test="${empBook != null && empBook.getLevelId() == 1}">
+                    <li>主管 : ${ empBossName }</li>
+                    <p /></c:if></div>
+                   
+                    <li>職位 :${ empBook.empJob }</li>
                     <p />
-                    ${ empBossName }
-                    <li>職位 :</li>
-                    <p />
-                    ${ empBook.empJob }
-                    <li>到職日 :</li>
-                    <p><fmt:formatDate value="${empBook.hireDate}" pattern="yyyy-MM-dd" /></p>
+                    
+                    <li>到職日 :<fmt:formatDate value="${empBook.hireDate}" pattern="yyyy-MM-dd" /></li>
+                    <p></p>
                 </ul>
             </div>
 			<!-- 最後 -->
@@ -52,7 +52,7 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th scope="col">#</th>
+							<th scope="col">員工編號</th>
 							<th scope="col">姓名</th>
 							<th scope="col">職位</th>
 							<th scope="col">到職日</th>

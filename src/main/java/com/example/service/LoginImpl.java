@@ -19,7 +19,7 @@ public class LoginImpl implements LogIn{
 	EmpBookDao empBookDao;
 
 	@Override
-	public LoginStatus getLoginStatusByEmpBook(EmpBook empBook, Optional<EmpBook> empOpt) throws Exception {
+	public LoginStatus getLoginStatusByEmpBook(EmpBook empBook, Optional<EmpBook> empOpt,String password) throws Exception {
 		if (empOpt.isPresent()) {
 			empBook = empOpt.get();
 			String EmpPassword = empBook.getEmpPassword();
@@ -32,17 +32,17 @@ public class LoginImpl implements LogIn{
 
 			// -------------------------------------------------------------------------------------------
 			if (EmpPassword.equals(encryptedPasswordECBBase64)) { 
-				if (empBook.getLevelId() == 2) {
+				if (empBook.getLevelId() == 1) {
+					return LoginStatus.EXIST_EMP_EMP_LEVEL_1;
+				} else if(empBook.getLevelId() == 2){
 					return LoginStatus.EXIST_EMP_EMP_LEVEL_2;
-				} else {
-					return LoginStatus.EXIST_EMP_CORRECT_PASSWORD;
 				}
 			} else {
 				return LoginStatus.EXIST_EMP_WRONG_PASSWORD;
 			}
-		} else {
+		} 
 			return LoginStatus.NON_EXIST_EMP;
-		}
+		
 	}
 
 }

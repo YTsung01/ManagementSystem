@@ -19,14 +19,14 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- 引入 Bootstrap 5 样式表 -->s
+<!-- 引入 Bootstrap 5 样式表 -->
 </head>
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-light "
 		style="background-color: #4682b4">
 		<div class="container-fluid">
-			<a class="navbar-brand text-light " href="#">考勤系統</a>
+			<a class="navbar-brand text-light " href="/ManagementSystem/app/main">考勤系統</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -40,7 +40,7 @@
 
 					</li>
 					<li class="nav-item"><a class="nav-link text-light "
-						href="/ManagementSystem/app/checkin/">打卡</a></li>
+						href="/ManagementSystem/app/checkin/${empBook.empId}">打卡</a></li>
 
 					<div class="dropdown">
 						<button class="btn dropdown-toggle text-light" type="button"
@@ -75,7 +75,7 @@
 				</ul>
 
 			</div>
-			<i class="bi bi-person-circle text-light h5 mb-0 d-none d-lg-block"></i>
+			<i class="bi bi-person-circle text-light h5 mb-0 d-none d-lg-block" ><a href="/ManagementSystem/app/auth/login" class="text-light">登出</a></i>
 		</div>
 	</nav>
 

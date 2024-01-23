@@ -38,6 +38,7 @@ public class MainPageController {
 			model.addAttribute("showEmployeeList", false);
 		} else if (mainPageStatus == MainPageStatus.EXIST_BOSS_EMP_LEVEL_2) {
 			List<EmpBook> employeeList = empBookDao.findEmpBooksByEmpDeptNo(empBook.getEmpDeptno());
+			model.addAttribute("empBossName", empBook.getEmpName());
 			model.addAttribute("employeeList", employeeList);
 			model.addAttribute("showEmployeeList", true);
 		} else if (mainPageStatus == MainPageStatus.NON_EXIST_BOSS) {
