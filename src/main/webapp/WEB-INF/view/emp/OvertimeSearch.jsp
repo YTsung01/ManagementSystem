@@ -7,12 +7,12 @@
 <!-- 表單元素 -->
 <html>
 <head>
-
 ${ overtimes }
-
-<div class="container-xl mt-5">
+</head>
+<body>
 
 	<div class="d-flex justify-content-center mx-auto p-4">
+	<div class="border rounded mx-auto p-4 ">
 		<p class="fs-3 fw-bold text-center">加班查詢</p>
 		<div class="p-3">
 			<table class="table table-bordered ">
@@ -70,7 +70,6 @@ ${ overtimes }
 
 
 			</table>
-			</form>
 			<p>總計加班時數:</p>
 			<p>剩餘加班時數:</p>
 
@@ -88,6 +87,7 @@ ${ overtimes }
 			</div>
 
 		</div>
+	</div>
 	</div>
 	</body>
 </html>

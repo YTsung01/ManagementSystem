@@ -22,20 +22,20 @@ import com.example.entity.EmpBook;
 import com.example.entity.Form;
 import com.example.service.FormServiceImpl;
 
-@Controller
+//@Controller
 @RequestMapping("/hello")
 public class HelloController {
 
-	@Autowired
+	//@Autowired
 	FormServiceImpl formServiceImpl;
 
-	@Autowired
+	//@Autowired
 	AttachementDao attachementDao;
 	
-	@Autowired
+	//@Autowired
 	FormDao formDao;
 	
-	@Autowired
+	//@Autowired
 	CheckInDaoImpl checkInDaoImpl;
 
 	/**

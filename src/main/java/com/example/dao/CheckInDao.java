@@ -36,4 +36,6 @@ public interface CheckInDao {
 	
 	//12. 查詢員工打卡紀錄(根據起始日期與員工ID)
 	List<CheckIn> findAllCheckInByEmpIdAndStartDateAndEndDate(Integer empId,Date startDate,Date endDate);
+	
+
 }

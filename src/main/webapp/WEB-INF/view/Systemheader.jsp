@@ -39,8 +39,16 @@
 						aria-current="page" href="/ManagementSystem/app/main">首頁</a></li>
 
 					</li>
-					<li class="nav-item"><a class="nav-link text-light "
-						href="/ManagementSystem/app/checkin/${empBook.empId}">打卡</a></li>
+					<div class="dropdown">
+						<button class="btn dropdown-toggle text-light" type="button"
+							id="dropdownMenuButton1" data-bs-toggle="dropdown"
+							aria-expanded="false" style="background-color: #4682b4">
+							出勤</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="/ManagementSystem/app/checkin/${empBook.empId}">打卡</a></li>
+							<li><a class="dropdown-item" href="/ManagementSystem/app/checkin/checkinresult/${empBook.empId}">出勤查詢</a></li>
+						</ul>
+					</div>
 
 					<div class="dropdown">
 						<button class="btn dropdown-toggle text-light" type="button"
@@ -75,7 +83,8 @@
 				</ul>
 
 			</div>
-			<i class="bi bi-person-circle text-light h5 mb-0 d-none d-lg-block" ><a href="/ManagementSystem/app/auth/login" class="text-light">登出</a></i>
+			<i class="bi bi-person-circle text-light h5 mb-0 d-none d-lg-block"><a
+				href="/ManagementSystem/app/auth/login" class="text-light">登出</a></i>
 		</div>
 	</nav>
 

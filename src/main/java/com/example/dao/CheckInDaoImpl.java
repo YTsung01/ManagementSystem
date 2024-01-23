@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import java.time.Year;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -33,18 +34,18 @@ public class CheckInDaoImpl implements CheckInDao {
 		return jdbcTemplate.update(sql, checkIn.getEmpId());
 	}
 
-	// 3. 依據empId查詢所有的打卡紀錄
+	// 3. 依據empId查詢所有的上班紀錄
 	// SELECT empid, checkInTime FROM checkin WHERE DATE(checkinTime) = '2024-01-20'
 	@Override
 	public List<CheckIn> findAllCheckInByEmpId(Integer empId) {
-		String sql = "SELECT empId,checkInTime FROM checkIn WHERE empId = ?";
+		String sql = "SELECT empId,checkInTime,checkOutTime FROM checkIn WHERE empId = ?";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CheckIn.class), empId);
 	}
 
-	// 4. 依據empId查詢自己當日的打卡紀錄
+	// 4. 依據empId查詢當日的上班紀錄(含當日)
 	@Override
 	public List<CheckIn> findTodayCheckInByEmpId(Integer empId, Date date) {
-		String sql = "SELECT empId,checkInTime FROM checkIn WHERE empId = ? and DATE(checkinTime) = ?";
+		String sql = "SELECT empId,checkInTime,checkOutTime FROM checkIn WHERE empId = ? and DATE(checkinTime) = ?  ORDER BY checkInId DESC ";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CheckIn.class), empId, date);
 	}
 
@@ -53,7 +54,7 @@ public class CheckInDaoImpl implements CheckInDao {
 	// where emp.empId = c.empId and empDeptno=1;
 	@Override
 	public List<CheckIn> findAllCheckInByDeptNo(Integer empDeptno) {
-		String sql = "select emp.empid, emp.empDeptno,c.checkintime from empbook emp, checkin c where emp.empId = c.empId and empDeptno=?;";
+		String sql = "select emp.empid, emp.empDeptno,c.checkInTime,c.checkOutTime from empbook emp, checkin c where emp.empId = c.empId and empDeptno=?;";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CheckIn.class), empDeptno);
 	}
 
@@ -63,7 +64,7 @@ public class CheckInDaoImpl implements CheckInDao {
 	// '2024-01-20';
 	@Override
 	public List<CheckIn> findTodayCheckInByDeptNo(Integer empDeptno, Date date) {
-		String sql = "select emp.empid, emp.empDeptno,c.checkintime from empbook emp, checkin c where emp.empId = c.empId and empDeptno=? and DATE(checkinTime) = ?;";
+		String sql = "select emp.empid, emp.empDeptno,c.checkInTime,c.,checkOutTime from empbook emp, checkin c where emp.empId = c.empId and empDeptno=? and DATE(checkinTime) = ?;";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CheckIn.class), empDeptno, date);
 	}
 
@@ -98,6 +99,8 @@ public class CheckInDaoImpl implements CheckInDao {
 		// 遲到 ==0 , 準時==1
 		return rowCount > 0;
 	}
+	
+	//12.
 
 	/**
 	 * select c.checkInId, c.empId, c.checkInTime, c.checkOutTime from empbook emp, checkin c where emp.empId = c.empId  and emp.empId=101 and checkinTime BETWEEN '2024-01-18 15:40:41' AND '2024-01-18 15:40:41';
@@ -107,5 +110,6 @@ public class CheckInDaoImpl implements CheckInDao {
 		String sql = "select c.checkInId, c.empId, c.checkInTime, c.checkOutTime from empbook emp, checkin c where emp.empId = c.empId  and emp.empId=? and checkinTime BETWEEN ? AND ?";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CheckIn.class),empId,startDate, endDate);
 	}
+	
 
 }

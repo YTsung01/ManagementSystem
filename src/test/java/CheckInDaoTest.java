@@ -15,8 +15,7 @@ public class CheckInDaoTest {
 	
 	public static void main(String[] args) throws ParseException {
 		
-	ApplicationContext ctx = new ClassPathXmlApplicationContext("/WEB-INF/springmvc-servlet.xml");
-		
+	ApplicationContext ctx = new ClassPathXmlApplicationContext("/WEB-INF/springmvc-servlet.xml");	
 	CheckInDao checkInDao = ctx.getBean("checkInDaoImpl", CheckInDao.class);
 	
 	
@@ -38,9 +37,10 @@ public class CheckInDaoTest {
 	
 	
 	//4. 依據empId查詢自己當日的打卡紀錄
-	/*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	Date targetDate = dateFormat.parse("2024-01-30");
-	List<CheckIn> checkIn = checkInDao.findTodayCheckInByEmpId(101,targetDate);*/
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date targetDate = dateFormat.parse("2024-01-23");
+	List<CheckIn> checkIn = checkInDao.findTodayCheckInByEmpId(101,targetDate);
+	System.out.print("最新一筆的上班時間: " + checkIn);
 	
 	
 	//5.依據empDeptno查詢部門所有的打卡紀錄
@@ -60,8 +60,8 @@ public class CheckInDaoTest {
     System.out.println("上班遲到次數：" + lateCount);*/
     
     //9. 查詢最近一次打卡紀錄
-    Optional<CheckIn> checkins = checkInDao.findLatestCheckInByEmpId(102);
-    System.out.print(checkins);
+   /* Optional<CheckIn> checkins = checkInDao.findLatestCheckInByEmpId(102);
+    System.out.print(checkins);*/
     
     
 	

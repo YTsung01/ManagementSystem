@@ -16,11 +16,7 @@
 <head>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-<style>
-body {
-	overflow: hidden;
-}
-</style>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <link rel="stylesheet"
@@ -30,31 +26,13 @@ body {
 	overflow: hidden;
 }
 </style>
-<%!// !代表置頂  
-
-	interface Pattern {
-		String ROW_PATTERN = "['%s', %s]";
-		String TABLE_ROW_PATTERN = "[%d, '%s', %d, '%s', '%s', '%s'],";
-	}
-
-	//將日期格式化 yyyy-MM-dd HH:mm:ss E
-	private String getDateFormatString(Date date) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E");
-		return sdf.format(date);
-	}%>
-
 <%
-// 使用當前時間生成唯一的表單單號
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
 String formNumber = sdf.format(new Date());
 %>
 </head>
 <body>
-
-	${ empBook }
-	<hr>
-	${ checkIn }
-
+	<!-- ${ empBook } -->
 	<div class="d-flex justify-content-center mx-auto p-4">
 		<sp:form modelAttribute="checkIn"
 			action="./addcheckIn/${empBook.empId}" method="post"
@@ -87,11 +65,11 @@ String formNumber = sdf.format(new Date());
 
 
 			<button type="submit" class="btn mx-3 align-items-center m-4"
-				style="background-color: #e3f2fd" onclick="submitForm('checkIn')">上班
-			</button>
-			<button type="button" class="btn mx-3 align-items-center m-4"
-				style="background-color: #ccdce8" onclick="submitForm('checkOut')">下班
-			</button>
+				style="background-color: #e3f2fd">上班</button>
+			<a href="javascript:void(0);"
+				onClick="addCheckOut(${ empBook.empId  })"
+				class="btn mx-3 align-items-center m-4"
+				style="background-color: #ccdce8">下班</a>
 
 			<table class="table table-bordered">
 				<thead>
@@ -110,38 +88,34 @@ String formNumber = sdf.format(new Date());
 						<td>${ empBook.empName }</td>
 						<td>${ empBook.empDepartment  }</td>
 						<td>${ empBook.empJob }</td>
-						<td id="checkInTime"><fmt:formatDate value="${checkInTime}"
-								pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						<td id="checkOutTime"><fmt:formatDate value="${checkOutTime}"
-								pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<td id="checkInTime"
+							style="${lateCheckInMessage != null ? 'color: red;' : ''}">
+							${formattedCheckInTime}</td>
+						<td id="checkOutTime" value="${formattedCheckOutTime}"
+							style="${lateCheckOutMessage != null ? 'color: red;' : ''}">
+							${formattedCheckOutTime}</td>
 					</tr>
 				</tbody>
 			</table>
 		</sp:form>
 	</div>
 
-	<script>
-function submitForm(action) {
-    $.ajax({
-        type: 'POST',
-        url: './add/${empBook.empId}',
-        data: { action: action, empId: ${empBook.empId} },
-        success: function (response) {
-            // 更新上班和下班時間的顯示
-            var currentTime = new Date().toLocaleString();
-            if (action === 'checkIn') {
-                $('#checkInTime').text(currentTime);
-            } else if (action === 'checkOut') {
-                $('#checkOutTime').text(currentTime);
-            }
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-}
+	<script type="text/javascript">
+		function submitForm(action) {
+			// 設置表單的action屬性
+			document.form1.action = "./add" + action + "/${empBook.empId}";
+			// 提交表單
+			document.form1.submit();
+		}
+	</script>
 
-</script>
+	<script type="text/javascript">
+			
+			function addCheckOut(empId) {
+				window.location.href='../addcheckOut/' + empId;
+			}
+			
+		</script>
 
 </body>
 
