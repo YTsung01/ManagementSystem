@@ -9,19 +9,18 @@ import java.util.Map;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.dao.CheckInDao;
 import com.example.entity.CheckIn;
 import com.example.entity.EmpBook;
-import com.example.entity.OverTime;
+
 
 @Controller
 @RequestMapping("/checkin")
@@ -127,12 +126,12 @@ public class CheckInController {
 		return "redirect:../{empId}";
 	}
 
-	// 得到加班資料頁面
+	// 得到打卡資料頁面
 	@GetMapping(value = { "/checkinresult/{empId}" })
-	public String checkInandCheckOutData(Integer empId, Model model, CheckIn checkIn, HttpSession session) {
+	public String checkInandCheckOutData(Model model, CheckIn checkIn, HttpSession session) {
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
-		// 找到所有的加班紀錄
+		// 找到自己的所有打卡紀錄
 		List<CheckIn> CheckIndata = checkInDao.findAllCheckInByEmpId(empBook.getEmpId());
 		// 統計遲到次數
 		int lateCount = checkInDao.countLateCheckIns(empBook.getEmpId());

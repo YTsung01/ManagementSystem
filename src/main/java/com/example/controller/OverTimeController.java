@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -22,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.dao.EmpBookDao;
 import com.example.dao.FormDao;
 import com.example.dao.OverTimeDao;
+import com.example.entity.CheckIn;
 import com.example.entity.EmpBook;
 import com.example.entity.Form;
 import com.example.entity.OverTime;
@@ -37,6 +40,9 @@ public class OverTimeController {
 
 	@Autowired
 	FormDao formDao;
+	
+	@Autowired
+	EmpBookDao empBookDao;
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
@@ -116,17 +122,44 @@ public class OverTimeController {
 		    model.addAttribute("overtime",overTime);
 		        
 			return  "redirect:../search/{empId}";
+			//return formMap +  "<hr>"+ overTime+"";
 	
 }
 	
-	// 加班查詢(員工查自己)
+	// 加班查詢資料(員工查自己)
 	@GetMapping(value = "/search/{empId}")
 		public String overtimeSearchPage(Model model, OverTime overTime, HttpSession session) {
+		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
-		
-			List<OverTime> overTimes = overTimeDao.findAllOverTimeByEmpId(empBook.getEmpId());
-			System.out.println("overTime = " + overTimes);
-			model.addAttribute("overTimes", overTimes);
+		// 找到自己所有的加班紀錄
+			List<OverTime> OverTimeList = overTimeDao.findAllOverTimeByEmpId(empBook.getEmpId());
+			Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
+			model.addAttribute("empBossName", empBossOpt.get().getEmpName());
+			System.out.println("overTime = " + OverTimeList);
+			model.addAttribute("overTime", OverTimeList);
+			
+			// 計算目前已審核的總加班時數
+			Integer empId = empBook.getEmpId();
+			List<OverTime> calculateOverTimeHourList = overTimeDao.findCheckoutOverTimeFormByEmpId(empId);
+			model.addAttribute("overTimesbyId", calculateOverTimeHourList);
+			int totalOvertimeHour = calculateOverTimeHourList.stream().mapToInt(OverTime::getApplyHour).sum();
+			model.addAttribute("totalOvertimeHour", totalOvertimeHour);
+
+			// 填表日期
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			model.addAttribute("overTimeDate", sdf.format(new Date()));
+
+			// 計算目前所剩下的加班時數
+			int overTimeLeftHour = empBook.getOverTimeLeftHour() - totalOvertimeHour;
+			model.addAttribute("overTimeLeftHour", overTimeLeftHour);
+			empBook.setOverTimeLeftHour(overTimeLeftHour);
+			
+			//尚未審核加班時數
+			
+			List<OverTime> nonCheckOutOverTimeHourList = overTimeDao.findNonCheckoutOverTimeFormByEmpId(empBook.getEmpId());
+			int nonCheckOutOverTimeHour = nonCheckOutOverTimeHourList.stream().mapToInt(OverTime::getApplyHour).sum();
+			model.addAttribute("nonCheckOutOverTimeHour", nonCheckOutOverTimeHour);
 			return "emp/OvertimeSearch";
 		}
 	
@@ -143,6 +176,46 @@ public class OverTimeController {
 		//model.addAttribute("overTimes",overTimeDAO.findOverTimeHourByEmpId(employee.getEmpId()));
 		return "emp/OvertimeSearch";
 	}
+	
+	// 搜尋功能
+	@GetMapping(value = { "/searchOvertime" })
+	public String searchOvertime(@RequestParam(name = "startDate", required = false) String startDate,
+			@RequestParam(name = "endDate", required = false) String endDate, Model model, HttpSession session)
+			throws ParseException {
+		// 取得登入者資料
+		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		// 處理搜索邏輯，selectedMonth 是前端傳遞過來的月份參數
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		Date StartDate2 = sdf.parse(startDate);
+		Date EndDate2 = sdf.parse(endDate);
+
+		if (startDate == null || endDate == null) {
+			// 如果 startDate 或 endDate 为空值，返回错误信息
+			model.addAttribute("error", "請選擇日期");
+			return "emp/CheckInResult"; // 创建一个专门用于显示错误信息的页面，也可以直接返回原页面并在前端显示错误信息
+		}
+		List<OverTime> filteredOverTimes = overTimeDao.findAllOverTimeByEmpIdAndStartDateAndEndDate(empBook.getEmpId(),
+				StartDate2, EndDate2);
+		Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
+		model.addAttribute("empBossName", empBossOpt.get().getEmpName());
+		// 將結果傳遞到 JSP 中
+		model.addAttribute("OverTimefilter", filteredOverTimes);
+		return "emp/OvertimeSearchDetail";
+	}
+	//每筆紀錄的詳情頁
+	@GetMapping(value = { "/deatil/{fomrId}" })
+	public String searchOverTimeDetail(Model model, HttpSession session) {
+		// 取得登入者資料
+		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		
+	
+		Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
+		model.addAttribute("empBossName", empBossOpt.get().getEmpName());
+		// 將結果傳遞到 JSP 中
+		//model.addAttribute("OverTimefilter", filteredOverTimes);
+		return "emp/OverTimeResult";
+	}
+	
 	
 	
 

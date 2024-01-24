@@ -2,9 +2,11 @@ package com.example.dao;
 
 import com.example.entity.OverTime;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.entity.CheckIn;
 import com.example.entity.EmpBook;
 
 public interface OverTimeDao {
@@ -32,5 +34,9 @@ public interface OverTimeDao {
 		
 		//8. 依照empId查詢尚未審核的加班資料
 		List<OverTime> findNonCheckoutOverTimeFormByEmpId(Integer empId);
+		
+		//9. 查詢員工加班紀錄(根據起始日期與員工ID)
+		List<OverTime> findAllOverTimeByEmpIdAndStartDateAndEndDate(Integer empId,Date startDate,Date endDate);
+		 
 
 }

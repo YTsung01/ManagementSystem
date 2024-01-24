@@ -112,7 +112,7 @@ String formNumber = sdf.format(new Date());
 
 					<td id="checkOutTime"
 						style="${lateCheckOutMessage != null ? 'color: red;' : ''} ">
-						${formattedCheckOutTime}</td>
+						${formattedCheckOutTime == formattedCheckInTime ? '' : formattedCheckOutTime}</td>
 				</tbody>
 			</table>
 		</sp:form>

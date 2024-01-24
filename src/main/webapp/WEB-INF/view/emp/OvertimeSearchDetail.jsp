@@ -17,6 +17,7 @@ ${empBook }
 			<table class="table table-bordered ">
 				<thead>
 					<tr>
+						<th hidden="hidden">表單編號</th>
 						<th>員工編號</th>
 						<th>名稱</th>
 						<th>部門</th>
@@ -27,12 +28,14 @@ ${empBook }
 						<th>審核狀態</th>
 						<th>審核人</th>
 						<th>詳情</th>
+						
 
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="overtimes" items="${overTime}" >
+					<c:forEach var="overtimes" items="${OverTimefilter}" >
 						<tr>
+							<td hidden="hidden">${ overtimes.formId }</td>
 							<td>${ empBook.empId }</td>
 							<td>${ empBook.empName }</td>
 							<td>${ empBook.empDepartment  }</td>
@@ -49,16 +52,11 @@ ${empBook }
 					</c:forEach>
 					
 				</tbody>
-			</table>
-			<p>目前總加班時數:${totalOvertimeHour }</p>
-			<p>剩餘加班時數: ${overTimeLeftHour}小時</p>
-			<p>待審核加班時數: ${nonCheckOutOverTimeHour} 小時</p>
-			
-			
+			</table>	
 			
 				<div class="p-6">
 					<form class="d-flex"	
-						action="/ManagementSystem/app/overtime/searchOvertme" method="get" onsubmit="return validateForm();">
+						action="/ManagementSystem/app/overtime/search" method="get" onsubmit="return validateForm();">
 						<input type="datetime-local" name="startDate" id="startDate"
 							class="form-control" style="width: auto;" min="2023-09-01"
 							max="2024-12-31"> <input type="datetime-local"

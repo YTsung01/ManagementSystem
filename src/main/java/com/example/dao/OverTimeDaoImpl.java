@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import com.example.entity.EmpBook;
 import com.example.entity.OverTime;
@@ -81,6 +83,16 @@ public class OverTimeDaoImpl implements OverTimeDao {
 		String sql = "SELECT emp.empName, f.formId, f.type, o.* " + "FROM empbook emp, form f, overtime o "
 				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? and o.verifyState = 2";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
+	}
+	
+	//9. 查詢員工加班紀錄(根據起始日期與員工ID)
+	/**
+	 * SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = 101 and o.verifyState = 2 and startTime BETWEEN  '2024-01-23 14:40:41' AND '2024-01-25 15:40:41';;
+	 */
+	@Override
+	public  List<OverTime>findAllOverTimeByEmpIdAndStartDateAndEndDate(Integer empId, Date startDate, Date endDate) {
+		String sql = "SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? and o.verifyState = 1 and startTime BETWEEN  ? AND ?;";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class),empId,startDate, endDate);
 	}
 
 }
