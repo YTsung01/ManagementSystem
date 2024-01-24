@@ -11,7 +11,7 @@ public interface CheckInDao {
 	int addCheckIn(CheckIn checkIn);
 	
 	//2. 新增下班時間
-	int addCheckOut(CheckIn checkIn);
+	int addCheckOut(Integer empId);
 	
 	//3. 依據empId查詢所有的打卡紀錄 
 	List<CheckIn> findAllCheckInByEmpId(Integer empId);

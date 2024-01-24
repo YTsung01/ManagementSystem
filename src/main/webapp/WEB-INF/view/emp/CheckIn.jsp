@@ -1,7 +1,6 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
-<%@page import="com.example.model.entity.oldEmployee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
@@ -11,6 +10,7 @@
 <%@page import="java.util.List"%>
 <%@ taglib prefix="sp" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,7 +82,6 @@ String formNumber = sdf.format(new Date());
 						<th>下班時間</th>
 					</tr>
 				</thead>
-				<tbody>
 					<tr>
 						<td>${ empBook.empId }</td>
 						<td>${ empBook.empName }</td>
@@ -91,10 +90,10 @@ String formNumber = sdf.format(new Date());
 						<td id="checkInTime"
 							style="${lateCheckInMessage != null ? 'color: red;' : ''}">
 							${formattedCheckInTime}</td>
-						<td id="checkOutTime" value="${formattedCheckOutTime}"
+						
+						<td name="checkOutTime" id="${formattedCheckOutTime}" value="${formattedCheckOutTime}"
 							style="${lateCheckOutMessage != null ? 'color: red;' : ''}">
 							${formattedCheckOutTime}</td>
-					</tr>
 				</tbody>
 			</table>
 		</sp:form>
@@ -111,8 +110,8 @@ String formNumber = sdf.format(new Date());
 
 	<script type="text/javascript">
 			
-			function addCheckOut(empId) {
-				window.location.href='../addcheckOut/' + empId;
+			function addCheckOut(empId, checkOutTime) {
+				window.location.href='./addcheckOut?checkOutTime=' + checkOutTime;
 			}
 			
 		</script>

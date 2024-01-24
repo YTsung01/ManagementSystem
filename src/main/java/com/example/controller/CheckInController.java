@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -105,8 +106,9 @@ public class CheckInController {
 	}
 
 	// 新增下班打卡
-	@GetMapping(value = { "/addcheckOut/{empId}" }, produces = "text/plain;charset=utf-8")
-	public String addcheckOut(Model model, HttpSession session) throws ParseException {
+	@GetMapping(value = { "/addcheckOut" }, produces = "text/plain;charset=utf-8")
+	public String addcheckOut(@RequestParam("checkOutTime")@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date checkOutTime 
+							,Model model, HttpSession session) throws ParseException {
 
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
@@ -114,13 +116,13 @@ public class CheckInController {
 		// 找到最新一筆checkin並取得時間
 		Optional<CheckIn> latestCheckin = checkInDao.findLatestCheckInByEmpId(empBook.getEmpId());
 		if (latestCheckin.isPresent()) {
-			Date checkInTime = latestCheckin.get().getCheckInTime();
+			checkInDao.addCheckOut(empBook.getEmpId());
 			Date CheckOutTime = latestCheckin.get().getCheckOutTime();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 			// 判斷是否超過9點及18點
 			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(checkInTime);
+			
 			calendar.setTime(CheckOutTime);
 			int hour = calendar.get(Calendar.HOUR_OF_DAY);
 			if (hour > 9) {
@@ -131,10 +133,9 @@ public class CheckInController {
 			if (hour > 18) {
 				model.addAttribute("lateCheckOutMessage", "");
 			}
-			String formattedCheckInTime = dateFormat.format(checkInTime);
+		
 			String formattedCheckOutTime = dateFormat.format(CheckOutTime);
-			model.addAttribute("formattedCheckInTime", formattedCheckInTime);
-			model.addAttribute("formattedCheckOutTime", formattedCheckOutTime);
+				model.addAttribute("formattedCheckOutTime", formattedCheckOutTime);
 
 		} else {
 			model.addAttribute("formattedCheckInTime", "");
@@ -168,6 +169,12 @@ public class CheckInController {
 	    // 處理搜索邏輯，selectedMonth 是前端傳遞過來的月份參數
 	    Date StartDate2 = sdf.parse(startDate);
 	    Date EndDate2 = sdf.parse(endDate);
+	    
+	    if (startDate == null || endDate == null) {
+	        // 如果 startDate 或 endDate 为空值，返回错误信息
+	        model.addAttribute("error", "請選擇日期");
+	        return "emp/CheckInResult";  // 创建一个专门用于显示错误信息的页面，也可以直接返回原页面并在前端显示错误信息
+	    }
 	    List<CheckIn> filteredCheckIns = checkInDao.findAllCheckInByEmpIdAndStartDateAndEndDate(empBook.getEmpId(), StartDate2, EndDate2);
 	    // 將結果傳遞到 JSP 中
 	    model.addAttribute("CheckInfilter", filteredCheckIns);
