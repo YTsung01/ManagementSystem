@@ -28,14 +28,14 @@ import com.example.entity.EmpBook;
 import com.example.entity.Form;
 import com.example.entity.OverTime;
 
-//@Controller
-//@RequestMapping("/overtime")
+@Controller
+@RequestMapping("/overtime")
 public class OverTimeController {
 
-	//@Autowired
+	@Autowired
 	private OverTimeDao overTimeDao;
 
-	//@Autowired
+	@Autowired
 	FormDao formDao;
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
@@ -132,7 +132,6 @@ public class OverTimeController {
 	
 	// 主管依照加班查詢本部門所有加班資料
 	@GetMapping(value = "/search", produces = "text/plain;charset=utf-8")
-	@ResponseBody
 	public String overtimeSearchPageBoss(Model model, OverTime overTime, HttpSession session) {
 		
 		// 取得登入者的資訊

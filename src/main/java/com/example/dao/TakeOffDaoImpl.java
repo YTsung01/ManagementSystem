@@ -87,6 +87,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TakeOff.class), empId);
 	}
 	
+
 	
 
 }

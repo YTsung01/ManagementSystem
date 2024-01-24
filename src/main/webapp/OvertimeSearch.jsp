@@ -13,7 +13,7 @@
 
 		<form action="http://localhost:8080/ManagementSystem_my/checkin"
 			method="post" class="border rounded mx-auto p-4 ">
-			<p class="fs-3 fw-bold text-center">加班查詢</p>
+			<p class="fs-3 fw-bold text-center">請假查詢</p>
 			<div class="p-3">
 				<table class="table table-bordered ">
 					<thead>

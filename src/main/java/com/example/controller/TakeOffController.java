@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.dao.EmpBookDao;
 import com.example.dao.FormDao;
 import com.example.dao.TakeOffDao;
 import com.example.entity.EmpBook;
@@ -29,11 +30,14 @@ import com.example.entity.Form;
 import com.example.entity.TakeOff;
 
 @Controller
-@RequestMapping("/takeoff")
+@RequestMapping("/takeOff")
 public class TakeOffController {
 
 	@Autowired
 	private TakeOffDao takeOffDao;
+	
+	@Autowired
+	private EmpBookDao empBookDao;
 
 	@Autowired
 	FormDao formDao;
@@ -50,12 +54,12 @@ public class TakeOffController {
 		// 取得所有的
 		model.addAttribute("takeOffs", takeOffDao.findAllTakeOffByDeptNo(deptNo));
 
-		// 計算目前已審核的總加班時數
+		// 計算目前已審核的總請假時數
 		Integer empId = empBook.getEmpId();
 		List<TakeOff> calculateTakeOffHourList = takeOffDao.findCheckoutTakeOffByEmpId(empId);
 		model.addAttribute("TakeOffsbyId", calculateTakeOffHourList);
-		int totalTakeOffHour = calculateTakeOffHourList.stream().mapToInt(TakeOff::getTakeoffHour).sum();
-		model.addAttribute("totalTakeOffHour", totalTakeOffHour);
+		int sumTakeOffHour = calculateTakeOffHourList.stream().mapToInt(TakeOff::getTakeoffHour).sum();
+		model.addAttribute("totalTakeOffHour", sumTakeOffHour);
 
 		// 填表日期
 
@@ -63,11 +67,19 @@ public class TakeOffController {
 		model.addAttribute("takeOffDate", sdf.format(new Date()));
 
 		// 計算目前所剩下的請假時數
-		int takeOffHour = empBook.getTakeoffTotalHours() - totalTakeOffHour;
-		model.addAttribute("takeOffHour", takeOffHour);
-		empBook.setTakeoffTotalHours(takeOffHour);
-
-		return "emp/TakeoffRequest";
+		Integer takeoffTotalHours = empBook.getTakeoffTotalHours();
+		int takeOffLeftHour = takeoffTotalHours -sumTakeOffHour;
+		model.addAttribute("takeOffLeftHour", takeOffLeftHour);
+		
+		// 申請人(只能幫同部門的人申請)
+		List<EmpBook> allDeptEmp= empBookDao.findEmpBooksByEmpDeptNo(empBook.getEmpDeptno());
+		model.addAttribute("allDeptEmp", allDeptEmp);
+		System.out.print(allDeptEmp);
+		
+		
+		return "emp/TakeOffRequest";
+		
+		
 
 	}
 
@@ -132,7 +144,7 @@ public class TakeOffController {
 	
 	// 主管依照加班查詢本部門所有加班資料
 	@GetMapping(value = "/search", produces = "text/plain;charset=utf-8")
-	@ResponseBody
+	//@ResponseBody
 	public String overtimeSearchPageBoss(Model model, TakeOff takeOff, HttpSession session) {
 		
 		// 取得登入者的資訊

@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
+
 
 
 <div class="container-xl mt-5">
+
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
+
 
 	<form action="./index.html" method="post" enctype="multipart/form-data"
 		class="border rounded mx-auto p-4">
@@ -17,64 +23,86 @@
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表人：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="a_name" id="a_name" class="form-control"
-						required>
+					${ empBook.empName }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表日期：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="date" name="a_date" id="a_date" class="form-control"
-						style="width: auto;" min="2023-11-01" max="2030-12-31">
+					${takeOffDate}
 					<!-- 控制日期最大最小值 -->
 
 				</div>
 			</div>
 
 			<!-- 申請人 -->
+
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請人：</div>
+
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="a_name" id="a_name" class="form-control"
-						required>
+					<select name="a_area" id="applier" class="form-select" required>
+						<option value="" selected disabled>請選擇申請人..</option>
+						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
+						<c:forEach var="emp"
+								items="${allDeptEmp}">
+						<option value="${emp.empName}" >${emp.empName}</option>
+						
+						</c:forEach>
+						
+						<input type="hidden" name="applier0"
+							id="applier0">
+					</select>
+
+
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
+
+
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請部門：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="a_name" id="a_name" class="form-control"
-						required>
+					${ empBook.empDepartment  }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
 				<button type="button" class="col-12 col-md-1 btn btn-light ">..</button>
-
-
-
 			</div>
-			<div class="row align-items-center pe-4 mb-3">
-				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請人性別：</div>
-				<div class="col-12 col-md-8">
-					<label> <input type="radio" name="a_sex" id="a_sex_1"
-						class="form-check-input" value=" 先生" required> 男 <!-- required是設定為必填項目 -->
-					</label> <label class="ms-3"> <input type="radio" name="a_sex"
-						id="a_sex_2" class="form-check-input" value=" 小姐" required>
-						女
-					</label>
-				</div>
-			</div>
+
+
 
 
 			<!-- 代理人 -->
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">代理人：</div>
-				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="a_name" id="a_name" class="form-control"
-						required>
+					<div class="col-12 col-md-2 position-relative">
+					<select name="a_area" id="agent" class="form-select" required>
+						<option value="" selected disabled>請選擇代理人..</option>
+						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
+						<c:forEach var="emp"
+								items="${allDeptEmp}">
+						<option value="${emp.empName}" >${emp.empName}</option>
+						
+						</c:forEach>
+						
+							<input type="hidden" name="agent0"
+							id="agent0">
+					
+			
+						
+					</select>
+					
+			
+			
+				
+
+
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
-						<button type="button" class="col-12 col-md-2 btn btn-light text-nowrap" name="searchDayoff" id="searchDayoff">查詢剩餘時數</button>
+				<button type="button"
+					class="col-12 col-md-2 btn btn-light text-nowrap"
+					name="searchDayoff" id="searchDayoff">查詢剩餘時數</button>
 			</div>
 
 			<!-- 選擇假別 -->
@@ -116,19 +144,22 @@
 			<div class="row align-items-center pe-4 mb-5">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">合計天數：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="resultDate" id="resultDate" class="form-control"
-						required>
-					<div class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2">天</div>
+					<input type="text" name="resultDate" id="resultDate"
+						class="form-control" required>
+					<div
+						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2">天</div>
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">合計時數：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="resultTime" id="resultTime" class="form-control"
-						required>
+					<input type="text" name="resultTime" id="resultTime"
+						class="form-control" required>
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2 ">時</div>
 				</div>
-				<button type="button" class="col-12 col-md-1 btn btn-light text-nowrap " name="calculatebtn" id="calculatebtn">計算</button>
-				
+				<button type="button"
+					class="col-12 col-md-1 btn btn-light text-nowrap "
+					name="calculatebtn" id="calculatebtn">計算</button>
+
 
 
 
@@ -176,7 +207,7 @@
 				</div>
 
 			</div>
-			</div>
+		</div>
 	</form>
 </div>
 
@@ -196,49 +227,58 @@
 
 
 <script>
+	let resultDate_msg = $('#resultDate').next();
+	let resultTime_msg = $('#resultTime').next();
 
-let  resultDate_msg = $('#resultDate').next();
-let  resultTime_msg = $('#resultTime').next();
+	$('#calculatebtn').on('click', function() {
+		startDate = new Date($('#startDate').val());
+		endDate = new Date($('#endDate').val());
 
+		var timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+		var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+		var diffHours = Math.ceil(timeDiff / (1000 * 60 * 60));
+		var diffDayHours = diffHours % 24;
+		var difftotalDays = Math.floor(diffHours / 24);
+		//var diffDayHours = diffHours- diffDays*24;
 
-$('#calculatebtn').on('click', function() {
-    startDate =new Date( $('#startDate').val());
-    endDate = new Date($('#endDate').val());
-        
-        var timeDiff =Math.abs(endDate.getTime()- startDate.getTime());
-        var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));         
-        var diffHours =  Math.ceil(timeDiff / (1000 * 60 * 60));
-        var diffDayHours = diffHours % 24;
-        var difftotalDays = Math.floor(diffHours/ 24);
-        //var diffDayHours = diffHours- diffDays*24;
+		if (diffDays < 1) {
+			resultDate_msg.text('0' + '天');
+			//resultTime_msg.text(diffHours+ '時');
 
-        
-        
-        
-        if (diffDays <1){
-        	resultDate_msg.text('0'+ '天');
-        	//resultTime_msg.text(diffHours+ '時');
-        	
-        }else{
-        	resultDate_msg.text(difftotalDays+ '天');
-        	
-        	//resultTime_msg.text(diffDayHours+ '時');
-        	
+		} else {
+			resultDate_msg.text(difftotalDays + '天');
+
+			//resultTime_msg.text(diffDayHours+ '時');
+
+		}
+
+		if (diffDayHours > 8) {
+
+			resultTime_msg.text('8' + '時');
+		} else {
+
+			resultTime_msg.text(diffDayHours + '時');
+		} 
+		
+		
+		var applierValue = $('#applier').val();
+        var agentValue = $('#agent').val();
+
+        // Compare the values
+        if (applierValue === agentValue) {
+            // Values are equal, display an error message or take appropriate action
+            $('#Error').text('申請人不可為代理人，請重新確認');
+        } else {
+            // Values are not equal, you can clear any existing error message
+            $('#Error').text('');
         }
-      	
-        if(diffDayHours >8){
-        	
-        	resultTime_msg.text('8'+ '時');
-        }else{
-        	
-        resultTime_msg.text(diffDayHours+ '時');}
-       
-       
-        });
         
+    
 
-
+	});
 </script>
+
+
 
 
 <%@ include file="/WEB-INF/view/Systemfooter.jsp"%>
