@@ -2,7 +2,6 @@ package com.example.dao;
 
 import java.util.List;
 import java.util.Optional;
-
 import com.example.entity.EmpBook;
 
 public interface EmpBookDao {
@@ -13,5 +12,5 @@ public interface EmpBookDao {
 
 	List<EmpBook> findEmpBooksByEmpDeptNo(Integer empDeptno);
 	
-	Optional<EmpBook> findEmpBookByEmpDeptNoAndLevelId(Integer empDeptno, Integer levelId);
+	Optional<EmpBook> findEmpBookByEmpDeptNoAndLevelId(Integer empDeptno);
 }
