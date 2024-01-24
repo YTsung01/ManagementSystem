@@ -1,5 +1,7 @@
 package com.example.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +11,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import com.example.entity.Attachement;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 
 @Repository
 public class AttachementDaoImpl implements AttachementDao {
@@ -57,17 +60,29 @@ public class AttachementDaoImpl implements AttachementDao {
 	
 	//6. 依據附件編號及路徑刪除附件
 	@Override
-	public int deleteAttachement(Integer attachId, String filePath) {
-		 String sql = "DELETE FROM attachement WHERE attachId = ? and filePath= ?";
-		 return jdbcTemplate.update(sql, attachId, filePath);
+	public int deleteAttachement(Integer attachId) {
+		 String sql = "DELETE FROM attachement WHERE attachId = ?";
+		 return jdbcTemplate.update(sql, attachId);
 	}
 	
 	//7.大量新增附件
 	@Override
 	public int[] addBatchAttachements(List<Attachement> attachements) {
 		String sql = "INSERT INTO attachement(form_id, filePath) VALUES (?, ?)";
-		AttachementBatchSetter batchSetter = new AttachementBatchSetter(attachements);
-		return jdbcTemplate.batchUpdate(sql, batchSetter);
+		//AttachementBatchSetter batchSetter = new AttachementBatchSetter(attachements);
+		return jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+			@Override
+		    public void setValues(PreparedStatement ps, int i) throws SQLException {
+		        Attachement attachement = attachements.get(i);
+		        ps.setString(1, attachement.getForm_id());
+		        ps.setString(2, attachement.getFilePath());
+		    }
+
+		    @Override
+		    public int getBatchSize() {
+		        return attachements.size();
+		    }
+		});
 	}
 	
 	//8.大量刪除附件

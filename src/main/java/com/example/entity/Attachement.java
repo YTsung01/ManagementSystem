@@ -12,8 +12,14 @@ public class Attachement {
 	
 	public Attachement() {}
 
+	public Attachement(String form_id, String filePath, Date createTime, Date updateTime) {
+		this.form_id = form_id;
+		this.filePath = filePath;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+	}
+	
 	public Attachement(Integer attachId, String form_id, String filePath, Date createTime, Date updateTime) {
-		
 		this.attachId = attachId;
 		this.form_id = form_id;
 		this.filePath = filePath;

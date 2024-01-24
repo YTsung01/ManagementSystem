@@ -23,7 +23,7 @@ public class EmpBookDaoTest {
 		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		//System.out.println(sdf.format(empBook.getHireDate()));
 		
-		Optional<EmpBook> empBooks = empBookDao.findEmpBookByEmpDeptNoAndLevelId(1, 2);
+		Optional<EmpBook> empBooks = empBookDao.findEmpBookByEmpDeptNoAndLevelId(1);
 		System.out.println(empBooks);
 
 	}

@@ -46,7 +46,7 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 		//=uuid
 		%>
 
-		<sp:form modelAttribute="overTime" action="./add/${employee.empId}"
+		<sp:form modelAttribute="overTime" action="./add/${empBook.empId}"
 			method="post" class="border rounded mx-auto p-4">
 			<div class="row">
 				<!-- 左側 -->
@@ -57,31 +57,26 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 				<div class="row align-items-center pe-4 mb-3">
 					<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">員工編號：</div>
 					<div class="col-12 col-md-2 position-relative" name="empId">
-						${employee.empId }
+						${empBook.empId }
 						<div
 							class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 					</div>
 					<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表日期：</div>
 					<div class="col-12 col-md-2 position-relative" name="overTimeDate">
 						<p>${overTimeDate}</p>
-						<!--<input type="date" name="a_date" id="a_date" class="form-control"
-						style="width: auto;" min="2023-11-01" max="2030-12-31">-->
-						<!-- 控制日期最大最小值 -->
-
 					</div>
 				</div>
-
 				<!-- 申請人 -->
 				<div class="row align-items-center pe-4 mb-3">
 					<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請人：</div>
 					<div class="col-12 col-md-2 position-relative" name="empName">
-						${ employee.empName }
+						${ empBook.empName }
 						<div
 							class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 					</div>
 					<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請部門：</div>
 					<div class="col-12 col-md-2 position-relative" name="empDepartment">
-						${ employee.empDepartment  }
+						${ empBook.empDepartment  }
 						<div
 							class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 					</div>
@@ -89,9 +84,11 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 				<div class="row align-items-center pe-4 mb-3">
 					<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 					<div class="col-12 col-md-8">
-						<sp:radiobuttons path="overTimeTypeId"
-							items="${overTimeTypeDatas }" itemLabel="name" itemValue="id"
-							cssClass="element-margin" />
+						<label> <input type="radio" name="overtimeType"
+							id="overtimeType" required value="1" /> 加班費
+						</label> <label> <input type="radio" name="overtimeType"
+							id="overtimeType" required value="2" /> 補修
+						</label>
 					</div>
 				</div>
 
@@ -99,20 +96,22 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 				<div class="row align-items-center pe-4 mb-3">
 					<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 					<div class="col-12 col-md-8">
-						<sp:radiobuttons path="overTimeTypeForDayId"
-							items="${overTimeTypeForDayDatas }" itemLabel="name"
-							itemValue="id" cssClass="element-margin" />
+						<label> <input type="radio" name="dayOrHoilday"
+							id="dayOrHoilday" required value="1" /> 平日加班
+						</label> <label> <input type="radio" name="dayOrHoilday"
+							id="dayOrHoilday" required value="2" /> 假日加班
+						</label>
 						<button type="button"
 							class="m-3 col-12 col-md-3 btn btn-light text-nowrap"
 							name="searchDayoff" id="searchDayoff">查詢剩餘時數</button>
 					</div>
 				</div>
 
-				<!-- 加班起始日 -->
+		<!-- 加班起始日 -->
 				<div class="row align-items-center pe-4 mb-3">
 					<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">加班起始日：</div>
 					<div class="col-12 col-md-2 position-relative">
-						<input type="datetime-local" name="overTimeStart"
+						<input type="datetime-local" name="startTime"
 							id="overTimeStart" class="form-control" style="width: auto;"
 							min="2023-11-01" max="2023-12-31">
 						<!-- 控制日期最大最小值 -->
@@ -121,7 +120,7 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 
 					<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">結束日：</div>
 					<div class="col-12 col-md-2 position-relative">
-						<input type="datetime-local" name="overTimeEnd" id="overTimeEnd"
+						<input type="datetime-local" name="endTime" id="overTimeEnd"
 							class="form-control" style="width: auto;" min="2023-11-01"
 							max="2023-12-31"> <span id="overTimeEndError"
 							style="color: red;"></span>
@@ -136,7 +135,7 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 						<!-- 添加一個隱藏的 input 元素 -->
 						<input type="hidden" name="calculatedOverTimeHour"
 							id="calculatedOverTimeHour"> <input type="text"
-							name="overTimeHour" id="overTimeHour" class="form-control"
+							name="applyHour" id="overTimeHour" class="form-control"
 							required readonly>
 						<div
 							class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2 ">小時</div>
@@ -152,7 +151,7 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 				<div class="row  pe-4 mb-5 mt-3">
 					<div class="col-12 col-md-2 text-md-end p-md-0">加班事由：</div>
 					<div class="col-12 col-md-10 mb-4">
-						<textarea name="overTimeReason" id="overTimeReason"
+						<textarea name="reason" id="reason"
 							class="form-control" rows="5" required></textarea>
 					</div>
 				</div>
@@ -168,19 +167,7 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 				</div>
 				<div>
 					<input name="overTimeFormId" id="overTimeFormId" type="hidden"
-						value="${overTimeformId}" /> <input name="empDeptno"
-						id="empDeptno" type="hidden" value="${ employee.empDeptno }" /> <input
-						name="empJob" id="empJob" type="hidden"
-						value="${ employee.empJob }" />
-					<sp:input path="overTimeLeftHour" id="overTimeLeftHour"
-						type="hidden" value="${overTimeLeftHour} " />
-					<sp:input path="VerifyState" id="VerifyState" type="hidden"
-						value="2" />
-					<sp:input path="overTimeCheckReason" id="overTimeCheckReason"
-						type="hidden" value="${OverTimeCheckReason }" />
-					<sp:input path="employee" id="employee" type="hidden"
-						value="${ employee }" />
-
+						value="${overTimeformId}" />
 				</div>
 
 
@@ -221,14 +208,18 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
         	 console.log('Calculate button clicked');
             $("#searchDayoff").click(function () {
             	 console.log('Calculate button clicked');
-                // 获取剩余时数（替换为实际的逻辑）
-                //var remainingHours = "10"; 假设剩余时数是 10
-                var remainingHours = ${totalOvertimeHour}; // 假设剩余时数是 10
+                
+                var remainingHours = ${totalOvertimeHour}; 
 
-                // 设置模态框内容
-                $("#remainingHoursModalBody").text("本月剩餘時數為:  " + ${overIimeLeftHour} + "  小時");
+                var modalBody = $("#remainingHoursModalBody");
+                modalBody.text("本月剩餘時數為:  " + ${overTimeLeftHour} + "  小時");
 
-                // 显示模态框
+                if (remainingHours < 10) {
+                    modalBody.css('color', 'red');
+                } else {
+                    modalBody.css('color', ''); 
+                }
+             
                 $("#remainingHoursModal").modal("show");
             });
         });
@@ -297,7 +288,6 @@ $(document).ready(function () {
         console.log('目前的計算值：', calculatedResult);
     });
 });
-
 </script>
 </body>
 </html>
