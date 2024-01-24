@@ -3,13 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!--  ${ empBook }
+<!-- ${ empBook }
 //<hr>
-//${ empBossName }-->
+//${ empBossName }--> 
 <head>
 
 </head>
-
+<body>
 <div class="container-xl mt-5">
     <!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
     <form action="./index.html" method="post" enctype="multipart/form-data"
@@ -18,8 +18,8 @@
             <!-- 左側 -->
             <p class="fs-3 fw-bold text-center">基本資料</p>
             <div class="col-12 col-md-6 border-end">
-                <img src="../images/202.jpg"
-                    class="d-block mx-auto w-80 rounded c-p " data-img="./img/102.jpg"
+                <img src="../images/${ empBook.empId }.jpg" 
+                    class="d-block mx-auto w-80 rounded c-p " data-img="./img/102.jpg" 
                     data-title="頭像" alt="">
             </div>
             <!-- 右側 -->
@@ -75,5 +75,5 @@
 		</div>
 	</form>
 </div>
-
+</body>
 <%@ include file="/WEB-INF/view/Systemfooter.jsp"%>

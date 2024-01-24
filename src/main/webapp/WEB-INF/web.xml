@@ -32,7 +32,7 @@
   	
   	<!-- 設定 session timeout 的時間 -->
   	<session-config>
-  		<session-timeout>300</session-timeout>
+  		<session-timeout>3000000</session-timeout>
   	</session-config>
   	
   	<!-- 部署 DispatcherServlet - Java 配置版 -->
