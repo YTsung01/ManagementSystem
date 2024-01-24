@@ -77,12 +77,39 @@ public class TakeOffDaoImplTest {
 		 System.out.println(takeOffs);
 		 */
 		
-		
+		/*
 		//5. 依據formId修改請假(注意!! 不能修改已經審核過的申請單)
+		String formId = "b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b";
+		List<TakeOff> takeOffs = takeOffDao.findNonCheckoutTakeOffFormByEmpId(101);
+		TakeOff takeOff = takeOffs.get(0);
+		System.out.println(takeOff);
+		takeOff.setReason("測試");
+		takeOffDao.updateTakeOffByEmpId(formId, takeOff);
+		System.out.println(takeOff);
+
+		System.out.print(takeOffs.get(0));
+		if (!takeOffs.isEmpty()) {
+		    TakeOff firstNonCheckoutTakeOff = takeOffs.get(0);
+		    firstNonCheckoutTakeOff.setReason("修改的測試");
+
+		    // 調用更新操作，不需要將整個列表傳遞給更新方法
+	    int updateResult = takeOffDao.updateTakeOffByEmpId(firstNonCheckoutTakeOff.getFormId(), firstNonCheckoutTakeOff);
+
+		    if (updateResult > 0) {
+		        System.out.println("請假申請更新成功");
+		    } else {
+		        System.out.println("請假申請更新失敗");
+		    }
+		} else {
+		    System.out.println("未找到未審核的請假申請");
+		}
+		*/
 		
-		
+		/*
 		//6. 依照FormId取消請假申請
-		
+		takeOffDao.cancelTakeOffByFormId("b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b");
+		System.out.println("刪除成功");
+		*/
 
 		/*
 		//7. 依據DeptNo查詢部門的請假資料

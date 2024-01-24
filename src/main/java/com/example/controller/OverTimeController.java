@@ -28,14 +28,14 @@ import com.example.entity.EmpBook;
 import com.example.entity.Form;
 import com.example.entity.OverTime;
 
-@Controller
-@RequestMapping("/overtime")
+//@Controller
+//@RequestMapping("/overtime")
 public class OverTimeController {
 
-	@Autowired
+	//@Autowired
 	private OverTimeDao overTimeDao;
 
-	@Autowired
+	//@Autowired
 	FormDao formDao;
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");

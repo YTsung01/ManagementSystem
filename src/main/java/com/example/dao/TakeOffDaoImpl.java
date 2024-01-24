@@ -79,5 +79,15 @@ public class TakeOffDaoImpl implements TakeOffDao {
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TakeOff.class), empDeptno);
 	}
 
+	//8. 依照empId查詢尚未審核的請假資料
+	@Override
+	public List<TakeOff> findNonCheckoutTakeOffFormByEmpId(Integer empId) {
+		String sql = "SELECT emp.empName, f.formId, f.type, t.* " + "FROM empbook emp, form f, takeoff t "
+				+ "WHERE f.applier = emp.empId AND f.formId = t.formId AND emp.empId = ? and t.verifyState = 2";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TakeOff.class), empId);
+	}
+	
+	
+
 }
 

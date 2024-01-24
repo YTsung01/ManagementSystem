@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.entity.EmpBook;
+import com.example.entity.OverTime;
 
 public interface TakeOffDao {
 	
@@ -30,5 +31,8 @@ public interface TakeOffDao {
 
 		//7. 依據DeptNo查詢部門的請假資料
 		List<TakeOff> findAllTakeOffByDeptNo(Integer empDeptno);
+		
+		//8. 依照empId查詢尚未審核的請假資料
+		List<TakeOff> findNonCheckoutTakeOffFormByEmpId(Integer empId);
 
 }
