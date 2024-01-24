@@ -6,8 +6,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 表單元素 -->
 ${ overTime }
+
 <hr>
 ${empBook }
+
 
 
 <div class="d-flex justify-content-center mx-auto p-4">
@@ -17,6 +19,7 @@ ${empBook }
 			<table class="table table-bordered ">
 				<thead>
 					<tr>
+						<th >表單編號</th>
 						<th>員工編號</th>
 						<th>名稱</th>
 						<th>部門</th>
@@ -33,6 +36,7 @@ ${empBook }
 				<tbody>
 					<c:forEach var="overtimes" items="${overTime}" >
 						<tr>
+							<td>${ overtimes.formId }</td>
 							<td>${ empBook.empId }</td>
 							<td>${ empBook.empName }</td>
 							<td>${ empBook.empDepartment  }</td>
@@ -43,7 +47,7 @@ ${empBook }
 							<td>${overtimes.verifyState}</td>
 							<td>${empBossName}</td>
 							<td><a
-								href="http://localhost:8080/ManagementSystem/app/overtime/deatil/{fomrId}">詳情</a></td>
+								href="http://localhost:8080/ManagementSystem/app/overtime/deatil/${ overtimes.formId }">詳情</a></td>
 						</tr>
 
 					</c:forEach>
@@ -58,7 +62,7 @@ ${empBook }
 			
 				<div class="p-6">
 					<form class="d-flex"	
-						action="/ManagementSystem/app/overtime/searchOvertme" method="get" onsubmit="return validateForm();">
+						action="/ManagementSystem/app/overtime/searchOvertime" method="get" onsubmit="return validateForm();">
 						<input type="datetime-local" name="startDate" id="startDate"
 							class="form-control" style="width: auto;" min="2023-09-01"
 							max="2024-12-31"> <input type="datetime-local"

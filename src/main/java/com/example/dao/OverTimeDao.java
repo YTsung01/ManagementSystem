@@ -38,5 +38,6 @@ public interface OverTimeDao {
 		//9. 查詢員工加班紀錄(根據起始日期與員工ID)
 		List<OverTime> findAllOverTimeByEmpIdAndStartDateAndEndDate(Integer empId,Date startDate,Date endDate);
 		 
-
+		//10. 依照formId查詢加班表單
+		Optional<OverTime>  findOverTimeByFormId(String formId);
 }

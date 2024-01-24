@@ -1,12 +1,15 @@
 package com.example.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +34,8 @@ import com.example.entity.CheckIn;
 import com.example.entity.EmpBook;
 import com.example.entity.Form;
 import com.example.entity.OverTime;
+import com.example.util.Qrcode;
+import com.google.zxing.WriterException;
 
 @Controller
 @RequestMapping("/overtime")
@@ -78,7 +84,7 @@ public class OverTimeController {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	@PostMapping("/add/{empId}")
-    public String addOverTime(@RequestParam Map<String, Object> formMap, Model model, HttpSession session,RedirectAttributes redirectAttributes) throws ParseException{
+    public String addOverTime(@RequestParam Map<String, Object> formMap, Model model, HttpSession session,RedirectAttributes redirectAttributes) throws ParseException, WriterException, IOException{
 			
 			//取得登入者資訊
 			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
@@ -118,8 +124,11 @@ public class OverTimeController {
 	        
 	        Integer overtimeType = Integer.parseInt(formMap.get("overtimeType") + "");
 	        overTime.setOvertimeType(overtimeType);
+	        String path = Qrcode.generateQRcode(uuid);
 			overTimeDao.addOverTime(overTime);
 		    model.addAttribute("overtime",overTime);
+		    
+		    
 		        
 			return  "redirect:../search/{empId}";
 			//return formMap +  "<hr>"+ overTime+"";
@@ -192,8 +201,9 @@ public class OverTimeController {
 		if (startDate == null || endDate == null) {
 			// 如果 startDate 或 endDate 为空值，返回错误信息
 			model.addAttribute("error", "請選擇日期");
-			return "emp/CheckInResult"; // 创建一个专门用于显示错误信息的页面，也可以直接返回原页面并在前端显示错误信息
+			return "emp/overTimeResult"; 
 		}
+		
 		List<OverTime> filteredOverTimes = overTimeDao.findAllOverTimeByEmpIdAndStartDateAndEndDate(empBook.getEmpId(),
 				StartDate2, EndDate2);
 		Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
@@ -202,17 +212,36 @@ public class OverTimeController {
 		model.addAttribute("OverTimefilter", filteredOverTimes);
 		return "emp/OvertimeSearchDetail";
 	}
+	
+	
 	//每筆紀錄的詳情頁
 	@GetMapping(value = { "/deatil/{fomrId}" })
-	public String searchOverTimeDetail(Model model, HttpSession session) {
+	public String searchOverTimeDetail(@PathVariable("fomrId") String fomrId,Model model, HttpSession session) {
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		OverTime overTime = overTimeDao.findOverTimeByFormId(fomrId).get();
+		Form form = formDao.findFormByFormId(fomrId) .get();
 		
-	
+		if(overTime.getOvertimeType()==1) {
+			model.addAttribute("overTimetype", "加班費");
+		}
+		
+		if(overTime.getOvertimeType()==2) {
+				model.addAttribute("overTimetype", "補休");
+			}
+		
+		if(overTime.getDayOrHoilday()==1) {
+			model.addAttribute("DayOrHoilday", "平日加班");
+		}
+		
+		if(overTime.getDayOrHoilday()==2) {
+				model.addAttribute("DayOrHoilday", "假日加班");
+			}
+
+		model.addAttribute("overTime", overTime);
+		model.addAttribute("form", form);
 		Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
 		model.addAttribute("empBossName", empBossOpt.get().getEmpName());
-		// 將結果傳遞到 JSP 中
-		//model.addAttribute("OverTimefilter", filteredOverTimes);
 		return "emp/OverTimeResult";
 	}
 	
