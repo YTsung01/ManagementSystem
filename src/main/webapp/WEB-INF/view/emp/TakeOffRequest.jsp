@@ -12,7 +12,7 @@
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
 
 
-	<form action="./index.html" method="post" enctype="multipart/form-data"
+	<form action="./add/${empBook.empId}" method="post" enctype="multipart/form-data"
 		class="border rounded mx-auto p-4">
 		<div class="row">
 			<!-- 左側 -->
@@ -66,7 +66,7 @@
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
-				<button type="button" class="col-12 col-md-1 btn btn-light ">..</button>
+				
 			</div>
 
 
@@ -161,13 +161,6 @@
 					name="calculatebtn" id="calculatebtn">計算</button>
 
 
-
-
-
-
-
-
-
 				<!-- 留言內容 -->
 				<div class="row  pe-4 mb-5 mt-3">
 					<div class="col-12 col-md-2 text-md-end p-md-0">請假事由：</div>
@@ -208,6 +201,33 @@
 
 			</div>
 		</div>
+		
+		
+		<div class="container mt-5">
+				<!-- 模态框 -->
+				<div class="modal fade" id="remainingHoursModal" tabindex="-1"
+					role="dialog" aria-labelledby="remainingHoursModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="remainingHoursModalLabel">本月剩餘時數</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body" id="remainingHoursModalBody">
+								<!-- 這裡顯示剩餘時數的內容 -->
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">關閉</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		
 	</form>
 </div>
 
@@ -226,57 +246,97 @@
 </script>
 
 
+
+
 <script>
-	let resultDate_msg = $('#resultDate').next();
-	let resultTime_msg = $('#resultTime').next();
 
-	$('#calculatebtn').on('click', function() {
-		startDate = new Date($('#startDate').val());
-		endDate = new Date($('#endDate').val());
+let  resultDate_msg = $('#resultDate').next();
+let  resultTime_msg = $('#resultTime').next();
 
-		var timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
-		var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
-		var diffHours = Math.ceil(timeDiff / (1000 * 60 * 60));
-		var diffDayHours = diffHours % 24;
-		var difftotalDays = Math.floor(diffHours / 24);
-		//var diffDayHours = diffHours- diffDays*24;
 
-		if (diffDays < 1) {
-			resultDate_msg.text('0' + '天');
-			//resultTime_msg.text(diffHours+ '時');
-
-		} else {
-			resultDate_msg.text(difftotalDays + '天');
-
-			//resultTime_msg.text(diffDayHours+ '時');
-
-		}
-
-		if (diffDayHours > 8) {
-
-			resultTime_msg.text('8' + '時');
-		} else {
-
-			resultTime_msg.text(diffDayHours + '時');
-		} 
-		
-		
-		var applierValue = $('#applier').val();
-        var agentValue = $('#agent').val();
-
-        // Compare the values
-        if (applierValue === agentValue) {
-            // Values are equal, display an error message or take appropriate action
-            $('#Error').text('申請人不可為代理人，請重新確認');
-        } else {
-            // Values are not equal, you can clear any existing error message
-            $('#Error').text('');
-        }
+$('#calculatebtn').on('click', function() {
+    startDate =new Date( $('#startDate').val());
+    endDate = new Date($('#endDate').val());
         
-    
+        var timeDiff =Math.abs(endDate.getTime()- startDate.getTime());
+        var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));         
+        var diffHours =  Math.ceil(timeDiff / (1000 * 60 * 60));
+        var diffDayHours = diffHours % 24;
+        var difftotalDays = Math.floor(diffHours/ 24);
+        //var diffDayHours = diffHours- diffDays*24;
 
-	});
+        
+        
+        
+        if (diffDays <1){
+        	resultDate_msg.text('0'+ '天');
+        	//resultTime_msg.text(diffHours+ '時');
+        	
+        }else{
+        	resultDate_msg.text(difftotalDays+ '天');
+        	
+        	//resultTime_msg.text(diffDayHours+ '時');
+        	
+        }
+      	
+        if(diffDayHours >8){
+        	
+        	resultTime_msg.text('8'+ '時');
+        }else{
+        	
+        resultTime_msg.text(diffDayHours+ '時');}
+       
+       
+        });
+        
+
+
 </script>
+
+<script>
+    // 當代理人下拉選單的值發生變化時
+    document.getElementById("agent").addEventListener("change", function() {
+        // 取得代理人和申請人的下拉選單元素
+        var agentDropdown = document.getElementById("agent");
+        var applierDropdown = document.getElementById("applier");
+
+        // 取得選中的代理人和申請人的值
+        var selectedAgent = agentDropdown.options[agentDropdown.selectedIndex].text
+        var selectedApplier = applierDropdown.options[applierDropdown.selectedIndex].text
+
+        // 檢查是否選中相同的代理人和申請人
+        if (selectedAgent === selectedApplier) {
+            // 如果相同，顯示錯誤訊息（你可以根據實際需求自行調整提示內容和樣式）
+            alert("代理人和申請人不可為同一人");
+            // 或者清空申請人的選擇
+            applierDropdown.value = "";
+        }
+    });
+</script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+        $(document).ready(function () {
+        	 console.log('Calculate button clicked');
+            $("#searchDayoff").click(function () {
+            	 console.log('Calculate button clicked');
+                
+                var remainingHours = ${takeOffLeftHour}; 
+
+                var modalBody = $("#remainingHoursModalBody");
+                modalBody.text("本月剩餘時數為:  " + ${takeOffLeftHour} + "  小時");
+
+                if (remainingHours < 10) {
+                    modalBody.css('color', 'red');
+                } else {
+                    modalBody.css('color', ''); 
+                }
+             
+                $("#remainingHoursModal").modal("show");
+            });
+        });
+    </script>
 
 
 
