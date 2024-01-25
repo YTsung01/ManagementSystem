@@ -4,82 +4,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Layout</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" />
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<title>考勤系統</title>
+<!-- 引入 Bootstrap 的 JavaScript 文件（需要先引入 jQuery）-->
+	    <!-- 引入 jQuery -->
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<!-- 引入 Bootstrap 5 样式表 -->
 </head>
 <body>
-<<<<<<< HEAD
-<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #4682b4">
-  <div class="container-fluid">
-    <a class="navbar-brand text-light " href="#">考勤系統</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active text-light" aria-current="page" href="/ManagementSystem/app/main">首頁</a>
-        </li>
-        
-          
-        </li>
-         <li class="nav-item">
-          <a class="nav-link text-light " href="/ManagementSystem/app/checkin">打卡</a>
-        </li>
-        
-        
-    <div class="dropdown">
-	  <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-	  style="background-color: #4682b4">
-	    請假
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-	    <li><a class="dropdown-item" href="./LeaveRequest.jsp">請假申請</a></li>
-	    <li><a class="dropdown-item" href="./LeaveSearch.jsp">請假查詢</a></li>
-	    <li><a class="dropdown-item" href="./LeaveCheck.jsp">請假管理</a></li>
-	  </ul>
-	</div>
-	
-	<div class="dropdown">
-	  <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"
-	  style="background-color: #4682b4">
-	    加班
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-	    <li><a class="dropdown-item" href="./OvertimeRequest.jsp">加班申請</a></li>
-	    <li><a class="dropdown-item" href="./OvertimeSearch.jsp">加班查詢</a></li>
-	    <li><a class="dropdown-item" href="./OvertimeCheck.jsp">加班管理</a></li>
-	  </ul>
-	</div>
-        
-        
-         <li class="nav-item">
-          <a class="nav-link text-light " href="./Salary.jsp">薪資查詢</a>
-        </li>
-        
-      </ul>
-     
-     
-     
-    </div>
-    <i class="bi bi-person-circle text-light h5 mb-0 d-none d-lg-block"></i>
-  </div>
-</nav>
-=======
+
 	<nav class="navbar navbar-expand-lg navbar-light "
-		style="background-color: #4682b4">
+		style="background-color: #4682b4" id="systemHeader">
 		<div class="container-fluid">
-			<a class="navbar-brand text-light " href="#">考勤系統</a>
+			<a class="navbar-brand text-light " href="/ManagementSystem/app/main">考勤系統</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -89,13 +35,19 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active text-light"
-						aria-current="page" href="./mainpage.jsp">首頁</a></li>
-
+						aria-current="page" href="/ManagementSystem/app/main">首頁</a></li>
 
 					</li>
-					<li class="nav-item"><a class="nav-link text-light "
-						href="./checkin">打卡</a></li>
-
+					<div class="dropdown">
+						<button class="btn dropdown-toggle text-light" type="button"
+							id="dropdownMenuButton1" data-bs-toggle="dropdown"
+							aria-expanded="false" style="background-color: #4682b4">
+							出勤</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="/ManagementSystem/app/checkin/${empBook.empId}">打卡</a></li>
+							<li><a class="dropdown-item" href="/ManagementSystem/app/checkin/checkinresult/${empBook.empId}">出勤查詢</a></li>
+						</ul>
+					</div>
 
 					<div class="dropdown">
 						<button class="btn dropdown-toggle text-light" type="button"
@@ -115,23 +67,25 @@
 							aria-expanded="false" style="background-color: #4682b4">
 							加班</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-							<li><a class="dropdown-item" href="./OvertimeRequest.jsp">加班申請</a></li>
-							<li><a class="dropdown-item" href="./OvertimeSearch.jsp">加班查詢</a></li>
-							<li><a class="dropdown-item" href="./OvertimeCheck.jsp">加班管理</a></li>
+							<li><a class="dropdown-item"
+								href="/ManagementSystem/app/overtime/request">加班申請</a></li>
+							<li><a class="dropdown-item"
+								href="/ManagementSystem/app/overtime/search/${empBook.empId}">加班查詢</a></li>
+							<li><a class="dropdown-item"
+								href="/ManagementSystem/app/overtime/check">加班管理</a></li>
 						</ul>
 					</div>
 
-
 					<li class="nav-item"><a class="nav-link text-light "
 						href="./Salary.jsp">薪資查詢</a></li>
+
 				</ul>
 
 			</div>
-			<i
-				class="bi bi-person-circle text-secondary h5 mb-0 d-none d-lg-block"></i>
+			<i class="bi bi-person-circle text-light h5 mb-0 d-none d-lg-block"><a
+				href="/ManagementSystem/app/auth/login" class="text-light">登出</a></i>
 		</div>
 	</nav>
->>>>>>> refs/heads/master
 
 </body>
 </html>

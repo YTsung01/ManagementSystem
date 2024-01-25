@@ -1,131 +1,93 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
-<html>
-  <head>
-    
-    
-    <title>加班申请</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
-  </head>
-  <script type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
-  
-  <body>
-  	
-		
-	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">		
-		<div class="row">
-			<ol class="breadcrumb">
-				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
-				<li class="active">加班申请</li>
-			</ol>
-		</div><!--/.row-->
-		
-		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">加班申请</h1>
-			</div>
-		</div><!--/.row-->
-									
-		
-		
-		<div class="row">
-			<div class="col-md-8">
-				<div class="panel panel-default">
-					<div class="panel-heading"><span class="glyphicon glyphicon-envelope"></span>Writing Content</div>
-					<div class="panel-body">
-						<form class="form-horizontal" action="saveJBAction" method="post">
-    							<input type="hidden" name="jb.sqr" value="<%=session.getAttribute("ename") %>">
-							<fieldset>
-								<!-- 类别 input-->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="kqsj">申请时间</label>
-									<div class="col-md-9">
-										<input type="text" name="jb.sqrq" value="" class="form-control">
-									</div>
-								</div>
-							
-								<!-- 考勤时间 input-->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="">加班日期</label>
-									<div class="col-md-9">
-											<input type="text" name="jb.jbrq" class="form-control" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  /> 
-									</div>
-								</div>
-								
-								
-								<!-- 考勤时段 body -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="">加班时长</label>
-									<div class="col-md-9">
-										<input type="text" name="jb.jbsc" class="form-control">个工作日
-									</div>
-								</div>
-
-								
-								<!-- 考勤说明 body -->
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="">加班原因</label>
-									<div class="col-md-9">
-								    	<input type="text" name="jb.jbyy" class="form-control">
-									</div>
-								</div>
-								
-								
-								<!-- 提交 actions -->
-								<div class="form-group">
-									<div class="col-md-12 widget-right">
-										<button type="reset" class="btn btn-default btn-md pull-right">reset</button>
-										<button type="submit" class="btn btn-default btn-md pull-right">Submit</button>
-									</div>
-									
-								</div>
-								
-								
-							</fieldset>
-						</form>
-					</div>
-				</div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<meta charset="UTF-8">
+	<title>學生成績列表</title>
+	    <!-- 引入 PureCSS -->
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+	    <!-- 引入 DataTables CSS -->
+	    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+	    <!-- 引入 jQuery -->
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	    <!-- 引入 DataTables -->
+	    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	    <!-- 引入 DataTables 匯出列印功能 -->
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+	    <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+	    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+	    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+	    <!--
+	        在 DataTables 中，dom 屬性用於定義表格控制元素的布局。dom: 'lBfrtip' 是一個配置字符串，用來指定這些元素在頁面上的顯示方式和順序。
+	        每個字母代表一個特定的表格控制元素：
+	        l - Length changing input control。這是一個下拉選單，允許用戶選擇表格每頁顯示多少條記錄。
+	        B - Buttons。這代表 DataTables 的按鈕組件，如導出和列印功能。
+	        f - Filtering input。即搜索框，允許用戶對表格數據進行搜索。
+	        r - Processing display element。這是一個處理指示器，用於顯示數據加載或處理的進度。
+	        t - The table。表格本身。
+	        i - Table information summary。表信息摘要，顯示當前頁面的數據和總數據量的信息。
+	        p - Pagination control。分頁控件，允許用戶瀏覽不同的數據頁面。
+	        因此，dom: 'lBfrtip' 表示您的表格將包含一個下拉選單來改變每頁的記錄數，按鈕組件，搜索框，數據加載指示器，表格本身，信息摘要，以及分頁控件。
+	        這些元素會按照 lBfrtip 的順序在頁面上進行布局。
+	    -->
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.pure-table').DataTable({
+					// 設定語言為繁體中文
+					"language": {
+						"url": "/js/datatables_zh_tw.json"
+					},
+					// 設定匯出功能
+					dom: 'lBfrtip',
+					buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
 				
-								
-			</div><!--/.col-->
-		</div><!--/.row-->
-	</div>	<!--/.main-->
-		  
-
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script>
-		$('#calendar').datepicker({
-		});
-
-		!function ($) {
-		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
-		        $(this).find('em:first').toggleClass("glyphicon-minus");      
-		    }); 
-		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-		}(window.jQuery);
-
-		$(window).on('resize', function () {
-		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-		})
-		$(window).on('resize', function () {
-		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-		})
-	</script>
-    
-  </body>
+				});
+			});
+		</script>
+		<style type="text/css">
+			.fail {
+				color: red;
+			}
+		</style>
+	</head>
+	<body style="padding: 15px;">
+		<h2>學生成績列表</h2>
+		<table class="pure-table pure-table-bordered">
+			<thead>
+				<tr>
+					<th>名次</th>
+					<th>ID</th>
+					<th>姓名</th>
+					<th>國文</th>
+					<th>英文</th>
+					<th>數學</th>
+					<th>總分</th>
+					<th>平均</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="score, state : ${ scores }">
+					<td th:text="${state.count}">0</td>
+					<td th:text="${score.id}"></td>
+					<td th:text="${score.name}"></td>
+					<td th:text="${score.chineseScore}" th:classappend="${score.chineseScore < 60} ? 'fail'"></td>
+					<td th:text="${score.englishScore}" th:classappend="${score.englishScore < 60} ? 'fail'"></td>
+					<td th:text="${score.mathScore}" th:classappend="${score.mathScore < 60} ? 'fail'"></td>
+					<td th:text="${score.totalScore}"></td>
+					<td "></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<td colspan="7" align="right">高標/低標的總平均:</td>
+				<td>
+					<span >0</span>
+					/
+					<span>0</span>
+				</td>
+			</tfoot>
+		</table>
+	</body>
 </html>

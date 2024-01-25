@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page import="com.example.model.entity.Employee"%>
+<%@page import="com.example.model.entity.oldEmployee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>

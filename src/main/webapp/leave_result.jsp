@@ -19,77 +19,66 @@
 				<table class="table table-bordered ">
 					<thead>
 						<tr>
-							<th>員工編號</th>
-							<td colspan="4">123</td>
-
-
-							<th>申請人</th>
-							<td colspan="4">123</td>
-
+							<th width="100px" ;align='center' valign="middle">申請部門</th>
+							<td  width="200px" ;align='center' valign="middle">123</td>
+							<th width="100px" ;align='center' valign="middle">申請日期</th>
+							<td width="200px" ;align='center' valign="middle">123</td>
 						</tr>
 						<tr>
-							<th>員工編號</th>
+							<th width="100px" ;align='center' valign="middle">申請人編號</th>
+							<td width="200px" ;align='center' valign="middle">123</td>
+							<th width="100px" ;align='center' valign="middle">申請人</th>
+							<td width="200px" ;align='center' valign="middle">123</td>
+
+						</tr>
+							<th width="100px" ;align='center' valign="middle">請假類型</th>
+							<td colspan="3" ;width="200px" ;align='center' valign="middle">123</td>
 						</tr>
 						<tr>
-							<th>員工編號</th>
+							<th width="100px" ;align='center' valign="middle">請假事由</th>
+							<td colspan="3" ;width="200px" ; height="100px" ;align='center'
+								valign="middle">123</td>
 						</tr>
 
 					</thead>
 					<tbody>
-
-
 						<tr>
-							<td>001</td>
-							<td>Amy</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							
-						
-
+							<th width="100px" ;align='center' valign="middle">開始日期</th>
+							<td width="200px" ;colspan="2">123</td>
+							<th width="100px" ;align='center' valign="middle">結束日期</th>
+							<td width="200px" ;colspan="3">123</td>
 
 						</tr>
 						<tr>
-							<td>001</td>
-							<td>Amy</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							<td>Sales</td>
-							
-						
-
+							<th width="100px" ;align='center' valign="middle">備註</th>
+							<td colspan="3" ;width="200px" ; height="100px" ;align='center'
+								valign="middle">123</td>
 						</tr>
-
-
-
 					</tbody>
-
-
 				</table>
 		</form>
 		<p>總計請假時數:</p>
 		<p>剩餘請假時數:</p>
-
-		<div class="dropdown">
-			<a class="btn  dropdown-toggle" style="background-color: #ccdce8"
-				href="#" role="button" id="dropdownMenuLink"
-				data-bs-toggle="dropdown" aria-expanded="false"> 查詢其他月份... </a>
-
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-				<li><a class="dropdown-item" href="#">2023-11月</a></li>
-				<li><a class="dropdown-item" href="#">2023-10月</a></li>
-				<li><a class="dropdown-item" href="#">2023-9月</a></li>
-				<li><a class="dropdown-item disabled">其餘月份請洽人資</a></li>
-			</ul>
-		</div>
+		<ol>
+			<p>【備註事項】:</p>
+			<li>員工請假規定及薪資核定辦法依勞基法規定</li>
+			<li>簽章須包含部門主管及代理人同意</li>
+		</ol>
+		
+		<form>
+			<table class="table table-bordered ">
+				<thead>
+					<tr>
+						<th width="100px" ;align='center' valign="middle">部門主管</th>
+						<td width="100px" ; height="100px"></td>
+						<th width="100px" ;align='center' valign="middle">代理人</th>
+						<td width="100px" ; height="100px"></td>
+						<th width="100px" ;align='center' valign="middle">申請人</th>
+						<td width="100px" ; height="100px"></td>
+					</tr>
+				</thead>
+			</table>
+		</form>
 
 	</div>
 </div>
