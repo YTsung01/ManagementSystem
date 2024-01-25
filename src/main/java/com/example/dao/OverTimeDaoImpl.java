@@ -44,20 +44,20 @@ public class OverTimeDaoImpl implements OverTimeDao {
 	@Override
 	public List<OverTime> findAllOverTimeByEmpId(Integer empId) {
 		String sql = "SELECT emp.empName, f.formId, f.type, o.* " + "FROM empbook emp, form f, overtime o "
-				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ?";
+				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? ORDER BY f.applyDate DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
 	}
 	//4. 依據empId查詢已經審核過的加班資料
 	@Override
 	public List<OverTime> findCheckoutOverTimeFormByEmpId(Integer empId) {
 		String sql = "SELECT emp.empName, f.formId, f.type, o.* " + "FROM empbook emp, form f, overtime o "
-				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? and o.verifyState = 1";
+				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? and o.verifyState = 1 ORDER BY f.applyDate DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
 	}
 	//5. 依據formid修改加班(注意!! 不能修改已經審核過的申請單)
 	@Override
 	public int updateOverTimeByFormId(String formId,OverTime overTime) {
-	    String sql = "UPDATE overTime SET startTime = ?, endTime = ?, applyHour = ?, overtimeType = ?, dayOrHoilday = ?, reason = ? WHERE formId = ? and verifyState = 2 ORDER BY f.applyDate DESC";
+	    String sql = "UPDATE overTime SET startTime = ?, endTime = ?, applyHour = ?, overtimeType = ?, dayOrHoilday = ?, reason = ? WHERE formId = ? and verifyState = 2";
 	    return jdbcTemplate.update(sql, overTime.getStartTime(), overTime.getEndTime(), overTime.getApplyHour(), overTime.getOvertimeType(), overTime.getDayOrHoilday(), overTime.getReason(), formId);
 	}
 	//6. 依照FormId取消加班申請
@@ -85,13 +85,13 @@ public class OverTimeDaoImpl implements OverTimeDao {
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
 	}
 	
-	//9. 查詢員工加班紀錄(根據起始日期與員工ID)
+	//9. 查詢已經員工加班紀錄(根據起始日期與員工ID)
 	/**
 	 * SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = 101 and o.verifyState = 2 and startTime BETWEEN  '2024-01-23 14:40:41' AND '2024-01-25 15:40:41';;
 	 */
 	@Override
 	public  List<OverTime>findAllOverTimeByEmpIdAndStartDateAndEndDate(Integer empId, Date startDate, Date endDate) {
-		String sql = "SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? and o.verifyState = 1 and startTime BETWEEN  ? AND ?;";
+		String sql = "SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ?  and startTime BETWEEN  ? AND ?;";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(OverTime.class),empId,startDate, endDate);
 	}
 	

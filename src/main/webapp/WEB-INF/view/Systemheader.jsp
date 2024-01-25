@@ -6,7 +6,8 @@
 <meta charset="UTF-8">
 <title>考勤系統</title>
 <!-- 引入 Bootstrap 的 JavaScript 文件（需要先引入 jQuery）-->
-
+	    <!-- 引入 jQuery -->
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script
@@ -22,7 +23,7 @@
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-light "
-		style="background-color: #4682b4">
+		style="background-color: #4682b4" id="systemHeader">
 		<div class="container-fluid">
 			<a class="navbar-brand text-light " href="/ManagementSystem/app/main">考勤系統</a>
 			<button class="navbar-toggler" type="button"

@@ -4,10 +4,10 @@
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!-- 表單元素 -->
-${ overTime }
+<!-- 表單元素 
+${ OverTimefilter }
 <hr>
-${empBook }
+${empBook }-->
 
 
 <div class="d-flex justify-content-center mx-auto p-4">
@@ -28,6 +28,8 @@ ${empBook }
 						<th>審核狀態</th>
 						<th>審核人</th>
 						<th>詳情</th>
+						<th>修改</th>
+						<th>刪除</th>
 						
 
 					</tr>
