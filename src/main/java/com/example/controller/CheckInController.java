@@ -148,7 +148,6 @@ public class CheckInController {
 			throws ParseException {
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
-		// 處理搜索邏輯，selectedMonth 是前端傳遞過來的月份參數
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		Date StartDate2 = sdf.parse(startDate);
 		Date EndDate2 = sdf.parse(endDate);

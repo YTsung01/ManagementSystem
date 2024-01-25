@@ -26,4 +26,7 @@ public interface FormDao {
 	
 	Optional<EmpBook> findEmpBookByFormId(String formId);
 	
+	//6.
+	public int cancelFormByFormId(String formId);
+	
 }

@@ -82,7 +82,7 @@
 				</ul>
 
 			</div>
-			<i class="bi bi-person-circle text-light h5 mb-0 d-none d-lg-block"><a
+			<i class=" text-light h5 mb-0 d-none d-lg-block"><a
 				href="/ManagementSystem/app/auth/login" class="text-light">登出</a></i>
 		</div>
 	</nav>

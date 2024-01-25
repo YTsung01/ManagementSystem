@@ -55,11 +55,10 @@ ${empBook }-->
 								href="http://localhost:8080/ManagementSystem/app/overtime/deatil/${ overtimes.formId }" class="btn  align-items-center "
 								style="background-color:#D6DCDB">詳情</a></td>
 							<td><a 
-								href="http://localhost:8080/ManagementSystem/app/overtime/update/${ overtimes.formId }"
+								href="http://localhost:8080/ManagementSystem/app/overtime/show/${ overtimes.formId }"
 								class="btn  align-items-center "
 								style="background-color: #A2AFA6">修改</a></td>
-							<td><a href="javascript:void(0);"
-								onClick="updateItem(${ item.itemId })"
+							<td><a href="http://localhost:8080/ManagementSystem/app/overtime/delete/${ overtimes.formId }"
 								class="btn  align-items-center "
 								style="color: white; background-color: #CC5F5A;">刪除</a></td>
 						</tr>
