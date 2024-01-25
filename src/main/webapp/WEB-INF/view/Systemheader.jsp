@@ -6,25 +6,24 @@
 <meta charset="UTF-8">
 <title>考勤系統</title>
 <!-- 引入 Bootstrap 的 JavaScript 文件（需要先引入 jQuery）-->
-
+	    <!-- 引入 jQuery -->
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js">
+</script>
 
 <!-- 引入 Bootstrap 5 样式表 -->
 </head>
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-light "
-		style="background-color: #4682b4">
+		style="background-color: #4682b4" id="systemHeader">
 		<div class="container-fluid">
 			<a class="navbar-brand text-light " href="/ManagementSystem/app/main">考勤系統</a>
 			<button class="navbar-toggler" type="button"
@@ -71,7 +70,7 @@
 							<li><a class="dropdown-item"
 								href="/ManagementSystem/app/overtime/request">加班申請</a></li>
 							<li><a class="dropdown-item"
-								href="/ManagementSystem/app/overtime/search/${employee.empId}">加班查詢</a></li>
+								href="/ManagementSystem/app/overtime/search/${empBook.empId}">加班查詢</a></li>
 							<li><a class="dropdown-item"
 								href="/ManagementSystem/app/overtime/check">加班管理</a></li>
 						</ul>

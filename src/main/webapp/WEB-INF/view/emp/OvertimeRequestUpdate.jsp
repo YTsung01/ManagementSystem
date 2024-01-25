@@ -6,16 +6,21 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.UUID"%>
 <%@ taglib prefix="sp" uri="http://www.springframework.org/tags/form"%>
-<!-- ${ employee }
+${ empBook }
 <hr>
-${overTimes}
+${overTime}
 <hr>
-${overTimesbyId}
+${form}
 <hr>
-${totalOvertimeHour} ${overIimeLeftHour} -->
+${form.formId}
+<hr>
+${updateTime }
+${updateendTime }
+
+
 
 <div class="container-xl mt-5">
-	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
+	
 
 
 	<%
@@ -34,7 +39,6 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 
 	<sp:form modelAttribute="overTime" action="./add/${empBook.empId}"
 		method="post" class="border rounded mx-auto p-4">
-		<input type="hidden" name="formId" value="${overTime.formId}">
 		<div class="row">
 			<!-- 左側 -->
 			<!-- <div class="col-12 col-md-10 border-end"> -->
@@ -49,8 +53,9 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表日期：</div>
-				<div class="col-12 col-md-2 position-relative" name="overTimeDate">
-					<p>${overTimeDate}</p>
+				<div class="col-12 col-md-2 position-relative text-align-center" name="overTimeDate">
+					<p><fmt:formatDate value="${form.applyDate}"
+									pattern="yyyy-MM-dd HH:mm:ss" /></p>
 				</div>
 			</div>
 			<!-- 申請人 -->
@@ -72,9 +77,9 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
 					<label> <input type="radio" name="overtimeType"
-						id="overtimeType" required value="1" /> 加班費
+						id="overtimeType" required value="${overtime.overtimeType }" /> 加班費
 					</label> <label> <input type="radio" name="overtimeType"
-						id="overtimeType" required value="2" /> 補修
+						id="overtimeType" required value="${overtime.overtimeType }" /> 補修
 					</label>
 				</div>
 			</div>
@@ -99,8 +104,9 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">加班起始日：</div>
 				<div class="col-12 col-md-2 position-relative">
 					<input type="datetime-local" name="startTime" id="overTimeStart"
-						class="form-control" style="width: auto;" min="2023-11-01"
-						max="2023-12-31">
+						class="form-control" style="width: auto;"
+						value="${updateTime }"
+						min="2023-11-01" max="2023-12-31">
 					<!-- 控制日期最大最小值 -->
 
 				</div>
@@ -109,8 +115,8 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 				<div class="col-12 col-md-2 position-relative">
 					<input type="datetime-local" name="endTime" id="overTimeEnd"
 						class="form-control" style="width: auto;" min="2023-11-01"
-						max="2023-12-31"> <span id="overTimeEndError"
-						style="color: red;"></span>
+						max="2023-12-31"  value="${ updateendTime }"> <span
+						id="overTimeEndError" style="color: red;"></span>
 					<!-- 控制日期最大最小值 -->
 				</div>
 			</div>
@@ -138,8 +144,7 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 			<div class="row  pe-4 mb-5 mt-3">
 				<div class="col-12 col-md-2 text-md-end p-md-0">加班事由：</div>
 				<div class="col-12 col-md-10 mb-4">
-					<textarea name="reason" id="reason" class="form-control" rows="5"
-						required></textarea>
+					<textarea name="reason" id="reason" class="form-control" rows="5"required ">${overTime.reason}</textarea>
 				</div>
 			</div>
 
