@@ -71,11 +71,11 @@ public class TakeOffDaoImplTest {
 		 System.out.println(takeOffs);
 		 */
 		
-		/*
+		
 		//4. 依據empId查詢已經審核過的加班資料
 		 List<TakeOff> takeOffs = takeOffDao.findCheckoutTakeOffByEmpId(101);
 		 System.out.println(takeOffs);
-		 */
+		 
 		
 		/*
 		//5. 依據formId修改請假(注意!! 不能修改已經審核過的申請單)
