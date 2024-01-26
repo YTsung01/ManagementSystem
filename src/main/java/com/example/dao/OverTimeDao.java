@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.entity.CheckIn;
 import com.example.entity.EmpBook;
 
 public interface OverTimeDao {

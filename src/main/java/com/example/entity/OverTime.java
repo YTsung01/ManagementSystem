@@ -27,7 +27,7 @@ public class OverTime {
 
 	public OverTime(String formId, Date startTime, Date endTime, Integer applyHour, Integer overtimeType,
 			Integer dayOrHoilday, String reason, Integer verifyState, String checkReason, EmpBook empBook) {
-		super();
+	
 		this.formId = formId;
 		this.startTime = startTime;
 		this.endTime = endTime;

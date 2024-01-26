@@ -13,34 +13,7 @@
 
 
 <div class="container-xl mt-5">
-<!--  
-<script>
-    function submitForm() {
-        // 获取当前的 startTime 和 endTime 值
-        var startTimeValue = document.getElementById("startTime").value;
-        var endTimeValue = document.getElementById("endTime").value;
-
-        // 将 startTime 和 endTime 转换为 yyyy-MM-dd HH:mm:ss 格式
-        var formattedStartTime = formatDate(startTimeValue);
-        var formattedEndTime = formatDate(endTimeValue);
-
-        // 将转换后的值设置回 startTime 和 endTime
-        document.getElementById("startTime").value = formattedStartTime;
-        document.getElementById("endTime").value = formattedEndTime;
-
-        // 提交表单
-        document.getElementById("overTimeUpdate").submit();
-    }
-
-    // 将日期字符串格式转换为 yyyy-MM-dd HH:mm:ss
-    function formatDate(dateString) {
-        var date = new Date(dateString);
-        var options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        return date.toLocaleDateString('en-US', options).replace(/\//g, '-');
-    }
-</script>-->
-
-	<form modelAttribute="overTime"
+	<form 
 		action="/ManagementSystem/app/overtime/update/${form.formId}"
 		method="post" class="border rounded mx-auto p-4" id="overTimeUpdate">
 		<div class="row">

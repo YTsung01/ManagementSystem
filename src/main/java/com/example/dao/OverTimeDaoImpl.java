@@ -68,7 +68,7 @@ public class OverTimeDaoImpl implements OverTimeDao {
 	// 3. 依據empId查詢加班資料
 	@Override
 	public List<OverTime> findAllOverTimeByEmpId(Integer empId) {
-		String sql = "SELECT emp.empName, f.formId, f.type, o.* " + "FROM empbook emp, form f, overtime o "
+		String sql = "SELECT emp.empName, f.formId, f.type, f.applyDate, o.* " + "FROM empbook emp, form f, overtime o "
 				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? ORDER BY f.applyDate DESC";
 		return jdbcTemplate.query(sql, rowMapper, empId);
 	}
@@ -76,7 +76,7 @@ public class OverTimeDaoImpl implements OverTimeDao {
 	// 4. 依據empId查詢已經審核過的加班資料
 	@Override
 	public List<OverTime> findCheckoutOverTimeFormByEmpId(Integer empId) {
-		String sql = "SELECT emp.empName, f.formId, f.type, o.* " + "FROM empbook emp, form f, overtime o "
+		String sql = "SELECT emp.empName, f.formId, f.type,f.applyDate, o.* " + "FROM empbook emp, form f, overtime o "
 				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? and o.verifyState = 1 ORDER BY f.applyDate DESC";
 		return jdbcTemplate.query(sql, rowMapper, empId);
 	}
@@ -151,6 +151,7 @@ public class OverTimeDaoImpl implements OverTimeDao {
 		return jdbcTemplate.update(sql, formId);
 	}
 	//UPDATE overtime SET  verifyState = 0 , checkReason = 'test' WHERE formId = '63c0a02a-692e-41a5-a934-434fd51919ed'  ;
+	
 	// 12.依照formId 不同意加班狀態 verifyState = 0
 	@Override
 	public int falseOverTimeByFormId(String formId, String checkReason) {

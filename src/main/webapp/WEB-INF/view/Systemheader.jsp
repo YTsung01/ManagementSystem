@@ -54,9 +54,9 @@
 							aria-expanded="false" style="background-color: #4682b4">
 							請假</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<li><a class="dropdown-item" href="./LeaveRequest.jsp">請假申請</a></li>
-							<li><a class="dropdown-item" href="./LeaveSearch.jsp">請假查詢</a></li>
-							<li><c:if test="${empBook != null && empBook.getLevelId() == 2}"><a class="dropdown-item" href="./LeaveCheck.jsp">請假管理</a></c:if></li>
+							<li><a class="dropdown-item" href="/ManagementSystem/app/takeOff/request">請假申請</a></li>
+							<li><a class="dropdown-item" href="/ManagementSystem/app/takeOff/search">請假查詢</a></li>
+							<li><c:if test="${empBook != null && empBook.getLevelId() == 2}"><a class="dropdown-item" href="/ManagementSystem/app/takeOff/check">請假管理</a></c:if></li>
 						</ul>
 					</div>
 
