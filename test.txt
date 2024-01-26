@@ -1,7 +1,21 @@
-	//依據empId查詢目前加班的累積時數
-	@Override
-	public Optional<OverTime> findOverTimeHourByEmpId(Integer empId) {
-		String sql = "SELECT SUM(overTimeHour) AS totalOverTime FROM managementsystem.overTimeList WHERE empId = ? && verifyState = 1";
-		OverTime overTime= jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(OverTime.class), empId);
-		return Optional.ofNullable(overTime);
-	}
+<script>
+    // 當代理人下拉選單的值發生變化時
+    document.getElementById("agent").addEventListener("change", function() {
+        // 取得代理人和申請人的下拉選單元素
+        var agentDropdown = document.getElementById("agent");
+        var applierDropdown = document.getElementById("applier");
+
+        // 取得選中的代理人和申請人的值
+        var selectedAgent = agentDropdown.options[agentDropdown.selectedIndex].text
+        var selectedApplier = applierDropdown.options[applierDropdown.selectedIndex].text
+
+        // 檢查是否選中相同的代理人和申請人
+        if (selectedAgent === selectedApplier) {
+            // 如果相同，顯示錯誤訊息（你可以根據實際需求自行調整提示內容和樣式）
+            alert("代理人和申請人不可為同一人");
+            // 或者清空申請人的選擇
+            applierDropdown.value = "";
+        }
+    });
+</script>
+

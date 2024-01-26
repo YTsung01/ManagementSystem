@@ -30,6 +30,7 @@ public class MainPageController {
 	public String mainPage(Model model, HttpSession session) {
 
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		model.addAttribute("empBook", empBook);
 		Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
 		MainPageStatus mainPageStatus = mainPageImpl.getMainPageStatusByEmpBook(empBook, empBossOpt);
 

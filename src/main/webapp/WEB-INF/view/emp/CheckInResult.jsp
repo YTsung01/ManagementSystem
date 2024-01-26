@@ -69,7 +69,7 @@
 			</div>
 		</div>
 	</div>
-</body>
+
 
     <script>
         function validateForm() {
@@ -78,10 +78,9 @@
 
             if (startDate === "" || endDate === "") {
                 alert("請選擇日期");
-                return false; // 阻止表单提交
+                return false; 
             }
 
-            return true; // 允许表单提交
+            return true; 
         }
     </script>
-</html>

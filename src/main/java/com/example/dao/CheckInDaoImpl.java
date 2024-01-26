@@ -28,10 +28,10 @@ public class CheckInDaoImpl implements CheckInDao {
 	// 2. 新增下班時間
 	// update checkin set checkOutTime = current_timestamp() where empId=101;
 	@Override
-	public int addCheckOut(Integer empId) {
-		String sql = "update checkin set checkOutTime = current_timestamp() where empId = ? ORDER BY checkInTime DESC"
-				+ "LIMIT 1?";
-		return jdbcTemplate.update(sql, empId);
+	public int addCheckOut(Integer empId ) {
+		String sql = "update checkin set checkOutTime = current_timestamp() where empId = ? ORDER BY checkInTime DESC "
+				+ "LIMIT 1";
+		return jdbcTemplate.update(sql,empId );
 	}
 
 	// 3. 依據empId查詢所有的上班紀錄
