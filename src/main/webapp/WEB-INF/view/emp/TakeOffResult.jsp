@@ -2,6 +2,33 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
 
+<style>
+/* 在打印時顯示審核中浮水印 */
+@media print {
+    :after {
+        content: "審核中";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 250px;
+        color: red;
+        pointer-events: none;
+        display: none; /* 預設隱藏 */
+    }
+
+    /* 在打印時隱藏 Systemheader.jsp */
+    #systemHeader, #printButton {
+        display: none;
+    }
+}
+
+/* 在 JS 中動態設置 display 值 */
+.position-relative::after {
+    display: var(--after-display, none);
+}
+</style>
+
 <html>
 
 
@@ -20,15 +47,15 @@
 					<thead>
 						<tr>
 							<th width="100px" ;align='center' valign="middle">申請部門</th>
-							<td  width="200px" ;align='center' valign="middle">123</td>
+							<td  width="200px" ;align='center' valign="middle">${ empBook.empDepartment  }</td>
 							<th width="100px" ;align='center' valign="middle">申請日期</th>
-							<td width="200px" ;align='center' valign="middle">123</td>
+							<td width="200px" ;align='center' valign="middle">${ form.applyDate  }</td>
 						</tr>
 						<tr>
 							<th width="100px" ;align='center' valign="middle">申請人編號</th>
-							<td width="200px" ;align='center' valign="middle">123</td>
+							<td width="200px" ;align='center' valign="middle">${ empBook.empId }</td>
 							<th width="100px" ;align='center' valign="middle">申請人</th>
-							<td width="200px" ;align='center' valign="middle">123</td>
+							<td width="200px" ;align='center' valign="middle">${ empBook.empName }</td>
 
 						</tr>
 						<tr>
@@ -38,21 +65,21 @@
 							<td width="200px" ;align='center' valign="middle">123</td>
 						<tr>
 							<th width="100px" ;align='center' valign="middle">請假類型</th>
-							<td colspan="3" ;width="200px" ;align='center' valign="middle">123</td>
+							<td colspan="3" ;width="200px" ;align='center' valign="middle">${ takeOff.takeOfftype }</td>
 						</tr>
 						<tr>
 							<th width="100px" ;align='center' valign="middle">請假事由</th>
 							<td colspan="3" ;width="200px" ; height="100px" ;align='center'
-								valign="middle">123</td>
+								valign="middle">${ takeOff.reason }</td>
 						</tr>
 
 					</thead>
 					<tbody>
 						<tr>
 							<th width="100px" ;align='center' valign="middle">開始日期</th>
-							<td width="200px" ;colspan="2">123</td>
+							<td width="200px" ;colspan="2">${ takeOff.startTime }</td>
 							<th width="100px" ;align='center' valign="middle">結束日期</th>
-							<td width="200px" ;colspan="3">123</td>
+							<td width="200px" ;colspan="3">${ takeOff.endTime }</td>
 
 						</tr>
 						<tr>

@@ -8,7 +8,7 @@ public class TakeOff {
 	
 	// 一般欄位
 	private String formId;    				            // 請假申請單單號
-	private Integer agent;    				            // 代理人
+	private Integer agent;    				            // 代理人ID
 	private Integer takeoffType;    				    // 請假類型'1:特休 2:事假 3:病假 4:喪假 5:公假'
 	private Date startTime;               				// 請假開始的時間
 	private Date endTime;               				// 請假結束的時間

@@ -82,11 +82,15 @@ public class TakeOffController {
 		System.out.print(allDeptEmp);
 
 		return "emp/TakeOffRequest";
+		
 
 	}
+	
+	
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	@PostMapping("/add/{empId}")
+	@ResponseBody
 	public String addTakeOff(@RequestParam Map<String, Object> formMap, Model model, HttpSession session,
 			RedirectAttributes redirectAttributes) throws ParseException {
 
@@ -96,10 +100,14 @@ public class TakeOffController {
 		String uuid = UUID.randomUUID().toString();
 
 		Form form = new Form();
-		form.setApplier(empBook.getEmpId());
+		
+		//form.setApplier(empBook.getEmpId());
 		form.setFormId(uuid);
 		form.setType(1); // 請假表單固定type是2
 		form.setApplyDate(new Date());
+		
+		Integer applier = Integer.parseInt(formMap.get("applier") + "");
+		form.setApplier(applier);
 
 		formDao.addForm(form);
 
@@ -107,26 +115,34 @@ public class TakeOffController {
 		takeOff.setFormId(uuid);
 
 		// 從表單取得請假資料
-
+		Integer agent = Integer.parseInt(formMap.get("agent") + "");
+		takeOff.setAgent(agent);
+		
+		Integer takeoffType = Integer.parseInt(formMap.get("takeoffType") + "");
+		takeOff.setTakeoffType(takeoffType);
+		
 		Date startTime = sdf.parse(formMap.get("startTime") + "");
 		takeOff.setStartTime(startTime);
 
 		Date endTime = sdf.parse(formMap.get("endTime") + "");
 		takeOff.setEndTime(endTime);
 
+		Integer takeoffDay = Integer.parseInt(formMap.get("takeoffDay") + "");
+		takeOff.setTakeoffDay(takeoffDay);
+		
 		Integer takeoffHour = Integer.parseInt(formMap.get("takeoffHour") + "");
 		takeOff.setTakeoffHour(takeoffHour);
 
 		String reason = formMap.get("reason") + "";
 		takeOff.setReason(reason);
 
-		Integer takeoffType = Integer.parseInt(formMap.get("takeoffType") + "");
-		takeOff.setTakeoffType(takeoffType);
+		
 
 		takeOffDao.addTakeOff(takeOff);
 		model.addAttribute("takeOff", takeOff);
 
-		return "redirect:../search/{empId}";
+		//return "redirect:../search/{empId}";
+		return takeOff +" "+ formMap;
 
 	}
 
