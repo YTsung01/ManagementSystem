@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.entity.CheckIn;
+
 import com.example.entity.EmpBook;
 import com.example.entity.OverTime;
 

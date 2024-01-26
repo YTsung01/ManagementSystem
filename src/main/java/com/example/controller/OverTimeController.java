@@ -84,8 +84,23 @@ public class OverTimeController {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	@PostMapping("/add/{empId}")
+<<<<<<< HEAD
 	public String addOverTime(@RequestParam Map<String, Object> formMap, Model model, HttpSession session,
 			RedirectAttributes redirectAttributes) throws ParseException, WriterException, IOException {
+=======
+    public String addOverTime(@RequestParam Map<String, Object> formMap, Model model, HttpSession session,RedirectAttributes redirectAttributes) throws ParseException{
+			System.out.println(formMap);
+			//取得登入者資訊
+			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+			//利用uuid產生formId
+			String uuid = UUID.randomUUID().toString();
+			
+			Form form = new Form();
+			form.setApplier(empBook.getEmpId());
+			form.setFormId(uuid);
+			form.setType(2); 	//加班表單固定type是2
+			form.setApplyDate(new Date());
+>>>>>>> branch 'jessie-202312' of https://github.com/YTsung01/ManagementSystem.git
 
 		// 取得登入者資訊
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");

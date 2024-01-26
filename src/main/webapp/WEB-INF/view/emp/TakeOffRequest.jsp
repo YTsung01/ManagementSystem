@@ -4,16 +4,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-
-
-
 <div class="container-xl mt-5">
-
 	<!-- 有需要上傳檔案,內有多媒體影像的話一定要加入 entype這個標籤 -->
 
 
+	<%
+	// 使用當前時間生成唯一的表單單號
+	//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+	//String formNumber = dateFormat.format(new Date());
+	%>
+
+	<%
+	//UUID uuid = UUID.randomUUID();
+	//uuid.toString();
+	%>
+	<%
+	//=uuid
+	%>
+
+
 	<form action="./add/${empBook.empId}" method="post" enctype="multipart/form-data"
-		class="border rounded mx-auto p-4">
+		class="border rounded mx-auto p-4" name="formId" value="${overTime.formId}">
 		<div class="row">
 			<!-- 左側 -->
 			<!-- <div class="col-12 col-md-10 border-end"> -->
@@ -22,13 +33,13 @@
 			<!-- 填表人 -->
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表人：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-12 col-md-2 position-relative ">
 					${ empBook.empName }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表日期：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-12 col-md-2 position-relative" name="takeOffDate">
 					${takeOffDate}
 					<!-- 控制日期最大最小值 -->
 
@@ -38,20 +49,23 @@
 			<!-- 申請人 -->
 
 			<div class="row align-items-center pe-4 mb-3">
-				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請人：</div>
+				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0 " >申請人：</div>
 
-				<div class="col-12 col-md-2 position-relative">
-					<select name="a_area" id="applier" class="form-select" required>
+				<div class="col-12 col-md-2 position-relative" >
+					<select name="applier" id="applier" class="form-select" required>
 						<option value="" selected disabled>請選擇申請人..</option>
+
 						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
+
 						<c:forEach var="emp"
 								items="${allDeptEmp}">
-						<option value="${emp.empName}" >${emp.empName}</option>
-						
+						<option value="${emp.empId}" >${emp.empName}</option>
+				
 						</c:forEach>
 						
 						<input type="hidden" name="applier0"
 							id="applier0">
+						
 					</select>
 
 
@@ -61,7 +75,7 @@
 
 
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請部門：</div>
-				<div class="col-12 col-md-2 position-relative">
+				<div class="col-12 col-md-2 position-relative" name="empDepartment" >
 					${ empBook.empDepartment  }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
@@ -71,25 +85,36 @@
 
 
 
-
 			<!-- 代理人 -->
+
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">代理人：</div>
-					<div class="col-12 col-md-2 position-relative">
-					<select name="a_area" id="agent" class="form-select" required>
+					<div class="col-12 col-md-2 position-relative"  >
+					<select name="agent" id="agent" class="form-select" required>
 						<option value="" selected disabled>請選擇代理人..</option>
+
 						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
+						
+
 						<c:forEach var="emp"
 								items="${allDeptEmp}">
-						<option value="${emp.empName}" >${emp.empName}</option>
+						<option value="${emp.empId}" >${emp.empName}</option>
 						
+			
 						</c:forEach>
+					
 						
 							<input type="hidden" name="agent0"
 							id="agent0">
-					
-			
 						
+
+				<!--
+						<option value="101">Solar</option>
+						<option value="102">Moonbyul</option>
+						<option value="103">Wheein</option>
+						<option value="104">Hwasa</option>
+				-->	
+			
 					</select>
 					
 			
@@ -108,15 +133,15 @@
 			<!-- 選擇假別 -->
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">選擇假別：</div>
-				<div class="col-12 col-md-7">
+				<div class="col-12 col-md-7" name="takeoffType">
 					<select name="a_area" id="a_area" class="form-select" required>
 						<option value="" selected disabled>請選擇請假類別..</option>
 						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
-						<option value="特別休假">特別休假</option>
-						<option value="病假">病假</option>
-						<option value="事假">事假</option>
-						<option value="喪假">喪假</option>
-						<option value="公假">公假</option>
+						<option value="1">特別休假</option>
+						<option value="2">事假</option>
+						<option value="3">病假</option>
+						<option value="4">喪假</option>
+						<option value="5">公假</option>
 					</select>
 				</div>
 			</div>
@@ -144,14 +169,14 @@
 			<div class="row align-items-center pe-4 mb-5">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">合計天數：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="resultDate" id="resultDate"
+					<input type="hidden" name="resultDate" id="resultDate"
 						class="form-control" required>
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2">天</div>
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">合計時數：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="text" name="resultTime" id="resultTime"
+					<input type="hidden" name="resultTime" id="resultTime"
 						class="form-control" required>
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2 ">時</div>
@@ -160,18 +185,20 @@
 					class="col-12 col-md-1 btn btn-light text-nowrap "
 					name="calculatebtn" id="calculatebtn">計算</button>
 
-
+				
 				<!-- 留言內容 -->
+
 				<div class="row  pe-4 mb-5 mt-3">
 					<div class="col-12 col-md-2 text-md-end p-md-0">請假事由：</div>
-					<div class="col-12 col-md-10 mb-4">
+					<div class="col-12 col-md-10 mb-4" name="reason" >
 						<textarea name="a_content" id="a_content" class="form-control"
 							rows="5" required></textarea>
+<!-- 
 						<div class="col-12 col-md-12 mt-5">
 							<label class="btn btn-outline-primary w-100"> <input
 								type="file" name="upfile[]" multiple accept=".jpg, .jpeg, .png"
 								id="upfile" class="upfile d-none"> <!-- 選多個東西要用陣列儲存 name是負責接收不是負責選 藥用multiple才能多選 accept來過濾 -->
-								上傳附件
+<!-- 								上傳附件
 							</label>
 
 							<ul style="list-style-type: disc; margin: 50px">
@@ -185,7 +212,7 @@
 							<div id="img_errmsg" class="text-danger text-center tw-bold"></div>
 							<div id="img_area" class="text-center"></div>
 						</div>
-
+-->
 					</div>
 				</div>
 
@@ -201,7 +228,7 @@
 
 			</div>
 		</div>
-		
+	</form>
 		
 		<div class="container mt-5">
 				<!-- 模态框 -->
@@ -228,7 +255,7 @@
 			</div>
 		
 		
-	</form>
+	
 </div>
 
 
@@ -320,7 +347,7 @@ $('#calculatebtn').on('click', function() {
         $(document).ready(function () {
         	 console.log('Calculate button clicked');
             $("#searchDayoff").click(function () {
-            	 console.log('Calculate button clicked');
+            	console.log('Calculate button clicked');
                 
                 var remainingHours = ${takeOffLeftHour}; 
 
@@ -332,12 +359,10 @@ $('#calculatebtn').on('click', function() {
                 } else {
                     modalBody.css('color', ''); 
                 }
-             
                 $("#remainingHoursModal").modal("show");
             });
         });
     </script>
-
 
 
 
