@@ -143,6 +143,11 @@ public class TakeOffController {
 		takeOffDao.addTakeOff(takeOff);
 		model.addAttribute("takeOff", takeOff);
 		
+		Attachement attachement = new Attachement();
+		
+		
+		
+		
 		
 		
 		return formMap + "<hr>" + takeOff;
