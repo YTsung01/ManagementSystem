@@ -2,11 +2,18 @@ package com.example.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class OverTime {
 	
 	String formId;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") 
 	Date startTime;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") 
 	Date endTime;
+	
 	Integer applyHour;
 	Integer overtimeType;	//1:加班 2:補休
 	Integer dayOrHoilday; 	//1:平日 2:假日
@@ -14,11 +21,13 @@ public class OverTime {
 	Integer verifyState; 	//0:未通過 1:通過 2:審核中
 	String checkReason;
 	
+	EmpBook empBook;
+	
 	public OverTime() {}
 
 	public OverTime(String formId, Date startTime, Date endTime, Integer applyHour, Integer overtimeType,
-			Integer dayOrHoilday, String reason, Integer verifyState, String checkReason) {
-		
+			Integer dayOrHoilday, String reason, Integer verifyState, String checkReason, EmpBook empBook) {
+	
 		this.formId = formId;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -28,6 +37,7 @@ public class OverTime {
 		this.reason = reason;
 		this.verifyState = verifyState;
 		this.checkReason = checkReason;
+		this.empBook = empBook;
 	}
 
 	public String getFormId() {
@@ -101,6 +111,14 @@ public class OverTime {
 	public void setCheckReason(String checkReason) {
 		this.checkReason = checkReason;
 	}
+	
+	public EmpBook getEmpBook() {
+		return empBook;
+	}
+
+	public void setEmpBook(EmpBook empBook) {
+		this.empBook = empBook;
+	}
 
 	@Override
 	public String toString() {
@@ -108,9 +126,5 @@ public class OverTime {
 				+ applyHour + ", overtimeType=" + overtimeType + ", dayOrHoilday=" + dayOrHoilday + ", reason=" + reason
 				+ ", verifyState=" + verifyState + ", checkReason=" + checkReason + "]";
 	}
-
-	
-	
-	
 
 }

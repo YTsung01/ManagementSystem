@@ -3,16 +3,18 @@ package com.example.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
-
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -84,23 +86,8 @@ public class OverTimeController {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	@PostMapping("/add/{empId}")
-<<<<<<< HEAD
 	public String addOverTime(@RequestParam Map<String, Object> formMap, Model model, HttpSession session,
 			RedirectAttributes redirectAttributes) throws ParseException, WriterException, IOException {
-=======
-    public String addOverTime(@RequestParam Map<String, Object> formMap, Model model, HttpSession session,RedirectAttributes redirectAttributes) throws ParseException{
-			System.out.println(formMap);
-			//取得登入者資訊
-			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
-			//利用uuid產生formId
-			String uuid = UUID.randomUUID().toString();
-			
-			Form form = new Form();
-			form.setApplier(empBook.getEmpId());
-			form.setFormId(uuid);
-			form.setType(2); 	//加班表單固定type是2
-			form.setApplyDate(new Date());
->>>>>>> branch 'jessie-202312' of https://github.com/YTsung01/ManagementSystem.git
 
 		// 取得登入者資訊
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
@@ -148,7 +135,7 @@ public class OverTimeController {
 
 	// 加班查詢資料(員工查自己)
 	@GetMapping(value = "/search/{empId}")
-	public String overtimeSearchPage(Model model, OverTime overTime, HttpSession session) {
+	public String overtimeSearchPage(Model model, HttpSession session) {
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 		// 找到自己所有的加班紀錄
@@ -183,20 +170,6 @@ public class OverTimeController {
 		return "emp/OvertimeSearch";
 	}
 
-	// 主管依照加班查詢本部門所有加班資料
-	@GetMapping(value = "/search", produces = "text/plain;charset=utf-8")
-	public String overtimeSearchPageBoss(Model model, OverTime overTime, HttpSession session) {
-
-		// 取得登入者的資訊
-		EmpBook empBook = (EmpBook) session.getAttribute("employee");
-		// List<OverTime> overTimes =
-		// overTimeDAO.findAllOverTimeByDeptNo(employee.getEmpDeptno());
-		System.out.println("overTime = " + overTime);
-
-		// model.addAttribute("overTimes",overTimeDAO.findOverTimeHourByEmpId(employee.getEmpId()));
-		return "emp/OvertimeSearch";
-	}
-
 	// 搜尋功能
 	@GetMapping(value = { "/searchOvertime" })
 	public String searchOvertime(@RequestParam(name = "startDate", required = false) String startDate,
@@ -217,6 +190,7 @@ public class OverTimeController {
 
 		List<OverTime> filteredOverTimes = overTimeDao.findAllOverTimeByEmpIdAndStartDateAndEndDate(empBook.getEmpId(),
 				StartDate2, EndDate2);
+		
 		System.out.println("filteredOverTimes = " + filteredOverTimes);
 		System.out.println("StartDate2 = " + StartDate2);
 		System.out.println("EndDate2 = " + EndDate2);
@@ -232,26 +206,27 @@ public class OverTimeController {
 	public String searchOverTimeDetail(@PathVariable("fomrId") String fomrId, Model model, HttpSession session) {
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
-		OverTime overTime = overTimeDao.findOverTimeByFormId(fomrId).get();
+		OverTime overTimes = overTimeDao.findOverTimeByFormId(fomrId).get();
 		Form form = formDao.findFormByFormId(fomrId).get();
 
-		if (overTime.getOvertimeType() == 1) {
+		if (overTimes.getOvertimeType() == 1) {
 			model.addAttribute("overTimetype", "加班費");
 		}
 
-		if (overTime.getOvertimeType() == 2) {
+		if (overTimes.getOvertimeType() == 2) {
 			model.addAttribute("overTimetype", "補休");
 		}
 
-		if (overTime.getDayOrHoilday() == 1) {
+		if (overTimes.getDayOrHoilday() == 1) {
 			model.addAttribute("DayOrHoilday", "平日加班");
 		}
 
-		if (overTime.getDayOrHoilday() == 2) {
+		if (overTimes.getDayOrHoilday() == 2) {
 			model.addAttribute("DayOrHoilday", "假日加班");
 		}
-
-		model.addAttribute("overTime", overTime);
+		
+		System.out.println(overTimes.getOvertimeType());
+		model.addAttribute("overTime", overTimes);
 		model.addAttribute("form", form);
 		Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
 		model.addAttribute("empBossName", empBossOpt.get().getEmpName());
@@ -259,22 +234,18 @@ public class OverTimeController {
 	}
 
 	// 修改 加班表單
-	@GetMapping("/update/{formId}")
-	public String updateOvertime(@PathVariable("formId") String formId, Model model,
-			HttpSession session) {
+	@GetMapping("/show/{formId}")
+	public String showOvertime(@PathVariable("formId") String formId, Model model, HttpSession session) {
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 		OverTime overTime = overTimeDao.findOverTimeByFormId(formId).get();
 		Form form = formDao.findFormByFormId(formId).get();
-			
-			model.addAttribute("overTime", overTime);
-			model.addAttribute("form", form);
 
-			int rowcount = overTimeDao.updateOverTimeByFormId(formId, overTime);
-			
+		model.addAttribute("overTime", overTime);
+		model.addAttribute("form", form);
 		System.out.println(formId);
 		System.out.println(overTime);
-		//默認startTime 
+		// 默認startTime
 		String updateTime = sdf.format(overTime.getStartTime());
 		String updateendTime = sdf.format(overTime.getEndTime());
 		model.addAttribute("updateTime", updateTime);
@@ -282,8 +253,112 @@ public class OverTimeController {
 		System.out.println(overTime.getStartTime());
 		System.out.println(overTime.getEndTime());
 		System.out.println(updateTime);
+		System.out.println(overTime.getOvertimeType());
+		System.out.println(overTime.getDayOrHoilday());
+		
+		// 計算目前已審核的總加班時數
+		Integer empId = empBook.getEmpId();
+		List<OverTime> calculateOverTimeHourList = overTimeDao.findCheckoutOverTimeFormByEmpId(empId);
+		int totalOvertimeHour = calculateOverTimeHourList.stream().mapToInt(OverTime::getApplyHour).sum();
+		model.addAttribute("totalOvertimeHour", totalOvertimeHour);
 
 		return "emp/OvertimeRequestUpdate"; // 重導到 user 首頁
+	}
+
+	// 修改
+	@PostMapping("/update/{formId}")
+	public String updateOvertime(@PathVariable("formId") String formId,
+			@RequestParam(name = "startTime") String startTime, @RequestParam(name = "endTime") String endTime,
+			@ModelAttribute("overTime") OverTime overTime, Model model,
+			HttpSession session) throws ParseException {
+
+		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		Date startTimeDate = dateFormat.parse(startTime);
+		Date endTimeDate = dateFormat.parse(endTime);
+		overTime.setStartTime(startTimeDate);
+		overTime.setEndTime(endTimeDate);
+
+		int rowcount = overTimeDao.updateOverTimeByFormId(formId, overTime);
+		System.out.println("update  rowcount = " + rowcount);
+		return "redirect:/app/overtime/search/"+empBook.getEmpId();
+	}
+
+	// 刪除
+	@GetMapping("/delete/{formId}")
+	public String deleteForm(@PathVariable("formId") String formId, HttpSession session, Model model) {
+		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		Form form = formDao.findFormByFormId(formId).get();
+		model.addAttribute("empId", empBook.getEmpId());
+		int rowcount = overTimeDao.cancelOverTimeByFormId(formId);
+		int rowcount1 = formDao.cancelFormByFormId(formId);
+
+		System.out.println("刪除成功:" + rowcount + rowcount1);
+		return "redirect:/app/overtime/search/{empId}";
+	}
+
+	// ------------------------------審核功能---------------//
+
+	// 主管依照加班查詢本部門所有加班資料
+	@GetMapping(value = "/check", produces = "text/plain;charset=utf-8")
+	public String overtimeSearchPageBoss(Model model, HttpSession session) {
+
+		// 取得登入者的資訊
+		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		
+		// 找到所有人的表單 依據登入者ID，去尋找Member的單子
+		Integer depotNo = empBook.getEmpDeptno();
+		List<EmpBook> deptEmpBooks = empBookDao.findEmpBooksByEmpDeptNo(depotNo);
+		deptEmpBooks = deptEmpBooks
+				.stream()
+				.filter( emp -> !emp.getEmpId().equals(empBook.getEmpId()))
+				.collect(Collectors.toList());
+		
+		List<OverTime> overTimes = new ArrayList<>();
+		deptEmpBooks.forEach(emp-> {
+			overTimes.addAll(overTimeDao.findAllOverTimeByDeptNo(emp.getEmpDeptno()));
+		});
+		
+		Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
+		
+		model.addAttribute("empBossName", empBossOpt.get().getEmpName());
+		model.addAttribute("overTimes", overTimes);
+		model.addAttribute("_method", "PUT");
+		System.out.println("overTime = " + overTimes);
+		return "boss/OvertimeCheck";
+	}
+
+	// 加班申請通過
+	@PutMapping("/pass/{formId}")
+	
+	public String passbtn(@PathVariable("formId") String formId, Model model, HttpSession session) {
+		// 取得登入者資料
+		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		// 找到這個表單
+		OverTime overTime = overTimeDao.findOverTimeByFormId(formId).get();
+		Form form = formDao.findFormByFormId(formId).get();
+		Optional<EmpBook> emp = formDao.findEmpBookByFormId(formId); 
+		int rowcount = overTimeDao.passOverTimeByFormId(formId);
+		System.out.println(formId + rowcount);
+		return "redirect:../check";
+	}
+
+	// 加班申請未通過
+	@PutMapping("/false/{formId}")
+	public String falsebtn(@PathVariable("formId") String formId, 
+			@RequestParam("checkReason") String checkReason,
+			HttpSession session) {
+		// 取得登入者資料
+		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		// 找到這個表單
+		OverTime overTime = overTimeDao.findOverTimeByFormId(formId).get();
+		Form form = formDao.findFormByFormId(formId).get();
+		int rowcount = overTimeDao.falseOverTimeByFormId(formId, checkReason);
+		System.out.println(formId);
+		System.out.println(checkReason);
+
+		return "redirect:../check";
 	}
 
 }

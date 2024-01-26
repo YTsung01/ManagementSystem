@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,9 +28,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.dao.AttachementDao;
 import com.example.dao.EmpBookDao;
 import com.example.dao.FormDao;
 import com.example.dao.TakeOffDao;
+import com.example.entity.Attachement;
 import com.example.entity.EmpBook;
 import com.example.entity.Form;
 import com.example.entity.TakeOff;
@@ -46,6 +49,9 @@ public class TakeOffController {
 
 	@Autowired
 	FormDao formDao;
+	
+	@Autowired
+	AttachementDao attachementDao;
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
@@ -90,67 +96,64 @@ public class TakeOffController {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	@PostMapping("/add/{empId}")
-//	@ResponseBody
-	public String addTakeOff(@RequestParam Map<String, Object> formMap, Model model, HttpSession session, @PathVariable("empId")Integer id,
-			RedirectAttributes redirectAttributes) throws ParseException {
-		System.out.println("---------------");
-		System.out.println(formMap);
-		System.out.println("---------------");
+	@ResponseBody
+	public String addTakeOff(@RequestParam Map<String, Object> formMap,
+			@RequestParam("applierName") Integer applierId, @RequestParam("agentName") Integer agentId,
+							Model model, HttpSession session,
+							RedirectAttributes redirectAttributes)   throws ParseException, IllegalStateException, IOException {
+
+		
+		 System.out.println("前端傳來的 selectedEmployee 值為: "  );
 		// 取得登入者資訊
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 		// 利用uuid產生formId
 		String uuid = UUID.randomUUID().toString();
 
 		Form form = new Form();
-		
-		//form.setApplier(empBook.getEmpId());
+		form.setApplier(applierId);
 		form.setFormId(uuid);
-		form.setType(1); // 請假表單固定type是2
+		form.setType(1); // 請假表單固定type是1
 		form.setApplyDate(new Date());
+		System.out.println(applierId);
+		System.out.println(agentId);
 		
-		Integer applier = Integer.parseInt(formMap.get("applier") + "");
-		form.setApplier(applier);
-		System.out.println(applier);
-		
+
 		formDao.addForm(form);
 
 		TakeOff takeOff = new TakeOff();
 		takeOff.setFormId(uuid);
 
 		// 從表單取得請假資料
-		Integer agent = Integer.parseInt(formMap.get("agent") + "");
-		takeOff.setAgent(agent);
-		System.out.println("---------------");
-		System.out.println(agent);
-		
-		Integer takeoffType = Integer.parseInt(formMap.get("takeoffType") + "");
-		takeOff.setTakeoffType(takeoffType);
-		System.out.println(takeoffType);
-		
+
 		Date startTime = sdf.parse(formMap.get("startTime") + "");
 		takeOff.setStartTime(startTime);
 
 		Date endTime = sdf.parse(formMap.get("endTime") + "");
 		takeOff.setEndTime(endTime);
-
-		Integer takeoffDay = Integer.parseInt(formMap.get("takeoffDay") + "");
-		takeOff.setTakeoffDay(takeoffDay);
-		
+		System.out.println(formMap);
 		Integer takeoffHour = Integer.parseInt(formMap.get("takeoffHour") + "");
 		takeOff.setTakeoffHour(takeoffHour);
 
 		String reason = formMap.get("reason") + "";
 		takeOff.setReason(reason);
 
-		
+		Integer takeoffType = Integer.parseInt(formMap.get("takeoffType") + "");
+		takeOff.setTakeoffType(takeoffType);
 
 		takeOffDao.addTakeOff(takeOff);
-		return "emp/TakeOffRequest";
-		// return "redirect:../search/{empId}";
-		// return takeOff +" "+ formMap;
+		model.addAttribute("takeOff", takeOff);
+		
+		Attachement attachement = new Attachement();
+		
+		
+		
+		
+		
+		
+		return formMap + "<hr>" + takeOff;
+	//	return "redirect:../search/{empId}";
 
 	}
-
 	// 加班查詢資料(員工查自己)
 	@GetMapping(value = "/search/{empId}")
 	public String takeoffSearchPage(Model model, HttpSession session, @ModelAttribute TakeOff takeOff) {
