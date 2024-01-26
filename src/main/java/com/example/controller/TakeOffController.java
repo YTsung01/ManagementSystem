@@ -90,10 +90,11 @@ public class TakeOffController {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	@PostMapping("/add/{empId}")
-	@ResponseBody
-	public String addTakeOff(@RequestParam Map<String, Object> formMap, Model model, HttpSession session,
+//	@ResponseBody
+	public String addTakeOff(@RequestParam Map<String, Object> formMap, Model model, HttpSession session, @PathVariable("empId")Integer id,
 			RedirectAttributes redirectAttributes) throws ParseException {
-
+		System.out.println("---------------");
+		//System.out.println(formMap);
 		// 取得登入者資訊
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 		// 利用uuid產生formId
@@ -108,7 +109,8 @@ public class TakeOffController {
 		
 		Integer applier = Integer.parseInt(formMap.get("applier") + "");
 		form.setApplier(applier);
-
+		System.out.println(applier);
+		
 		formDao.addForm(form);
 
 		TakeOff takeOff = new TakeOff();
@@ -117,9 +119,12 @@ public class TakeOffController {
 		// 從表單取得請假資料
 		Integer agent = Integer.parseInt(formMap.get("agent") + "");
 		takeOff.setAgent(agent);
+		System.out.println("---------------");
+		System.out.println(agent);
 		
 		Integer takeoffType = Integer.parseInt(formMap.get("takeoffType") + "");
 		takeOff.setTakeoffType(takeoffType);
+		System.out.println(takeoffType);
 		
 		Date startTime = sdf.parse(formMap.get("startTime") + "");
 		takeOff.setStartTime(startTime);
