@@ -6,9 +6,6 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.UUID"%>
 <%@ taglib prefix="sp" uri="http://www.springframework.org/tags/form"%>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 <div class="container-xl mt-5">
@@ -44,7 +41,8 @@
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請人：</div>
 
 				<div class="col-12 col-md-2 position-relative">
-					<select name="applierName" id="applierName" class="form-select" required>
+					<select name="applierName" id="applierName" class="form-select"
+						required>
 						<option value="" selected disabled>請選擇申請人..</option>
 						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
 						<c:forEach var="emp" items="${allDeptEmp}">
@@ -79,7 +77,7 @@
 					<select name="agentName" id="agentName" class="form-select"
 						required>
 						<option value="" selected disabled>請選擇代理人..</option>
-						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
+
 						<c:forEach var="emp" items="${allDeptEmp}">
 							<option value="${emp.empId}">${emp.empName}</option>
 
@@ -99,14 +97,14 @@
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">選擇假別：</div>
 				<div class="col-12 col-md-7">
-					<select name="a_area" id="a_area" class="form-select" required>
+					<select name="takeoffType" id="takeoffType" class="form-select" required>
 						<option value="" selected disabled>請選擇請假類別..</option>
 						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
-						<option value="特別休假">特別休假</option>
-						<option value="病假">病假</option>
-						<option value="事假">事假</option>
-						<option value="喪假">喪假</option>
-						<option value="公假">公假</option>
+						<option value="1">特別休假</option>
+						<option value="2">事假</option>
+						<option value="3">病假</option>
+						<option value="4">喪假</option>
+						<option value="5">公假</option>
 					</select>
 				</div>
 			</div>
@@ -166,7 +164,7 @@
 			<div class="row  pe-4 mb-5 mt-3">
 				<div class="col-12 col-md-2 text-md-end p-md-0">請假事由：</div>
 				<div class="col-12 col-md-10 mb-4">
-					<textarea name="a_content" id="a_content" class="form-control"
+					<textarea name="reason" id="reason" class="form-control"
 						rows="5" required></textarea>
 					<div class="col-12 col-md-12 mt-5">
 						<label class="btn btn-outline-primary w-100"> <input

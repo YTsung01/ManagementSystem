@@ -6,31 +6,71 @@
 <style>
 /* 在打印時顯示審核中浮水印 */
 @media print {
-    :after {
-        content: "審核中";
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 250px;
-        color: red;
-        pointer-events: none;
-        display: none; /* 預設隱藏 */
-    }
+	:after {
+		content: "審核中";
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 250px;
+		color: red;
+		pointer-events: none;
+		display: none; /* 預設隱藏 */
+	}
+	.watermark {
+		content: "駁回";
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 250px;
+		color: red;
+		pointer-events: none;
+		display: none; /* 預設隱藏 */
+	}
 
-    /* 在打印時隱藏 Systemheader.jsp */
-    #systemHeader, #printButton {
-        display: none;
-    }
+	/* 在打印時隱藏 Systemheader.jsp */
+	#systemHeader, #printButton {
+		display: none;
+	}
 }
 
 /* 在 JS 中動態設置 display 值 */
 .position-relative::after {
-    display: var(--after-display, none);
+	display: var(--after-display, none);
+}
+
+.position-relative.watermark::after {
+	display: var(--after-display1, none);
+}
+
+.position-relative::after {
+	display: var(--after-display, none);
+}
+
+.position-relative.watermark::after {
+	display: var(--after-display1, none);
 }
 </style>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // 判斷是否顯示浮水印
+        var overTimeVerifyState = ${overTime.verifyState};
 
+        if (overTimeVerifyState === 2) {
+            document.documentElement.style.setProperty('--after-display', 'block');
+        }
+        
+        if (overTimeVerifyState === 0) {
+            document.documentElement.style.setProperty('--after-display1', 'block');
+        }
 
+        // 列印按鈕
+        $('#printButton').on('click', function() {
+            window.print();
+        });
+    });
+</script>
 <!-- ${form}
 <hr>
 ${overTime} -->
@@ -47,9 +87,8 @@ ${overTime} -->
 				style="background-color: #e3f2fd">列印</button>
 
 			<p class="fs-6 fw-bold text-end">
-			
-				<img
-					src="/ManagementSystem/app/img/${ overTime.formId }.png"
+
+				<img src="/ManagementSystem/app/img/${ overTime.formId }.png"
 					class="d-block mx-auto w-60 rounded c-p">
 
 			</p>
@@ -129,6 +168,10 @@ ${overTime} -->
         // 判斷是否顯示浮水印
         if (${overTime.verifyState == 2}) {
             document.documentElement.style.setProperty('--after-display', 'block');
+        }
+        
+        if (${overTime.verifyState == 0}) {
+            document.documentElement.style.setProperty('--after-display1', 'block');
         }
 
         // 列印按鈕

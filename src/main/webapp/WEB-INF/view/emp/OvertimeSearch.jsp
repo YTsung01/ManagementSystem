@@ -48,17 +48,28 @@ ${empBook }-->
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td>${overtimes.applyHour}</td>
 							<td>${overtimes.reason}</td>
-							<td style="${overtimes.verifyState == 0 ? 'color: red;' : (overtimes.verifyState == 2 ? 'color: black;' : (overtimes.verifyState == 1 ? 'color: blue;' : ''))} ">
+							<td
+								style="${overtimes.verifyState == 0 ? 'color: red;' : (overtimes.verifyState == 2 ? 'color: black;' : (overtimes.verifyState == 1 ? 'color: blue;' : ''))} ">
 								${overtimes.verifyState == 2 ? '審核中' : (overtimes.verifyState == 1 ? '同意' : '駁回')}</td>
 							<td>${empBossName}</td>
 							<td><a
-								href="http://localhost:8080/ManagementSystem/app/overtime/deatil/${ overtimes.formId }" class="btn  align-items-center "
-								style="background-color:#D6DCDB">詳情</a></td>
-							<td><a 
-								href="http://localhost:8080/ManagementSystem/app/overtime/show/${ overtimes.formId }"
+								href="http://localhost:8080/ManagementSystem/app/overtime/deatil/${ overtimes.formId }"
 								class="btn  align-items-center "
-								style="background-color: #A2AFA6">修改</a></td>
-							<td><a href="http://localhost:8080/ManagementSystem/app/overtime/delete/${ overtimes.formId }"
+								style="background-color: #D6DCDB">詳情</a></td>
+							<td><c:choose>
+									<c:when test="${overtimes.verifyState eq 1}">
+										<span class="btn btn-disabled align-items-center"
+											style="background-color: #A2AFA6; cursor: not-allowed;">修改</span>
+									</c:when>
+									<c:otherwise>
+										<a
+											href="http://localhost:8080/ManagementSystem/app/overtime/show/${overtimes.formId}"
+											class="btn align-items-center"
+											style="background-color: #A2AFA6" id="detail">修改</a>
+									</c:otherwise>
+								</c:choose></td>
+							<td><a
+								href="http://localhost:8080/ManagementSystem/app/overtime/delete/${ overtimes.formId }"
 								class="btn  align-items-center "
 								style="color: white; background-color: #CC5F5A;">刪除</a></td>
 						</tr>
@@ -106,4 +117,28 @@ ${empBook }-->
 		return true;
 	}
 </script>
-	<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>
+
+<script>
+	// 假设 ovetrimes.verifyState 包含 verifyState 的值（0 或其他值）
+	var verifyState = $
+	{
+		overtimes.verifyState
+	}; // 这里使用 JSP 表达式获取值
+
+	// 获取链接元素
+	var linkElement = document.getElementById('detail');
+
+	// 根据 verifyState 值决定是否禁用链接
+	if (verifyState === 1) {
+		// 当 verifyState 为 0 时，禁用链接
+		linkElement.style.pointerEvents = 'none'; // 禁用链接的点击事件
+		linkElement.style.color = 'red'; // 修改链接颜色（可选）
+		// 如果你想添加其他样式或效果，可以在这里进行设置
+	} else {
+		// 如果 verifyState 不为 0，保持链接可用
+		linkElement.style.pointerEvents = 'auto'; // 恢复链接的点击事件
+		linkElement.style.color = ''; // 恢复链接颜色（可选）
+		// 还原其他样式或效果，如果有的话
+	}
+</script>
+<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>

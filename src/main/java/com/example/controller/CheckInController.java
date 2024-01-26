@@ -112,8 +112,8 @@ public class CheckInController {
 				// 判斷是否超過9點及18點
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTime(CheckOutTime);
-				int hour = calendar.get(Calendar.HOUR_OF_DAY);
-				if (hour > 18) {
+				int hours = calendar.get(Calendar.HOUR_OF_DAY);
+				if (hours > 18) {
 					model.addAttribute("lateCheckOutMessage", "");
 				}
 
