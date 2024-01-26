@@ -1,45 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ include file="/WEB-INF/view/Systemheader.jsp"%>
 
 <style>
-/* 在打印时隐藏 Systemheader.jsp */
-@media print 
-{ 
-#systemHeader
-		{
-		display: none;
-	}
+/* 在打印時顯示審核中浮水印 */
+@media print {
+    :after {
+        content: "審核中";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 250px;
+        color: red;
+        pointer-events: none;
+        display: none; /* 預設隱藏 */
+    }
+
+    /* 在打印時隱藏 Systemheader.jsp */
+    #systemHeader, #printButton {
+        display: none;
+    }
 }
-{
-height
 
-
-:
-
- 
-
-100
-
-
-%;
-overflow
-
-
-:
-
- 
-
-hidden
-
-
-
-
+/* 在 JS 中動態設置 display 值 */
+.position-relative::after {
+    display: var(--after-display, none);
 }
 </style>
-<%@ include file="/WEB-INF/view/Systemheader.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 
 <!-- ${form}
 <hr>
@@ -47,7 +37,7 @@ ${overTime} -->
 
 
 
-<div class="container-xl mt-5">
+<div class="container-xl mt-5 ">
 
 	<div class="d-flex justify-content-center mx-auto p-6 ">
 		<div class="border rounded mx-auto px-4  position-relative">
@@ -57,9 +47,9 @@ ${overTime} -->
 				style="background-color: #e3f2fd">列印</button>
 
 			<p class="fs-6 fw-bold text-end">
-
+			
 				<img
-					src="http://localhost:8080/ManagementSystem/images/qrcodes/${ overTime.formId }.png"
+					src="/ManagementSystem/app/img/${ overTime.formId }.png"
 					class="d-block mx-auto w-60 rounded c-p">
 
 			</p>
@@ -80,11 +70,11 @@ ${overTime} -->
 
 						</tr>
 						<tr>
-						<th width="100px" align='center' valign="middle">加班類型</th>
-						<td colspan="1" width="200px" align='center' valign="middle">${overTimetype}&nbsp;&nbsp;&nbsp;${DayOrHoilday}</td>
-						<th width="100px" align='center' valign="middle">申請時數</th>
-						<td colspan="1" width="200px" align='center' valign="middle">
-							${overTime.applyHour}&nbsp;小時</td>
+							<th width="100px" align='center' valign="middle">加班類型</th>
+							<td colspan="1" width="200px" align='center' valign="middle">${overTimetype}&nbsp;&nbsp;&nbsp;${DayOrHoilday}</td>
+							<th width="100px" align='center' valign="middle">申請時數</th>
+							<td colspan="1" width="200px" align='center' valign="middle">
+								${overTime.applyHour}&nbsp;小時</td>
 						</tr>
 						<tr>
 							<th width="100px" align='center' valign="middle">加班事由</th>
@@ -133,12 +123,20 @@ ${overTime} -->
 		</div>
 	</div>
 </div>
-<!-- JavaScript 代码 -->
+
 <script type="text/javascript">
-	$(document).ready(function() {
-		// 点击按钮时执行打印操作
-		$('#printButton').on('click', function() {
-			window.print();
-		});
-	});
+    $(document).ready(function() {
+        // 判斷是否顯示浮水印
+        if (${overTime.verifyState == 2}) {
+            document.documentElement.style.setProperty('--after-display', 'block');
+        }
+
+        // 列印按鈕
+        $('#printButton').on('click', function() {
+            window.print();
+        });
+    });
 </script>
+
+
+<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>

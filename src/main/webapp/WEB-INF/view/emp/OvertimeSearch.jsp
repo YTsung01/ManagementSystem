@@ -48,7 +48,7 @@ ${empBook }-->
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td>${overtimes.applyHour}</td>
 							<td>${overtimes.reason}</td>
-							<td style="${overtimes.verifyState == 0 ? 'color: red;' : ''} ">
+							<td style="${overtimes.verifyState == 0 ? 'color: red;' : (overtimes.verifyState == 2 ? 'color: black;' : (overtimes.verifyState == 1 ? 'color: blue;' : ''))} ">
 								${overtimes.verifyState == 2 ? '審核中' : (overtimes.verifyState == 1 ? '同意' : '駁回')}</td>
 							<td>${empBossName}</td>
 							<td><a
@@ -106,4 +106,4 @@ ${empBook }-->
 		return true;
 	}
 </script>
-
+	<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>

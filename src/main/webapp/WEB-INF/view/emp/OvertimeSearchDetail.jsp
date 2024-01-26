@@ -45,7 +45,7 @@ ${empBook }-->
 							<td><fmt:formatDate value="${ overtimes.endTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td>${overtimes.applyHour}</td>
 							<td>${overtimes.reason}</td>
-							<td>${overtimes.verifyState}</td>
+							<td ${overtime.verifyState == 0 ? 'color: red;' : (overtime.verifyState == 2 ? 'color: black;' : (overtime.verifyState == 1 ? 'color: blue;' : ''))}>${overtimes.verifyState}</td>
 							<td>${empBossName}</td>
 							<td><a
 								href="http://localhost:8080/ManagementSystem/app/overtime/deatil/${ overtimes.formId }">詳情</a></td>
@@ -55,7 +55,7 @@ ${empBook }-->
 					
 				</tbody>
 			</table>	
-			
+		
 				<div class="p-6">
 					<form class="d-flex"	
 						action="/ManagementSystem/app/overtime/searchOvertime" method="get" onsubmit="return validateForm();">
@@ -101,4 +101,4 @@ ${empBook }-->
             return true; 
         }
     </script>
-
+<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>

@@ -4,11 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<html>
 
-
-<head>
-</head>
 <body>
 	<div class="d-flex justify-content-center mx-auto p-4">
 		<div class="border rounded mx-auto p-4 ">
@@ -84,3 +80,5 @@
             return true; 
         }
     </script>
+    
+    	<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>

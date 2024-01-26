@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -29,13 +30,16 @@ public class OverTimeDaoImpl implements OverTimeDao {
 	
 	// formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason
 	RowMapper<OverTime> rowMapper = (ResultSet rs, int rowNum) -> {
-		
+	
 		OverTime overTime = new OverTime();
 		overTime.setFormId(rs.getString("formId"));
-		overTime.setStartTime(rs.getDate("startTime"));
-		overTime.setEndTime(rs.getDate("endTime"));
+		overTime.setStartTime(rs.getTimestamp("startTime"));
+		overTime.setEndTime(rs.getTimestamp("endTime"));
 		overTime.setApplyHour(rs.getInt("applyHour"));
 		overTime.setDayOrHoilday(rs.getInt("dayOrHoilday"));
+		overTime.setOvertimeType(rs.getInt("overtimeType"));
+		overTime.setCheckReason(rs.getString("checkReason"));
+		overTime.setVerifyState(rs.getInt("verifyState"));
 		overTime.setReason(rs.getString("reason"));
 
 		EmpBook empBook = formDao.findEmpBookByFormId(rs.getString("formId")).get();

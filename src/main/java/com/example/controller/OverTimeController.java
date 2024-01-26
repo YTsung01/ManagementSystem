@@ -190,6 +190,7 @@ public class OverTimeController {
 
 		List<OverTime> filteredOverTimes = overTimeDao.findAllOverTimeByEmpIdAndStartDateAndEndDate(empBook.getEmpId(),
 				StartDate2, EndDate2);
+		
 		System.out.println("filteredOverTimes = " + filteredOverTimes);
 		System.out.println("StartDate2 = " + StartDate2);
 		System.out.println("EndDate2 = " + EndDate2);
@@ -205,26 +206,27 @@ public class OverTimeController {
 	public String searchOverTimeDetail(@PathVariable("fomrId") String fomrId, Model model, HttpSession session) {
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
-		OverTime overTime = overTimeDao.findOverTimeByFormId(fomrId).get();
+		OverTime overTimes = overTimeDao.findOverTimeByFormId(fomrId).get();
 		Form form = formDao.findFormByFormId(fomrId).get();
 
-		if (overTime.getOvertimeType() == 1) {
+		if (overTimes.getOvertimeType() == 1) {
 			model.addAttribute("overTimetype", "加班費");
 		}
 
-		if (overTime.getOvertimeType() == 2) {
+		if (overTimes.getOvertimeType() == 2) {
 			model.addAttribute("overTimetype", "補休");
 		}
 
-		if (overTime.getDayOrHoilday() == 1) {
+		if (overTimes.getDayOrHoilday() == 1) {
 			model.addAttribute("DayOrHoilday", "平日加班");
 		}
 
-		if (overTime.getDayOrHoilday() == 2) {
+		if (overTimes.getDayOrHoilday() == 2) {
 			model.addAttribute("DayOrHoilday", "假日加班");
 		}
-
-		model.addAttribute("overTime", overTime);
+		
+		System.out.println(overTimes.getOvertimeType());
+		model.addAttribute("overTime", overTimes);
 		model.addAttribute("form", form);
 		Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
 		model.addAttribute("empBossName", empBossOpt.get().getEmpName());

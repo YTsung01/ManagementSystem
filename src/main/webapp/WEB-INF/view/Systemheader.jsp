@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +56,7 @@
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 							<li><a class="dropdown-item" href="./LeaveRequest.jsp">請假申請</a></li>
 							<li><a class="dropdown-item" href="./LeaveSearch.jsp">請假查詢</a></li>
-							<li><a class="dropdown-item" href="./LeaveCheck.jsp">請假管理</a></li>
+							<li><c:if test="${empBook != null && empBook.getLevelId() == 2}"><a class="dropdown-item" href="./LeaveCheck.jsp">請假管理</a></c:if></li>
 						</ul>
 					</div>
 
@@ -69,8 +70,8 @@
 								href="/ManagementSystem/app/overtime/request">加班申請</a></li>
 							<li><a class="dropdown-item"
 								href="/ManagementSystem/app/overtime/search/${empBook.empId}">加班查詢</a></li>
-							<li><a class="dropdown-item"
-								href="/ManagementSystem/app/overtime/check">加班管理</a></li>
+							<li><c:if test="${empBook != null && empBook.getLevelId() == 2}"><a class="dropdown-item"
+								href="/ManagementSystem/app/overtime/check">加班管理</a></c:if></li>
 						</ul>
 					</div>
 
@@ -80,8 +81,8 @@
 				</ul>
 
 			</div>
-			<i class=" text-light h5 mb-0 d-none d-lg-block"><a
-				href="/ManagementSystem/app/auth/login" class="text-light">登出</a></i>
+			<div class=" nav-item"><a
+				href="/ManagementSystem/app/auth/login" class="text-light">登出</a>
 		</div>
 	</nav>
 
