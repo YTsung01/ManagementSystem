@@ -88,5 +88,13 @@ public class FormDaoImpl implements FormDao {
 			return Optional.empty();
 		}
 	}
+
+	//6.依據formId刪除表單
+	@Override
+	public int cancelFormByFormId(String formId) {
+		String sql = "delete from form where formId = ?";
+		int rowcount = jdbcTemplate.update(sql, formId);
+		return rowcount;
+	}
 	
 }

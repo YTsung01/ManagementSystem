@@ -26,4 +26,6 @@ public interface FormDao {
 	
 	Optional<EmpBook> findEmpBookByFormId(String formId);
 	
+	//6.依據formId刪除表單
+	public int cancelFormByFormId(String formId);
 }
