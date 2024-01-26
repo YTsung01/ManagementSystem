@@ -124,7 +124,7 @@
             <mvc:exclude-mapping path="/auth/login"/>
             <mvc:exclude-mapping path="/auth/login_boss"/>
             <mvc:exclude-mapping path="/hello/*"/>
-            <mvc:exclude-mapping path="/img/*"/>
+            <mvc:exclude-mapping path="/img/**"/>
             <bean class="com.example.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
@@ -135,5 +135,6 @@
     </bean>
     
     <!-- 靜態資源對映： http://localhost:8080/ManagementSystem/app/img/sashimi.jpg -->
+    <!-- 靜態資源對映： http://localhost:8080/ManagementSystem/app/img/qrcodes/63c0a02a-692e-41a5-a934-434fd51919ed.png -->
     <mvc:resources mapping="/img/**" location="file:C:/uploads/"/>
 </beans>
