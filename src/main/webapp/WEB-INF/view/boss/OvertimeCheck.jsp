@@ -47,23 +47,23 @@ ${overTimes}
 					</thead>
 					<tbody>
 
-						<c:forEach var="overtimes" items="${overTimes}" varStatus="stat">
+						<c:forEach var="overtime" items="${overTimes}" varStatus="stat">
 							<tr>
-								<td hidden="hidden" class="center">${ overtimes.formId }</td>
-								<td class="center">${ empBook.empId }</td>
-								<td class="center">${ empBook.empName }</td>
-								<td class="center">${ empBook.empDepartment  }</td>
+								<td hidden="hidden" class="center">${ overtime.formId }</td>
+								<td class="center">${ overtime.empBook.empId }</td>
+								<td class="center">${ overtime.empBook.empName }</td>
+								<td class="center">${ overtime.empBook.empDepartment  }</td>
 								
 								<td class="center"><fmt:formatDate
-										value="${ overtimes.startTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+										value="${ overtime.startTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td class="center"><fmt:formatDate
-										value="${ overtimes.endTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-								<td class="center">${overtimes.applyHour}</td>
-								<td class="center">${overtimes.reason}</td>
+										value="${ overtime.endTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								<td class="center">${overtime.applyHour}</td>
+								<td class="center">${overtime.reason}</td>
 								<td class="center"
-									style="${overtimes.verifyState == 0 ? 'color: red;' : ''} ">
-									${overtimes.verifyState == 2 ? '審核中' : (overtimes.verifyState == 1 ? '同意' : '駁回')}</td>
-								<form method="POST" action="./pass/${ overtimes.formId }">
+									style="${overtime.verifyState == 0 ? 'color: red;' : ''} ">
+									${overtime.verifyState == 2 ? '審核中' : (overtime.verifyState == 1 ? '同意' : '駁回')}</td>
+								<form method="POST" action="./pass/${ overtime.formId }">
 									<input name="_method" type="hidden" value="${_method}" />
 								<td><button type="submit" class="btn "
 										style="background-color: #ccdce8">同意</button>

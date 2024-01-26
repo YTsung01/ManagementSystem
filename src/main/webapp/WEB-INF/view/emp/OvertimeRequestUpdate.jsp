@@ -231,8 +231,8 @@
 $(document).ready(function () {
     $('#calculatebtn').on('click', function() {
         // 獲取起始和結束日期的值
-        const startDateValue = $('#overTimeStart').val();
-        const endDateValue = $('#overTimeEnd').val();
+        const startDateValue = $('#startTime').val();
+        const endDateValue = $('#endTime').val();
 
         // 檢查是否選擇了日期
         if (!startDateValue || !endDateValue) {
