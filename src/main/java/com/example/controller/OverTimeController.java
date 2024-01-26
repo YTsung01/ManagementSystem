@@ -73,7 +73,7 @@ public class OverTimeController {
 	@Transactional(propagation = Propagation.REQUIRED)
 	@PostMapping("/add/{empId}")
     public String addOverTime(@RequestParam Map<String, Object> formMap, Model model, HttpSession session,RedirectAttributes redirectAttributes) throws ParseException{
-			
+			System.out.println(formMap);
 			//取得登入者資訊
 			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 			//利用uuid產生formId

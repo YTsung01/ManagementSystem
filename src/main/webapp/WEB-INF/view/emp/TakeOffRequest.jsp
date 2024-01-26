@@ -54,8 +54,9 @@
 				<div class="col-12 col-md-2 position-relative" >
 					<select name="applier" id="applier" class="form-select" required>
 						<option value="" selected disabled>請選擇申請人..</option>
+
 						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
-						
+
 						<c:forEach var="emp"
 								items="${allDeptEmp}">
 						<option value="${emp.empId}" >${emp.empName}</option>
@@ -74,7 +75,7 @@
 
 
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請部門：</div>
-				<div class="col-12 col-md-2 position-relative name="empDepartment"" >
+				<div class="col-12 col-md-2 position-relative" name="empDepartment" >
 					${ empBook.empDepartment  }
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
@@ -84,16 +85,17 @@
 
 
 
-
 			<!-- 代理人 -->
+
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">代理人：</div>
 					<div class="col-12 col-md-2 position-relative"  >
 					<select name="agent" id="agent" class="form-select" required>
 						<option value="" selected disabled>請選擇代理人..</option>
+
 						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
 						
-						<
+
 						<c:forEach var="emp"
 								items="${allDeptEmp}">
 						<option value="${emp.empId}" >${emp.empName}</option>
@@ -105,7 +107,7 @@
 							<input type="hidden" name="agent0"
 							id="agent0">
 						
-						
+
 				<!--
 						<option value="101">Solar</option>
 						<option value="102">Moonbyul</option>
@@ -183,18 +185,20 @@
 					class="col-12 col-md-1 btn btn-light text-nowrap "
 					name="calculatebtn" id="calculatebtn">計算</button>
 
-
+				
 				<!-- 留言內容 -->
+
 				<div class="row  pe-4 mb-5 mt-3">
 					<div class="col-12 col-md-2 text-md-end p-md-0">請假事由：</div>
 					<div class="col-12 col-md-10 mb-4" name="reason" >
 						<textarea name="a_content" id="a_content" class="form-control"
 							rows="5" required></textarea>
+<!-- 
 						<div class="col-12 col-md-12 mt-5">
 							<label class="btn btn-outline-primary w-100"> <input
 								type="file" name="upfile[]" multiple accept=".jpg, .jpeg, .png"
 								id="upfile" class="upfile d-none"> <!-- 選多個東西要用陣列儲存 name是負責接收不是負責選 藥用multiple才能多選 accept來過濾 -->
-								上傳附件
+<!-- 								上傳附件
 							</label>
 
 							<ul style="list-style-type: disc; margin: 50px">
@@ -208,7 +212,7 @@
 							<div id="img_errmsg" class="text-danger text-center tw-bold"></div>
 							<div id="img_area" class="text-center"></div>
 						</div>
-
+-->
 					</div>
 				</div>
 
@@ -224,7 +228,7 @@
 
 			</div>
 		</div>
-		
+	</form>
 		
 		<div class="container mt-5">
 				<!-- 模态框 -->
@@ -251,7 +255,7 @@
 			</div>
 		
 		
-	</form>
+	
 </div>
 
 

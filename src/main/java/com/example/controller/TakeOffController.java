@@ -94,7 +94,8 @@ public class TakeOffController {
 	public String addTakeOff(@RequestParam Map<String, Object> formMap, Model model, HttpSession session, @PathVariable("empId")Integer id,
 			RedirectAttributes redirectAttributes) throws ParseException {
 		System.out.println("---------------");
-		//System.out.println(formMap);
+		System.out.println(formMap);
+		System.out.println("---------------");
 		// 取得登入者資訊
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 		// 利用uuid產生formId
@@ -144,10 +145,9 @@ public class TakeOffController {
 		
 
 		takeOffDao.addTakeOff(takeOff);
-		model.addAttribute("takeOff", takeOff);
-
-		//return "redirect:../search/{empId}";
-		return takeOff +" "+ formMap;
+		return "emp/TakeOffRequest";
+		// return "redirect:../search/{empId}";
+		// return takeOff +" "+ formMap;
 
 	}
 
