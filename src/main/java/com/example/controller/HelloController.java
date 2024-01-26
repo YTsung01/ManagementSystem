@@ -9,9 +9,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,13 +64,21 @@ public class HelloController {
 
 	/**
 	 * http://localhost:8080/ManagementSystem/app/hello/attachment
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
 	@GetMapping("/attachment")
 	@ResponseBody
-	public int[] attachement() throws ParseException {
-		List<Attachement> attachements = Arrays.asList(
-				new Attachement("0ee91d5b-d4ad-42dd-bc90-ea32d7bda4d2", "大量測試1.pdf", new Date(), new Date()),
-				new Attachement("0ee91d5b-d4ad-42dd-bc90-ea32d7bda4d2", "大量測試2.pdf", new Date(), new Date()));
+	public int[] attachement(@RequestParam("upfile") List<MultipartFile> files) throws ParseException, IllegalStateException, IOException {
+		
+		List<Attachement> attachements = new ArrayList<>();
+		
+		for(MultipartFile file:files) {
+			String fileName = file.getOriginalFilename();
+			file.transferTo(new File("C:/uploads/"+fileName));
+			attachements.add(new Attachement(UUID.randomUUID().toString(),fileName, new Date(), new Date()));
+		}
+		
 		int[] addBatchResult = attachementDao.addBatchAttachements(attachements);
 		System.out.println("大量新增結果 " + Arrays.toString(addBatchResult));
 		return addBatchResult;
