@@ -112,8 +112,8 @@ public class CheckInController {
 				// 判斷是否超過9點及18點
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTime(CheckOutTime);
-				int hour = calendar.get(Calendar.HOUR_OF_DAY);
-				if (hour > 18) {
+				int hours = calendar.get(Calendar.HOUR_OF_DAY);
+				if (hours > 18) {
 					model.addAttribute("lateCheckOutMessage", "");
 				}
 
@@ -148,7 +148,6 @@ public class CheckInController {
 			throws ParseException {
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
-		// 處理搜索邏輯，selectedMonth 是前端傳遞過來的月份參數
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		Date StartDate2 = sdf.parse(startDate);
 		Date EndDate2 = sdf.parse(endDate);

@@ -116,7 +116,6 @@ public class TakeOffController {
 		form.setApplyDate(new Date());
 		System.out.println(applierId);
 		System.out.println(agentId);
-		
 
 		formDao.addForm(form);
 
