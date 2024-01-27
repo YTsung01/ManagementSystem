@@ -186,7 +186,7 @@ public class TakeOffController {
 		List<TakeOff> nonCheckOutTakeOffList = takeOffDao.findNonCheckoutTakeOffFormByEmpId(empBook.getEmpId());
 		int nonCheckOutTakeOffHour = nonCheckOutTakeOffList.stream().mapToInt(TakeOff::getTakeoffHour).sum();
 		model.addAttribute("nonCheckOutTakeOffHour", nonCheckOutTakeOffHour);
-		return "emp/OvertimeSearch";
+		return "emp/TakeOffSearch";
 	}
 
 	// 搜尋功能
