@@ -147,7 +147,7 @@
 					<!-- 添加一個隱藏的 input 元素 -->
 					<input type="hidden" name="calculatedtakeoffHour"
 						id="calculatedtakeoffHour"> <input type="text"
-						name="takeoffhour" id="takeoffhour" class="form-control" required
+						name="takeoffHour" id="takeoffhour" class="form-control" required
 						readonly>
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2 ">時</div>
@@ -298,8 +298,6 @@ $('#calculatebtn').on('click', function() {
     });
 </script>
 
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
         $(document).ready(function () {
         	 console.log('Calculate button clicked');

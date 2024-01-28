@@ -27,10 +27,10 @@ public class OverTimeDaoImpl implements OverTimeDao {
 
 	@Autowired
 	FormDao formDao;
-	
+
 	// formId, startTime, endTime, applyHour, overtimeType, dayOrHoilday, reason
 	RowMapper<OverTime> rowMapper = (ResultSet rs, int rowNum) -> {
-	
+
 		OverTime overTime = new OverTime();
 		overTime.setFormId(rs.getString("formId"));
 		overTime.setStartTime(rs.getTimestamp("startTime"));
@@ -44,10 +44,9 @@ public class OverTimeDaoImpl implements OverTimeDao {
 
 		EmpBook empBook = formDao.findEmpBookByFormId(rs.getString("formId")).get();
 		overTime.setEmpBook(empBook);
-		
+
 		return overTime;
 	};
-
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
@@ -73,10 +72,10 @@ public class OverTimeDaoImpl implements OverTimeDao {
 		return jdbcTemplate.query(sql, rowMapper, empId);
 	}
 
-	// 4. 依據empId查詢已經審核過的加班資料
+	// 4. 依據empId查詢已經審核通過的加班資料
 	@Override
 	public List<OverTime> findCheckoutOverTimeFormByEmpId(Integer empId) {
-		String sql = "SELECT emp.empName, f.formId, f.type,f.applyDate, o.* " + "FROM empbook emp, form f, overtime o "
+		String sql = "SELECT emp.empName, f.formId, f.type,f.applyDate, o.*  FROM empbook emp, form f, overtime o "
 				+ "WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ? and o.verifyState = 1 ORDER BY f.applyDate DESC";
 		return jdbcTemplate.query(sql, rowMapper, empId);
 	}
@@ -150,13 +149,14 @@ public class OverTimeDaoImpl implements OverTimeDao {
 		String sql = "UPDATE overTime SET  verifyState = 1 WHERE formId = ? ";
 		return jdbcTemplate.update(sql, formId);
 	}
-	//UPDATE overtime SET  verifyState = 0 , checkReason = 'test' WHERE formId = '63c0a02a-692e-41a5-a934-434fd51919ed'  ;
-	
+	// UPDATE overtime SET verifyState = 0 , checkReason = 'test' WHERE formId =
+	// '63c0a02a-692e-41a5-a934-434fd51919ed' ;
+
 	// 12.依照formId 不同意加班狀態 verifyState = 0
 	@Override
 	public int falseOverTimeByFormId(String formId, String checkReason) {
 		String sql = "UPDATE overtime SET  verifyState = 0 , checkReason = ? WHERE formId = ?  ";
-		return jdbcTemplate.update(sql, checkReason , formId);
+		return jdbcTemplate.update(sql, checkReason, formId);
 	}
 
 }

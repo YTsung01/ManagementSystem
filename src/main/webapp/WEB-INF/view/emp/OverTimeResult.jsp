@@ -2,11 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style>
 /* 在打印時顯示審核中浮水印 */
 @media print {
-	:after {
+	.position-relative::after {
 		content: "審核中";
 		position: fixed;
 		top: 50%;
@@ -17,18 +18,6 @@
 		pointer-events: none;
 		display: none; /* 預設隱藏 */
 	}
-	.watermark {
-		content: "駁回";
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		font-size: 250px;
-		color: red;
-		pointer-events: none;
-		display: none; /* 預設隱藏 */
-	}
-
 	/* 在打印時隱藏 Systemheader.jsp */
 	#systemHeader, #printButton {
 		display: none;
@@ -39,31 +28,21 @@
 .position-relative::after {
 	display: var(--after-display, none);
 }
-
-.position-relative.watermark::after {
-	display: var(--after-display1, none);
-}
-
-.position-relative::after {
-	display: var(--after-display, none);
-}
-
-.position-relative.watermark::after {
-	display: var(--after-display1, none);
-}
 </style>
 <script type="text/javascript">
     $(document).ready(function() {
         // 判斷是否顯示浮水印
-        var overTimeVerifyState = ${overTime.verifyState};
-
+        var overTimeVerifyState = '${overTime.verifyState}' ;
+        console.log(overTimeVerifyState)
+        
         if (overTimeVerifyState === 2) {
             document.documentElement.style.setProperty('--after-display', 'block');
         }
         
         if (overTimeVerifyState === 0) {
-            document.documentElement.style.setProperty('--after-display1', 'block');
-        }
+        	 $('#printButton').prop('disabled', true);
+            }
+        
 
         // 列印按鈕
         $('#printButton').on('click', function() {
@@ -71,6 +50,7 @@
         });
     });
 </script>
+
 <!-- ${form}
 <hr>
 ${overTime} -->
@@ -82,13 +62,15 @@ ${overTime} -->
 	<div class="d-flex justify-content-center mx-auto p-6 ">
 		<div class="border rounded mx-auto px-4  position-relative">
 			<p class="fs-3 fw-bold text-center pt-3">加班申請單</p>
+			
 			<button id="printButton"
 				class="btn position-absolute top-10 start-20 "
 				style="background-color: #e3f2fd">列印</button>
 
 			<p class="fs-6 fw-bold text-end">
 
-				<img src="/ManagementSystem/app/img/${ overTime.formId }.png"
+				<img
+					src="/ManagementSystem/app/img/qrcodes/${ overTime.formId }.png"
 					class="d-block mx-auto w-60 rounded c-p">
 
 			</p>
@@ -117,7 +99,7 @@ ${overTime} -->
 						</tr>
 						<tr>
 							<th width="100px" align='center' valign="middle">加班事由</th>
-							<td colspan="3" width="200px" height="100px" ;align='center'
+							<td colspan="3" width="200px" height="100px" align='center'
 								valign="middle">${overTime.reason}</td>
 						</tr>
 

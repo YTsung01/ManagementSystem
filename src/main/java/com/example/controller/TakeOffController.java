@@ -98,12 +98,14 @@ public class TakeOffController {
 	@PostMapping("/add/{empId}")
 	@ResponseBody
 	public String addTakeOff(@RequestParam Map<String, Object> formMap,
-			@RequestParam("applierName") Integer applierId, @RequestParam("agentName") Integer agentId,
+			@RequestParam("applierName") Integer applierId, 
+			@RequestParam("agentName") Integer agentId,
+			@RequestParam("upfile") List<MultipartFile> files,
 							Model model, HttpSession session,
 							RedirectAttributes redirectAttributes)   throws ParseException, IllegalStateException, IOException {
 
 		
-		 System.out.println("前端傳來的 selectedEmployee 值為: "  );
+		
 		// 取得登入者資訊
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 		// 利用uuid產生formId
@@ -112,7 +114,7 @@ public class TakeOffController {
 		Form form = new Form();
 		form.setApplier(applierId);
 		form.setFormId(uuid);
-		form.setType(1); // 請假表單固定type是
+		form.setType(1); // 請假表單固定type是1
 		form.setApplyDate(new Date());
 		System.out.println(applierId);
 		System.out.println(agentId);
@@ -124,30 +126,53 @@ public class TakeOffController {
 		takeOff.setFormId(uuid);
 
 		// 從表單取得請假資料
+		
+			form.setApplier(applierId);
+			
+			takeOff.setAgent(agentId);
+			  
+			Integer takeoffType = Integer.parseInt(formMap.get("takeoffType") + "");
+			System.out.println("takeoffType: " + takeoffType);
+			takeOff.setTakeoffType(takeoffType);
 
-		Date startTime = sdf.parse(formMap.get("startTime") + "");
-		takeOff.setStartTime(startTime);
+			Date startTime = sdf.parse(formMap.get("startTime") + "");
+			System.out.println("startTime: " + startTime);
+			takeOff.setStartTime(startTime);
 
-		Date endTime = sdf.parse(formMap.get("endTime") + "");
-		takeOff.setEndTime(endTime);
-		System.out.println(formMap);
-		Integer takeoffHour = Integer.parseInt(formMap.get("takeoffHour") + "");
-		takeOff.setTakeoffHour(takeoffHour);
+			Date endTime = sdf.parse(formMap.get("endTime") + "");
+			System.out.println("endTime: " + endTime);
+			takeOff.setEndTime(endTime);
+			
+			
+			Integer takeoffDay = Integer.parseInt(formMap.get("takeoffDay") + "");
+			System.out.println("takeoffDay: " + takeoffDay);
+			takeOff.setTakeoffDay(takeoffDay);
+			
+			Integer takeoffHour = Integer.parseInt(formMap.get("takeoffHour") + "");
+			System.out.println("takeoffHour: " + takeoffHour);
+			takeOff.setTakeoffHour(takeoffHour);
 
-		String reason = formMap.get("reason") + "";
-		takeOff.setReason(reason);
-
-		Integer takeoffType = Integer.parseInt(formMap.get("takeoffType") + "");
-		takeOff.setTakeoffType(takeoffType);
-
-		takeOffDao.addTakeOff(takeOff);
-		model.addAttribute("takeOff", takeOff);
+			String reason = formMap.get("reason") + "";
+			takeOff.setReason(reason);
+			System.out.println(formMap);
+			System.out.println(formMap);
+			System.out.println(formMap);
+			System.out.println(formMap);
+			System.out.println(formMap);
+			System.out.println(formMap);
+			System.out.println(formMap);
+			System.out.println(formMap);
+			System.out.println(formMap);
+			takeOffDao.addTakeOff(takeOff);
+			model.addAttribute("takeOff", takeOff);
 		
 		Attachement attachement = new Attachement();
+		attachement.setForm_id(uuid);
 		
-		
-		
-		
+		for(MultipartFile file:files) {
+			file.transferTo(new File("C:/uploads/"+file.getOriginalFilename()));
+		}
+		attachementDao.addAttachement(attachement);
 		
 		
 		return formMap + "<hr>" + takeOff;

@@ -68,10 +68,18 @@ ${empBook }-->
 											style="background-color: #A2AFA6" id="detail">修改</a>
 									</c:otherwise>
 								</c:choose></td>
-							<td><a
-								href="http://localhost:8080/ManagementSystem/app/overtime/delete/${ overtimes.formId }"
-								class="btn  align-items-center "
-								style="color: white; background-color: #CC5F5A;">刪除</a></td>
+								<td><c:choose>
+									<c:when test="${overtimes.verifyState eq 1}">
+										<span class="btn btn-disabled align-items-center"
+											style="color: white; background-color: #CC5F5A; cursor: not-allowed;">刪除</span>
+									</c:when>
+									<c:otherwise>
+										<a
+											href="http://localhost:8080/ManagementSystem/app/overtime/delete/${ overtimes.formId }"
+											class="btn align-items-center"
+											style="color: white; background-color: #CC5F5A;" id="detail">刪除</a>
+									</c:otherwise>
+								</c:choose></td>
 						</tr>
 
 					</c:forEach>
@@ -118,27 +126,4 @@ ${empBook }-->
 	}
 </script>
 
-<script>
-	// 假设 ovetrimes.verifyState 包含 verifyState 的值（0 或其他值）
-	var verifyState = $
-	{
-		overtimes.verifyState
-	}; // 这里使用 JSP 表达式获取值
-
-	// 获取链接元素
-	var linkElement = document.getElementById('detail');
-
-	// 根据 verifyState 值决定是否禁用链接
-	if (verifyState === 1) {
-		// 当 verifyState 为 0 时，禁用链接
-		linkElement.style.pointerEvents = 'none'; // 禁用链接的点击事件
-		linkElement.style.color = 'red'; // 修改链接颜色（可选）
-		// 如果你想添加其他样式或效果，可以在这里进行设置
-	} else {
-		// 如果 verifyState 不为 0，保持链接可用
-		linkElement.style.pointerEvents = 'auto'; // 恢复链接的点击事件
-		linkElement.style.color = ''; // 恢复链接颜色（可选）
-		// 还原其他样式或效果，如果有的话
-	}
-</script>
 <%@ include file="/WEB-INF/view/Systemfooter.jsp"%>

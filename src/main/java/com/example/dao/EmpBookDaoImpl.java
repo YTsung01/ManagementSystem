@@ -49,4 +49,11 @@ public class EmpBookDaoImpl implements EmpBookDao {
 			return Optional.empty();
 		}
 		}
+
+	@Override
+	public int addOverTimeLeftHourByEmpId(Integer empId, Integer overTimeLeftHour) {
+		String sql = "UPDATE empbook SET  overTimeLeftHour = ?  WHERE empId = ?  ";
+		return jdbcTemplate.update(sql,overTimeLeftHour, empId);
+
+	}
 }
