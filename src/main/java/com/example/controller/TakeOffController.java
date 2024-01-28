@@ -167,7 +167,7 @@ public class TakeOffController {
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 		// 找到自己所有的請假紀錄
-		List<TakeOff> takeOffs = takeOffDao.findCheckoutTakeOffByEmpId(empBook.getEmpId());
+		List<TakeOff> takeOffs = takeOffDao.findTakeOffByEmpId(empBook.getEmpId());
 		Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
 		model.addAttribute("empBossName", empBossOpt.get().getEmpName());
 		System.out.println("takeOff = " + takeOffs);

@@ -47,8 +47,8 @@ ${takeOff}
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td><fmt:formatDate value="${ takeOffs.endTime }"
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							<td>${takeOffs.applyDay}</td>
-							<td>${takeOffs.applyHour}</td>
+							<td>${takeOffs.takeoffDay}</td>
+							<td>${takeOffs.takeoffHour}</td>
 							<td>${takeOffs.reason}</td>
 							<td style="${takeOffs.verifyState == 0 ? 'color: red;' : ''} ">
 								${takeOffs.verifyState == 2 ? '審核中' : (takeOffs.verifyState == 1 ? '同意' : '駁回')}</td>
