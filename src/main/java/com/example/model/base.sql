@@ -56,6 +56,8 @@ select formId, agent, takeoffType, startTime, endTime, reason, verifyState, chec
 insert into takeoff(formId, agent,takeoffType, startTime, endTime, reason, takeoffDay, takeoffHour) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b', 102, 2 ,'2024-01-18 09:00','2024-01-18 18:00','事假', 0, 8);
 
 
+
+
 select attachId, form_id, filePath, createTime, updateTime from attachement;
 -- insert into attachement(form_id, filePath) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b','證明.pdf');
  insert into attachement(form_id, filePath) values('b1fd4ec1-b681-11ee-adf1-6c3c8c3db22b','證明.pdf');

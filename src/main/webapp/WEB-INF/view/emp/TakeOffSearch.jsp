@@ -39,7 +39,6 @@ ${takeOff}
 				<tbody>
 					<c:forEach var="takeOffs" items="${takeOff}">
 						<tr>
-							<td >${ takeOffs.formId }</td>
 							<td>${ empBook.empId }</td>
 							<td>${ empBook.empName }</td>
 							<td>${ empBook.empDepartment  }</td>
@@ -54,31 +53,56 @@ ${takeOff}
 								${takeOffs.verifyState == 2 ? '審核中' : (takeOffs.verifyState == 1 ? '同意' : '駁回')}</td>
 							<td>${empBossName}</td>
 							<td><a
-								href="http://localhost:8080/ManagementSystem/app/takeOff/deatil/${ takeOffs.formId }" class="btn  align-items-center "
-								style="background-color:#D6DCDB">詳情</a></td>
-							<td><a 
-								href="http://localhost:8080/ManagementSystem/app/takeOff/update/${ takeOffs.formId }"
+								href="http://localhost:8080/ManagementSystem/app/takeOff/deatil/${ takeOffs.formId }"
 								class="btn  align-items-center "
-								style="background-color: #A2AFA6">修改</a></td>
-							<td><a href="javascript:void(0);"
-								onClick="updateItem(${ item.itemId })"
-								class="btn  align-items-center "
-								style="color: white; background-color: #CC5F5A;">刪除</a></td>
+								style="background-color: #D6DCDB">詳情</a></td>
+							<td><c:choose>
+									<c:when test="${takeOffs.verifyState eq 1}">
+										<span class="btn btn-disabled align-items-center"
+											style="background-color: #A2AFA6; cursor: not-allowed;">修改</span>
+									</c:when>
+									<c:otherwise>
+										<a
+											href="http://localhost:8080/ManagementSystem/app/takeOff/show/${takeOffs.formId}"
+											class="btn align-items-center"
+											style="background-color: #A2AFA6" id="detail">修改</a>
+									</c:otherwise>
+								</c:choose></td>
+								<td><c:choose>
+									<c:when test="${takeOffs.verifyState eq 1}">
+										<span class="btn btn-disabled align-items-center"
+											style="color: white; background-color: #CC5F5A; cursor: not-allowed;">刪除</span>
+									</c:when>
+									<c:otherwise>
+										<a
+											href="http://localhost:8080/ManagementSystem/app/takeOff/delete/${ takeOffs.formId }"
+											class="btn align-items-center"
+											style="color: white; background-color: #CC5F5A;" id="detail">刪除</a>
+									</c:otherwise>
+								</c:choose></td>
 						</tr>
 
 					</c:forEach>
 
 				</tbody>
-			</table> 
-			<p>目前總請假時數:${totalTakeOffHour }小時</p>
-			<p>剩餘請假時數: ${TakeOffLeftHour}小時</p>
-			<p>待審核請假時數: ${nonCheckTakeOffHour} 小時</p>
+			</table>
+			
+			<p>目前總請假時數:${totalOvertimeHour }小時</p>
+			<p>剩餘請假時數: 小時</p>
+			<p>待審核請假時數:  小時</p>
+			<p>已審核請假時數:${totalcheckedTakeOffHour }小時</p>
+			
+			<!--  
+			<p>目前總加班時數:${totalOvertimeHour }小時</p>
+			<p>剩餘加班時數: ${overTimeLeftHour}小時</p>
+			<p>待審核加班時數: ${nonCheckOutOverTimeHour} 小時</p>
+			-->
 
 
 
 			<div class="p-6">
 				<form class="d-flex"
-					action="/ManagementSystem/app/takeOff/searchTakeOff" method="get"
+					action="/ManagementSystem/app/overtime/searchOvertime" method="get"
 					onsubmit="return validateForm();">
 					<input type="datetime-local" name="startDate" id="startDate"
 						class="form-control" style="width: auto;" min="2023-09-01"
@@ -109,3 +133,5 @@ ${takeOff}
 		return true;
 	}
 </script>
+
+<%@ include file="/WEB-INF/view/Systemfooter.jsp"%></script>

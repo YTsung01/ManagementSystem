@@ -74,27 +74,29 @@ public class TakeOffController {
 		model.addAttribute("totalTakeOffHour", sumTakeOffHour);
 		 */
 
-		/*
+		
 		// 計算目前已審核的總加班時數
 		Integer empId = empBook.getEmpId();
-		List<TakeOff> calculateTakeOffHourList = takeOffDao.findCheckoutTakeOffByEmpId(empId);
-		model.addAttribute("takeOffsbyId", calculateTakeOffHourList);
-		int totalOvertimeHour = calculateTakeOffHourList.stream().filter(o -> o.getVerifyState() == 1)
-				.mapToInt(TakeOff::getTakeoffHour).sum();
-		model.addAttribute("takeoffTotalHours", takeoffTotalHours);
-		 */
+		List<TakeOff> calculatecheckedTakeOffHourList = takeOffDao.findCheckoutTakeOffByEmpId(empId);
+		model.addAttribute("TakeOffsbyId", calculatecheckedTakeOffHourList);
+		int totalcheckedTakeOffHour = calculatecheckedTakeOffHourList.stream().mapToInt(TakeOff::getTakeoffHour).sum();
+		model.addAttribute("totalcheckedTakeOffHour", totalcheckedTakeOffHour);
+		System.out.println("目前已經審核通過加班清單 : " + calculatecheckedTakeOffHourList);
+		System.out.println("總申請時數 = " + totalcheckedTakeOffHour);
+		 
 		
 		// 填表日期
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		model.addAttribute("takeOffDate", sdf.format(new Date()));
 
-		/*
-		// 計算目前所剩下的請假時數
+		
+		// 計算目前所剩下的請假時數(假設總請假數為56)
 		Integer takeoffTotalHours = empBook.getTakeoffTotalHours();
-		int takeOffLeftHour = takeoffTotalHours - sumTakeOffHour;
+		int takeOffLeftHour = 56 - takeoffTotalHours;
 		model.addAttribute("takeOffLeftHour", takeOffLeftHour);
 		
+		/*
 		// 計算目前所剩下的加班時數
 		int takeoffTotalHours = empBook.getTakeoffTotalHours() - takeoffTotalHours;
 		empBookDao.addOverTimeLeftHourByEmpId(empId, takeOffLeftHour);
@@ -352,39 +354,40 @@ public class TakeOffController {
 
 			// 取得登入者的資訊
 			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
-			
+
 			// 找到所有人的表單 依據登入者ID，去尋找Member的單子
 			Integer depotNo = empBook.getEmpDeptno();
+
 			List<EmpBook> deptEmpBooks = empBookDao.findEmpBooksByEmpDeptNo(depotNo);
-			deptEmpBooks = deptEmpBooks
-					.stream()
-					.filter( emp -> !emp.getEmpId().equals(empBook.getEmpId()))
+			deptEmpBooks = deptEmpBooks.stream().filter(emp -> !emp.getEmpId().equals(empBook.getEmpId())).limit(1)
 					.collect(Collectors.toList());
-			
+
 			List<TakeOff> takeOffs = new ArrayList<>();
-			deptEmpBooks.forEach(emp-> {
+			deptEmpBooks.forEach(emp -> {
 				takeOffs.addAll(takeOffDao.findAllTakeOffByDeptNo(emp.getEmpDeptno()));
 			});
-			
+
+			System.out.println(deptEmpBooks.size());
+
 			Optional<EmpBook> empBossOpt = empBookDao.findEmpBookByEmpDeptNoAndLevelId(empBook.getEmpDeptno());
-			
+
 			model.addAttribute("empBossName", empBossOpt.get().getEmpName());
 			model.addAttribute("takeOffs", takeOffs);
 			model.addAttribute("_method", "PUT");
 			System.out.println("takeOff = " + takeOffs);
-			return "boss/TakeOffsCheck";
+			return "boss/TakeOffCheck";
 		}
 
 		// 加班申請通過
 		@PutMapping("/pass/{formId}")
-		
+
 		public String passbtn(@PathVariable("formId") String formId, Model model, HttpSession session) {
 			// 取得登入者資料
 			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 			// 找到這個表單
 			TakeOff takeOff = takeOffDao.findTakeOffByFormId(formId).get();
 			Form form = formDao.findFormByFormId(formId).get();
-			Optional<EmpBook> emp = formDao.findEmpBookByFormId(formId); 
+			Optional<EmpBook> emp = formDao.findEmpBookByFormId(formId);
 			int rowcount = takeOffDao.passTakeOffByFormId(formId);
 			System.out.println(formId + rowcount);
 			return "redirect:../check";
@@ -392,8 +395,7 @@ public class TakeOffController {
 
 		// 加班申請未通過
 		@PutMapping("/false/{formId}")
-		public String falsebtn(@PathVariable("formId") String formId, 
-				@RequestParam("checkReason") String checkReason,
+		public String falsebtn(@PathVariable("formId") String formId, @RequestParam("checkReason") String checkReason,
 				HttpSession session) {
 			// 取得登入者資料
 			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
@@ -406,7 +408,5 @@ public class TakeOffController {
 
 			return "redirect:../check";
 		}
-
-		
 
 }

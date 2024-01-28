@@ -64,7 +64,7 @@ ${overTime} -->
 
 	<div class="d-flex justify-content-center mx-auto p-6 ">
 		<div class="border rounded mx-auto px-4  position-relative">
-			<p class="fs-3 fw-bold text-center pt-3">加班申請單</p>
+			<p class="fs-3 fw-bold text-center pt-3">請假申請單</p>
 			
 			<button id="printButton"
 				class="btn position-absolute top-10 start-20 "
