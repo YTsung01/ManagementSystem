@@ -123,6 +123,14 @@ public class TakeOffController {
 		takeOff.setFormId(uuid);
 
 		// 從表單取得請假資料
+		Integer applier = Integer.parseInt(formMap.get("applier") + "");
+		form.setApplier(applier);
+		
+		Integer agent = Integer.parseInt(formMap.get("agent") + "");
+		takeOff.setAgent(agent);
+		
+		Integer takeoffType = Integer.parseInt(formMap.get("takeoffType") + "");
+		takeOff.setTakeoffType(takeoffType);
 
 		Date startTime = sdf.parse(formMap.get("startTime") + "");
 		takeOff.setStartTime(startTime);
@@ -130,14 +138,15 @@ public class TakeOffController {
 		Date endTime = sdf.parse(formMap.get("endTime") + "");
 		takeOff.setEndTime(endTime);
 		System.out.println(formMap);
+		
+		
 		Integer takeoffHour = Integer.parseInt(formMap.get("takeoffHour") + "");
 		takeOff.setTakeoffHour(takeoffHour);
 
 		String reason = formMap.get("reason") + "";
 		takeOff.setReason(reason);
 
-		Integer takeoffType = Integer.parseInt(formMap.get("takeoffType") + "");
-		takeOff.setTakeoffType(takeoffType);
+
 
 		takeOffDao.addTakeOff(takeOff);
 		model.addAttribute("takeOff", takeOff);

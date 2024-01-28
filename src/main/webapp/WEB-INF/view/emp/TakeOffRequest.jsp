@@ -147,7 +147,7 @@
 					<!-- 添加一個隱藏的 input 元素 -->
 					<input type="hidden" name="calculatedtakeoffHour"
 						id="calculatedtakeoffHour"> <input type="text"
-						name="takeoffhour" id="takeoffhour" class="form-control" required
+						name="takeoffHour" id="takeoffHour" class="form-control" required
 						readonly>
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2 ">時</div>
@@ -268,7 +268,7 @@ $('#calculatebtn').on('click', function() {
 
         // 更新顯示在 readonly 的 input 元素中
         $('#takeoffDay').val(calculatedResult);
-        $('#takeoffhour').val(calculatedResult2);
+        $('#takeoffHour').val(calculatedResult2);
 
         // 使用 console.log 顯示目前的計算值
         console.log('目前的計算值：', calculatedResult +'天'+ calculatedResult2+'時');
