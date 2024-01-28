@@ -35,6 +35,7 @@ import com.example.dao.TakeOffDao;
 import com.example.entity.Attachement;
 import com.example.entity.EmpBook;
 import com.example.entity.Form;
+import com.example.entity.OverTime;
 import com.example.entity.TakeOff;
 
 @Controller
@@ -64,23 +65,40 @@ public class TakeOffController {
 
 		// 取得所有的
 		model.addAttribute("takeOffs", takeOffDao.findAllTakeOffByDeptNo(deptNo));
-
+		/*
 		// 計算目前已審核的總請假時數
 		Integer empId = empBook.getEmpId();
 		List<TakeOff> calculateTakeOffHourList = takeOffDao.findCheckoutTakeOffByEmpId(empId);
 		model.addAttribute("TakeOffsbyId", calculateTakeOffHourList);
 		int sumTakeOffHour = calculateTakeOffHourList.stream().mapToInt(TakeOff::getTakeoffHour).sum();
 		model.addAttribute("totalTakeOffHour", sumTakeOffHour);
+		 */
 
+		/*
+		// 計算目前已審核的總加班時數
+		Integer empId = empBook.getEmpId();
+		List<TakeOff> calculateTakeOffHourList = takeOffDao.findCheckoutTakeOffByEmpId(empId);
+		model.addAttribute("takeOffsbyId", calculateTakeOffHourList);
+		int totalOvertimeHour = calculateTakeOffHourList.stream().filter(o -> o.getVerifyState() == 1)
+				.mapToInt(TakeOff::getTakeoffHour).sum();
+		model.addAttribute("takeoffTotalHours", takeoffTotalHours);
+		 */
+		
 		// 填表日期
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		model.addAttribute("takeOffDate", sdf.format(new Date()));
 
+		/*
 		// 計算目前所剩下的請假時數
 		Integer takeoffTotalHours = empBook.getTakeoffTotalHours();
 		int takeOffLeftHour = takeoffTotalHours - sumTakeOffHour;
 		model.addAttribute("takeOffLeftHour", takeOffLeftHour);
+		
+		// 計算目前所剩下的加班時數
+		int takeoffTotalHours = empBook.getTakeoffTotalHours() - takeoffTotalHours;
+		empBookDao.addOverTimeLeftHourByEmpId(empId, takeOffLeftHour);
+		*/
 
 		// 申請人(只能幫同部門的人申請)
 		List<EmpBook> allDeptEmp = empBookDao.findEmpBooksByEmpDeptNo(empBook.getEmpDeptno());
@@ -228,12 +246,12 @@ public class TakeOffController {
 	}
 	
 	// 每筆紀錄的詳情頁
-		@GetMapping(value = { "/deatil/{fomrId}" })
-		public String searchOverTimeDetail(@PathVariable("fomrId") String fomrId, Model model, HttpSession session) {
+		@GetMapping(value = { "/deatil/{formId}" })
+		public String searchOverTimeDetail(@PathVariable("formId") String formId, Model model, HttpSession session) {
 			// 取得登入者資料
 			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
-			TakeOff takeOff = takeOffDao.findTakeOffByFormId(fomrId).get();
-			Form form = formDao.findFormByFormId(fomrId).get();
+			TakeOff takeOff = takeOffDao.findTakeOffByFormId(formId).get();
+			Form form = formDao.findFormByFormId(formId).get();
 
 			if (takeOff.getTakeoffType() == 1) {
 				model.addAttribute("takeOfftype", "特休");

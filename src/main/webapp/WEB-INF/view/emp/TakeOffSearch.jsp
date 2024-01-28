@@ -39,7 +39,7 @@ ${takeOff}
 				<tbody>
 					<c:forEach var="takeOffs" items="${takeOff}">
 						<tr>
-							<td hidden="hidden">${ takeOffs.formId }</td>
+							<td >${ takeOffs.formId }</td>
 							<td>${ empBook.empId }</td>
 							<td>${ empBook.empName }</td>
 							<td>${ empBook.empDepartment  }</td>
