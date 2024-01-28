@@ -10,7 +10,7 @@ ${empBook }-->
 
 
 ${empBook }
-${ takeOff }
+${takeOff}
 
 <div class="d-flex justify-content-center mx-auto p-4">
 	<div class="border rounded mx-auto p-4 ">
@@ -25,6 +25,7 @@ ${ takeOff }
 						<th>部門</th>
 						<th>請假開始時間</th>
 						<th>請假結束時間</th>
+						<th>請假天數</th>
 						<th>請假時數</th>
 						<th>請假原因</th>
 						<th>審核狀態</th>
@@ -46,6 +47,7 @@ ${ takeOff }
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td><fmt:formatDate value="${ takeOffs.endTime }"
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<td>${takeOffs.applyDay}</td>
 							<td>${takeOffs.applyHour}</td>
 							<td>${takeOffs.reason}</td>
 							<td style="${takeOffs.verifyState == 0 ? 'color: red;' : ''} ">

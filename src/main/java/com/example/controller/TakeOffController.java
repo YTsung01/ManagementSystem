@@ -96,7 +96,7 @@ public class TakeOffController {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	@PostMapping("/add/{empId}")
-	@ResponseBody
+	//@ResponseBody
 	public String addTakeOff(@RequestParam Map<String, Object> formMap,
 			@RequestParam("applierName") Integer applierId, @RequestParam("agentName") Integer agentId,
 							Model model, HttpSession session,
@@ -157,8 +157,8 @@ public class TakeOffController {
 		
 		
 		
-		return formMap + "<hr>" + takeOff;
-	//	return "redirect:../search/{empId}";
+	//	return formMap + "<hr>" + takeOff;
+		return "redirect:../search/{empId}";
 
 	}
 	// 加班查詢資料(員工查自己)
