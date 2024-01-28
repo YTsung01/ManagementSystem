@@ -18,6 +18,18 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
 </head>
 <body>
+
+    <!-- <img src="/ManagementSystem/app/img/sashimi.jpg"/>
+    <!-- 
+    <iframe
+	  id="inlineFrameExample"
+	  title="Inline Frame Example"
+	  width="300"
+	  height="200"
+	  src="/ManagementSystem/app/img/簡報1.pdf">
+	</iframe>
+    -->
+     
 	<div
 		class="d-flex justify-content-center align-items-center vh-100 mx-auto ">
 		<form class="needs-validation border rounded mx-auto p-4" novalidate

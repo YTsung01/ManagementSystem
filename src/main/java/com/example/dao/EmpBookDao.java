@@ -13,4 +13,9 @@ public interface EmpBookDao {
 	List<EmpBook> findEmpBooksByEmpDeptNo(Integer empDeptno);
 	
 	Optional<EmpBook> findEmpBookByEmpDeptNoAndLevelId(Integer empDeptno);
+	
+	//新增加班剩餘時數時數
+	int addOverTimeLeftHourByEmpId(Integer empId, Integer overTimeLeftHour);
+	
+	
 }

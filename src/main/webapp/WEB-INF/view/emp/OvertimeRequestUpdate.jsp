@@ -6,39 +6,16 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.UUID"%>
 <%@ taglib prefix="sp" uri="http://www.springframework.org/tags/form"%>
-${ empBook }
-<hr>
-${overTime}
-<hr>
-${form}
-<hr>
-${form.formId}
-<hr>
-${updateTime }
-${updateendTime }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- value="<fmt:formatDate value="${overTime.endTime}"
+							pattern="yyyy-MM-dd'T'HH:mm" />"> -->
 
 
 
 <div class="container-xl mt-5">
-	
-
-
-	<%
-	// 使用當前時間生成唯一的表單單號
-	//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-	//String formNumber = dateFormat.format(new Date());
-	%>
-
-	<%
-	//UUID uuid = UUID.randomUUID();
-	//uuid.toString();
-	%>
-	<%
-	//=uuid
-	%>
-
-	<sp:form modelAttribute="overTime" action="./add/${empBook.empId}"
-		method="post" class="border rounded mx-auto p-4">
+	<form 
+		action="/ManagementSystem/app/overtime/update/${form.formId}"
+		method="post" class="border rounded mx-auto p-4" id="overTimeUpdate">
 		<div class="row">
 			<!-- 左側 -->
 			<!-- <div class="col-12 col-md-10 border-end"> -->
@@ -53,9 +30,12 @@ ${updateendTime }
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2"></div>
 				</div>
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">填表日期：</div>
-				<div class="col-12 col-md-2 position-relative text-align-center" name="overTimeDate">
-					<p><fmt:formatDate value="${form.applyDate}"
-									pattern="yyyy-MM-dd HH:mm:ss" /></p>
+				<div class="col-12 col-md-2 position-relative text-align-center"
+					name="overTimeDate">
+					<p>
+						<fmt:formatDate value="${form.applyDate}"
+							pattern="yyyy-MM-dd HH:mm:ss" />
+					</p>
 				</div>
 			</div>
 			<!-- 申請人 -->
@@ -77,9 +57,11 @@ ${updateendTime }
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
 					<label> <input type="radio" name="overtimeType"
-						id="overtimeType" required value="${overtime.overtimeType }" /> 加班費
+						id="overtimeType1" required value="1"
+						${overTime.overtimeType eq '1' ? 'checked' : ''} /> 加班費
 					</label> <label> <input type="radio" name="overtimeType"
-						id="overtimeType" required value="${overtime.overtimeType }" /> 補修
+						id="overtimeType2" required value="2"
+						${overTime.overtimeType eq '2' ? 'checked' : ''} /> 補修
 					</label>
 				</div>
 			</div>
@@ -89,9 +71,11 @@ ${updateendTime }
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">申請類型：</div>
 				<div class="col-12 col-md-8">
 					<label> <input type="radio" name="dayOrHoilday"
-						id="dayOrHoilday" required value="1" /> 平日加班
+						id="dayOrHoilday" required value="1"
+						${overTime.dayOrHoilday eq '1' ? 'checked' : ''} /> 平日加班
 					</label> <label> <input type="radio" name="dayOrHoilday"
-						id="dayOrHoilday" required value="2" /> 假日加班
+						id="dayOrHoilday" required value="2"
+						${overTime.dayOrHoilday eq '2' ? 'checked' : ''} /> 假日加班
 					</label>
 					<button type="button"
 						class="m-3 col-12 col-md-3 btn btn-light text-nowrap"
@@ -103,9 +87,9 @@ ${updateendTime }
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">加班起始日：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="datetime-local" name="startTime" id="overTimeStart"
-						class="form-control" style="width: auto;"
-						value="${updateTime }"
+					<input type="datetime-local" name="startTime" id="startTime"
+						class="form-control" style="width: auto;" value="<fmt:formatDate value="${overTime.startTime}"
+							pattern="yyyy-MM-dd'T'HH:mm" />"
 						min="2023-11-01" max="2023-12-31">
 					<!-- 控制日期最大最小值 -->
 
@@ -113,10 +97,11 @@ ${updateendTime }
 
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">結束日：</div>
 				<div class="col-12 col-md-2 position-relative">
-					<input type="datetime-local" name="endTime" id="overTimeEnd"
+					<input type="datetime-local" name="endTime" id="endTime"
 						class="form-control" style="width: auto;" min="2023-11-01"
-						max="2023-12-31"  value="${ updateendTime }"> <span
-						id="overTimeEndError" style="color: red;"></span>
+						max="2023-12-31" value="<fmt:formatDate value="${overTime.endTime}"
+							pattern="yyyy-MM-dd'T'HH:mm" />" >
+					<span id="overTimeEndError" style="color: red;"></span>
 					<!-- 控制日期最大最小值 -->
 				</div>
 			</div>
@@ -128,8 +113,8 @@ ${updateendTime }
 					<!-- 添加一個隱藏的 input 元素 -->
 					<input type="hidden" name="calculatedOverTimeHour"
 						id="calculatedOverTimeHour"> <input type="text"
-						name="applyHour" id="overTimeHour" class="form-control" required
-						readonly>
+						name="applyHour" id="overTimeHour" class="form-control"
+						value="${ overTime.applyHour }" required readonly>
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2 ">小時</div>
 				</div>
@@ -189,7 +174,7 @@ ${updateendTime }
 				</div>
 			</div>
 		</div>
-	</sp:form>
+	</form>
 </div>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js">
@@ -219,8 +204,8 @@ ${updateendTime }
 $(document).ready(function () {
     $('#calculatebtn').on('click', function() {
         // 獲取起始和結束日期的值
-        const startDateValue = $('#overTimeStart').val();
-        const endDateValue = $('#overTimeEnd').val();
+        const startDateValue = $('#startTime').val();
+        const endDateValue = $('#endTime').val();
 
         // 檢查是否選擇了日期
         if (!startDateValue || !endDateValue) {

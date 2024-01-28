@@ -48,20 +48,38 @@ ${empBook }-->
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td>${overtimes.applyHour}</td>
 							<td>${overtimes.reason}</td>
-							<td style="${overtimes.verifyState == 0 ? 'color: red;' : ''} ">
+							<td
+								style="${overtimes.verifyState == 0 ? 'color: red;' : (overtimes.verifyState == 2 ? 'color: black;' : (overtimes.verifyState == 1 ? 'color: blue;' : ''))} ">
 								${overtimes.verifyState == 2 ? '審核中' : (overtimes.verifyState == 1 ? '同意' : '駁回')}</td>
 							<td>${empBossName}</td>
 							<td><a
-								href="http://localhost:8080/ManagementSystem/app/overtime/deatil/${ overtimes.formId }" class="btn  align-items-center "
-								style="background-color:#D6DCDB">詳情</a></td>
-							<td><a 
-								href="http://localhost:8080/ManagementSystem/app/overtime/update/${ overtimes.formId }"
+								href="http://localhost:8080/ManagementSystem/app/overtime/deatil/${ overtimes.formId }"
 								class="btn  align-items-center "
-								style="background-color: #A2AFA6">修改</a></td>
-							<td><a href="javascript:void(0);"
-								onClick="updateItem(${ item.itemId })"
-								class="btn  align-items-center "
-								style="color: white; background-color: #CC5F5A;">刪除</a></td>
+								style="background-color: #D6DCDB">詳情</a></td>
+							<td><c:choose>
+									<c:when test="${overtimes.verifyState eq 1}">
+										<span class="btn btn-disabled align-items-center"
+											style="background-color: #A2AFA6; cursor: not-allowed;">修改</span>
+									</c:when>
+									<c:otherwise>
+										<a
+											href="http://localhost:8080/ManagementSystem/app/overtime/show/${overtimes.formId}"
+											class="btn align-items-center"
+											style="background-color: #A2AFA6" id="detail">修改</a>
+									</c:otherwise>
+								</c:choose></td>
+								<td><c:choose>
+									<c:when test="${overtimes.verifyState eq 1}">
+										<span class="btn btn-disabled align-items-center"
+											style="color: white; background-color: #CC5F5A; cursor: not-allowed;">刪除</span>
+									</c:when>
+									<c:otherwise>
+										<a
+											href="http://localhost:8080/ManagementSystem/app/overtime/delete/${ overtimes.formId }"
+											class="btn align-items-center"
+											style="color: white; background-color: #CC5F5A;" id="detail">刪除</a>
+									</c:otherwise>
+								</c:choose></td>
 						</tr>
 
 					</c:forEach>
@@ -108,3 +126,4 @@ ${empBook }-->
 	}
 </script>
 
+<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>

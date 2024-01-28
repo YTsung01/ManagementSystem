@@ -89,8 +89,8 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/managementsystem?serverTimezone=Asia/Taipei&amp;characterEncoding=utf-8&amp;useUnicode=true" />
-		<property name="user" value="root" />
-		<property name="password" value="abc123" />
+		<property name="user" value="web" />
+		<property name="password" value="12345678" />
 		<property name="maxConnectionAge" value="300" /> <!-- -1 表示沒有限制 -->
 		<property name="maxIdleTimeExcessConnections" value="50" /> <!-- -1 表示沒有限制 -->
 		<property name="debugUnreturnedConnectionStackTraces" value="true" />
@@ -115,16 +115,26 @@
     <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
     
     <!-- 定義攔截器 Bean -->
-    <bean id="loginInterceptor" class="com.example.interceptor.LoginInterceptor"/>
+    <bean class="com.example.interceptor.LoginInterceptor"/>
 
     <!-- 配置攔截器 -->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/app/**"/>
-            <mvc:exclude-mapping path="/app/auth/login"/>
-            <mvc:exclude-mapping path="/app/auth/login_boss"/>
-            <mvc:exclude-mapping path="/app/auth/login/*"/>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/auth/login"/>
+            <mvc:exclude-mapping path="/auth/login_boss"/>
+            <mvc:exclude-mapping path="/hello/*"/>
+            <mvc:exclude-mapping path="/img/**"/>
             <bean class="com.example.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+    
+	<!-- 配置上傳檔案解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="#{1024 * 1024 * 50}"></property>
+    </bean>
+    
+    <!-- 靜態資源對映： http://localhost:8080/ManagementSystem/app/img/sashimi.jpg -->
+    <!-- 靜態資源對映： http://localhost:8080/ManagementSystem/app/img/qrcodes/63c0a02a-692e-41a5-a934-434fd51919ed.png -->
+    <mvc:resources mapping="/img/**" location="file:C:/Users/NTPU/git/ManagementSystem/src/main/webapp/images/qrcodes/"/>
 </beans>

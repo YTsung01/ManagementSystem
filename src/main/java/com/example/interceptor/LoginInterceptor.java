@@ -15,13 +15,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		System.out.println("RequestURI = " + request.getRequestURI());
 		HttpSession session = request.getSession();
 		// 檢查 session 中是否有 user 的物件資料(意味著用戶已經登入)
-		if(session.getAttribute("employee") != null) {
+		if(session.getAttribute("empBook") != null) {
 			EmpBook empBook = (EmpBook)session.getAttribute("empBook");
 			// 路徑的權限檢查
 			// "/group_buy/backend", user level = 2 才可以進入
-			System.out.println("RequestURI = " + request.getRequestURI());
 			if(request.getRequestURI().contains("/boss")) { // 後台
 				if(empBook.getLevelId() == 2) {
 					return true; // 放行

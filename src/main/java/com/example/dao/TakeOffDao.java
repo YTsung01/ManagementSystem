@@ -3,6 +3,7 @@ package com.example.dao;
 
 import com.example.entity.TakeOff;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,5 +31,21 @@ public interface TakeOffDao {
 
 		//7. 依據DeptNo查詢部門的請假資料
 		List<TakeOff> findAllTakeOffByDeptNo(Integer empDeptno);
+		
+		//8. 依照empId查詢尚未審核的請假資料
+		List<TakeOff> findNonCheckoutTakeOffFormByEmpId(Integer empId);
+		
+		// 9. 查詢員工請假紀錄(根據起始日期與員工ID)
+		List<TakeOff> findAllTakeOffByEmpIdAndStartDateAndEndDate(Integer empId, Date startDate, Date endDate);
+		
+		// 10. 依照formId查詢請假表單
+		Optional<TakeOff> findTakeOffByFormId(String formId);
+
+		// 11.依照formId 同意請假狀態 verifyState = 1
+		int passTakeOffByFormId(String formId);
+
+		// 12.依照formId 不同意請假狀態 verifyState = 0
+		int falseTakeOffByFormId(String formId, String checkReason);
+		
 
 }

@@ -1,17 +1,32 @@
 package com.example.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dao.AttachementDao;
 import com.example.dao.CheckInDaoImpl;
@@ -22,7 +37,7 @@ import com.example.entity.EmpBook;
 import com.example.entity.Form;
 import com.example.service.FormServiceImpl;
 
-//@Controller
+@Controller
 @RequestMapping("/hello")
 public class HelloController {
 
@@ -49,13 +64,21 @@ public class HelloController {
 
 	/**
 	 * http://localhost:8080/ManagementSystem/app/hello/attachment
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
 	@GetMapping("/attachment")
 	@ResponseBody
-	public int[] attachement() throws ParseException {
-		List<Attachement> attachements = Arrays.asList(
-				new Attachement("0ee91d5b-d4ad-42dd-bc90-ea32d7bda4d2", "大量測試1.pdf", new Date(), new Date()),
-				new Attachement("0ee91d5b-d4ad-42dd-bc90-ea32d7bda4d2", "大量測試2.pdf", new Date(), new Date()));
+	public int[] attachement(@RequestParam("upfile") List<MultipartFile> files) throws ParseException, IllegalStateException, IOException {
+		
+		List<Attachement> attachements = new ArrayList<>();
+		
+		for(MultipartFile file:files) {
+			String fileName = file.getOriginalFilename();
+			file.transferTo(new File("C:/uploads/"+fileName));
+			attachements.add(new Attachement(UUID.randomUUID().toString(),fileName, new Date(), new Date()));
+		}
+		
 		int[] addBatchResult = attachementDao.addBatchAttachements(attachements);
 		System.out.println("大量新增結果 " + Arrays.toString(addBatchResult));
 		return addBatchResult;
@@ -90,5 +113,47 @@ public class HelloController {
 		return checkInDaoImpl.findAllCheckInByEmpIdAndStartDateAndEndDate(empId, startDate, endDate);
 	}
 	
+	/**
+	 * http://localhost:8080/ManagementSystem/app/hello/upload
+	 * @param files
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@PostMapping("/upload")
+	@ResponseBody
+	public String upload(@RequestParam("upfile") List<MultipartFile> files) throws IllegalStateException, IOException {
+		for(MultipartFile file:files) {
+			file.transferTo(new File("C:/uploads/"+file.getOriginalFilename()));
+		}
+		return "suceess";
+	}
+	
+	/**
+	 * http://localhost:8080/ManagementSystem/app/hello/download?filename=sashimi.jpg
+	 * @param filename
+	 * @param req
+	 * @param resp
+	 * @throws IOException
+	 */
+	@GetMapping("/download")
+	public void download(@RequestParam("filename") String filename ,HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		resp.setContentType("APPLICATION/OCTET-STREAM");
+		resp.setHeader("Content-Disposition", "attachment; filename=\"" + filenameEncode(filename) + "\"");
+		try (OutputStream output = resp.getOutputStream()){
+			Path sorucrePath = Paths.get("C:/uploads/").toAbsolutePath().resolve(filename);
+			Files.copy(sorucrePath, output);
+		} 
+	}
+	
+	
+	public static String filenameEncode(String name) {
+	    try {
+	        return java.net.URLEncoder.encode(name, "UTF-8").replace("+", "%20");
+	    } catch (java.io.UnsupportedEncodingException e) {
+	        e.printStackTrace();
+	        return name;
+	    }
+	}
 
 }
