@@ -2,6 +2,8 @@ package com.example.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 //Entity
 public class TakeOff {
 	
@@ -10,13 +12,19 @@ public class TakeOff {
 	private String formId;    				            // 請假申請單單號
 	private Integer agent;    				            // 代理人ID
 	private Integer takeoffType;    				    // 請假類型'1:特休 2:事假 3:病假 4:喪假 5:公假'
-	private Date startTime;               				// 請假開始的時間
-	private Date endTime;               				// 請假結束的時間
+	//private Date startTime;               				// 請假開始的時間
+	//private Date endTime;               				// 請假結束的時間
 	private String reason;           					// 請假事由
 	private Integer verifyState;           				// 請假審核結果 (0:未通過 1:通過 2:審核中)
 	private String checkReason;           				// 審核結果是否通過原因 
 	private Integer takeoffDay;           				// 審核結果是否通過原因 
 	private Integer takeoffHour;           				// 請假時數
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") 
+	Date startTime;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") 
+	Date endTime;
 	
 	EmpBook empBook;
 	

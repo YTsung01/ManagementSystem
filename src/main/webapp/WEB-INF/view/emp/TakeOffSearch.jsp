@@ -5,12 +5,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 表單元素 
+${takeOff}
 <hr>
 ${empBook }-->
 
 
-${empBook }
-${takeOff}
 
 <div class="d-flex justify-content-center mx-auto p-4">
 	<div class="border rounded mx-auto p-4 ">
