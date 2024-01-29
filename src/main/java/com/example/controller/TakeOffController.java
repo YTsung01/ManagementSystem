@@ -163,15 +163,18 @@ public class TakeOffController {
 		
 		Attachement attachement = new Attachement();
 		attachement.setForm_id(uuid);	
-		
-		for(MultipartFile file:files) {
-			file.transferTo(new File("C:/uploads/"+file.getOriginalFilename()));
-		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
-		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
-		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
-		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
-		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
-		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
+		for (MultipartFile file : files) {
+		    try {
+		        String originalFilename = file.getOriginalFilename();
+		        if (originalFilename != null && !originalFilename.isEmpty()) {
+		            file.transferTo(new File("C:/uploads/" + originalFilename));
+		            System.out.println("檔案名稱 :" + originalFilename);
+		        } else {
+		            System.out.println("檔案名稱為空");
+		        }
+		    } catch (IOException e) {
+		        System.out.println("移轉檔案時發生錯誤：" + e.getMessage());
+		    }
 		}
 	//	attachementDao.addAttachement(attachement);
 		System.out.println(attachement);

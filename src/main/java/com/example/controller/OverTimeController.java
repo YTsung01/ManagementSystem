@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,7 +60,7 @@ public class OverTimeController {
 
 	// 加班首頁
 	@GetMapping(value = { "/request" })
-	public String OverTimeRequestPage(Model model, HttpSession session, @ModelAttribute OverTime overTime) {
+	public String OverTimeRequestPage(Model model, HttpSession session, @ModelAttribute OverTime overTime,RedirectAttributes redirectAttributes) {
 		// 取得登入者的資訊
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 		Integer deptNo = empBook.getEmpDeptno();
@@ -83,6 +84,7 @@ public class OverTimeController {
 		int overTimeLeftHour = empBook.getOverTimeLeftHour() - totalOvertimeHour;
 		model.addAttribute("overTimeLeftHour", overTimeLeftHour);
 		System.out.println("目前所剩下的加班時數 = " + overTimeLeftHour);
+		redirectAttributes.addFlashAttribute("overTimeLeftHour", overTimeLeftHour);
 
 		return "emp/OvertimeRequest";
 
@@ -148,8 +150,11 @@ public class OverTimeController {
 		model.addAttribute("empBossName", empBossOpt.get().getEmpName());
 		System.out.println("overTime = " + OverTimeList);
 		model.addAttribute("overTime", OverTimeList);
+		
+		addOverTimeLeftHour(model, session);
+		
 
-		// 計算目前已審核的總加班時數
+	/*	// 計算目前已審核的總加班時數
 		Integer empId = empBook.getEmpId();
 		List<OverTime> calculateOverTimeHourList = overTimeDao.findCheckoutOverTimeFormByEmpId(empId);
 		model.addAttribute("overTimesbyId", calculateOverTimeHourList);
@@ -161,11 +166,16 @@ public class OverTimeController {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		model.addAttribute("overTimeDate", sdf.format(new Date()));
+		
+		 Integer overTimeLeftHour = (Integer) model.asMap().get("overTimeLeftHour");
+		 model.addAttribute("overTimeLeftHour", overTimeLeftHour);
+		 System.out.println("overTimeLeftHour = "+ overTimeLeftHour);
+
 
 		// 計算目前所剩下的加班時數
 		int overTimeLeftHour = empBook.getOverTimeLeftHour() - totalOvertimeHour;
 		model.addAttribute("overTimeLeftHour", overTimeLeftHour);
-		empBookDao.addOverTimeLeftHourByEmpId(empId, overTimeLeftHour);
+		empBookDao.addOverTimeLeftHourByEmpId(empId, overTimeLeftHour);*/
 
 		// 尚未審核加班時數
 
@@ -360,5 +370,30 @@ public class OverTimeController {
 
 		return "redirect:../check";
 	}
+	
+	// 首頁基礎資料
+	private void addOverTimeLeftHour(Model model,HttpSession session) {
+		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		// 計算目前已審核的總加班時數
+				Integer empId = empBook.getEmpId();
+				List<OverTime> calculateOverTimeHourList = overTimeDao.findCheckoutOverTimeFormByEmpId(empId);
+				model.addAttribute("overTimesbyId", calculateOverTimeHourList);
+				int totalOvertimeHour = calculateOverTimeHourList.stream().mapToInt(OverTime::getApplyHour).sum();
+				model.addAttribute("totalOvertimeHour", totalOvertimeHour);
+				System.out.println("目前已經審核通過加班清單 : " + calculateOverTimeHourList);
+				System.out.println("總申請時數 = " + totalOvertimeHour);
+				// 填表日期
+
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				model.addAttribute("overTimeDate", sdf.format(new Date()));
+
+				// 計算目前所剩下的加班時數
+				int overTimeLeftHour = empBook.getOverTimeLeftHour() - totalOvertimeHour;
+				model.addAttribute("overTimeLeftHour", overTimeLeftHour);
+				System.out.println("目前所剩下的加班時數 = " + overTimeLeftHour);
+
+	}
+	
+	
 
 }
