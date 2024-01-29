@@ -12,13 +12,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
 <style>
 body {
 	overflow: hidden;
@@ -164,5 +158,5 @@ String formNumber = sdf.format(new Date());
 
 
 </body>
-
+	<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>
 </html>

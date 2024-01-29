@@ -4,10 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<html>
-<head>
-</head>
-<body>
+
 	<div class="d-flex justify-content-center mx-auto p-4">
 		<div class="border rounded mx-auto p-4 ">
 			<p class="fs-3 fw-bold text-center">出勤紀錄</p>
@@ -63,5 +60,6 @@
 
 		</div>
 	</div>
-</body>
-</html>
+
+	<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>
+

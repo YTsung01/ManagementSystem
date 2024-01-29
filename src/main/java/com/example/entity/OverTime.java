@@ -127,4 +127,8 @@ public class OverTime {
 				+ ", verifyState=" + verifyState + ", checkReason=" + checkReason + "]";
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git

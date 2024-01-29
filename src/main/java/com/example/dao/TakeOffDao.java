@@ -41,11 +41,21 @@ public interface TakeOffDao {
 		
 		// 10. 依照formId查詢請假表單
 		Optional<TakeOff> findTakeOffByFormId(String formId);
+<<<<<<< HEAD
 
 		// 11.依照formId 同意請假狀態 verifyState = 1
 		int passTakeOffByFormId(String formId);
 
 		// 12.依照formId 不同意請假狀態 verifyState = 0
 		int falseTakeOffByFormId(String formId, String checkReason);
+=======
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
+
+		// 11.依照formId 同意請假狀態 verifyState = 1
+		int passTakeOffByFormId(String formId);
+
+		// 12.依照formId 不同意請假狀態 verifyState = 0
+		int falseTakeOffByFormId(String formId, String checkReason);
+		
 
 }

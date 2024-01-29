@@ -2,11 +2,13 @@ package com.example.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 //Entity
 public class TakeOff {
-	
-	
+
 	// 一般欄位
+<<<<<<< HEAD
 	private String formId;    				            // 請假申請單單號
 	private Integer agent;    				            // 代理人ID
 	private Integer takeoffType;    				    // 請假類型'1:特休 2:事假 3:病假 4:喪假 5:公假'
@@ -20,13 +22,39 @@ public class TakeOff {
 	
 	EmpBook empBook;
 	
+=======
+	String formId; // 請假申請單單號
+	Integer agent; // 代理人Id
+	Integer takeoffType; // 請假類型'1:特休 2:事假 3:病假 4:喪假 5:公假'
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	Date startTime; // 請假開始的時間
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	Date endTime; // 請假結束的時間
+
+	String reason; // 請假事由
+	Integer verifyState; // 請假審核結果 (0:未通過 1:通過 2:審核中)
+	String checkReason; // 審核結果是否通過原因
+	Integer takeoffDay; // 請假天數
+	Integer takeoffHour; // 請假時數
+
+	EmpBook empBook;
+	Attachement attachement;
+
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 	public TakeOff() {
-		
+
 	}
 
 	public TakeOff(String formId, Integer agent, Integer takeoffType, Date startTime, Date endTime, String reason,
+<<<<<<< HEAD
 			Integer verifyState, String checkReason, Integer takeoffDay, Integer takeoffHour, EmpBook empBook) {
 		super();
+=======
+			Integer verifyState, String checkReason, Integer takeoffDay, Integer takeoffHour, EmpBook empBook,Attachement attachement) {
+
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 		this.formId = formId;
 		this.agent = agent;
 		this.takeoffType = takeoffType;
@@ -38,6 +66,10 @@ public class TakeOff {
 		this.takeoffDay = takeoffDay;
 		this.takeoffHour = takeoffHour;
 		this.empBook = empBook;
+<<<<<<< HEAD
+=======
+		this.attachement = attachement;
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 	}
 
 	public String getFormId() {
@@ -127,6 +159,17 @@ public class TakeOff {
 	public void setEmpBook(EmpBook empBook) {
 		this.empBook = empBook;
 	}
+<<<<<<< HEAD
+=======
+
+	public Attachement getAttachement() {
+		return attachement;
+	}
+
+	public void setAttachement(Attachement attachement) {
+		this.attachement = attachement;
+	}
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 
 	@Override
 	public String toString() {
@@ -135,8 +178,10 @@ public class TakeOff {
 				+ ", checkReason=" + checkReason + ", takeoffDay=" + takeoffDay + ", takeoffHour=" + takeoffHour
 				+ ", empBook=" + empBook + "]";
 	}
+<<<<<<< HEAD
 
 	
+=======
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 
-	
 }

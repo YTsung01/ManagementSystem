@@ -147,6 +147,7 @@
 					<!-- 添加一個隱藏的 input 元素 -->
 					<input type="hidden" name="calculatedtakeoffHour"
 						id="calculatedtakeoffHour"> <input type="text"
+<<<<<<< HEAD
 						name="takeoffHour" id="takeoffHour" class="form-control" required
 						readonly>
 					<div
@@ -300,6 +301,159 @@ $('#calculatebtn').on('click', function() {
 
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+=======
+						name="takeoffHour" id="takeoffhour" class="form-control" required
+						readonly>
+					<div
+						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2 ">時</div>
+				</div>
+				<button type="button"
+					class="col-12 col-md-1 btn btn-light text-nowrap "
+					name="calculatebtn" id="calculatebtn">計算</button>
+				<span class="col-12 col-md-1  text-nowrap " id="overTimeStartError"
+					style="color: red;"></span>
+			</div>
+
+
+			<!-- 留言內容 -->
+			<div class="row  pe-4 mb-5 mt-3">
+				<div class="col-12 col-md-2 text-md-end p-md-0">請假事由：</div>
+				<div class="col-12 col-md-10 mb-4">
+					<textarea name="reason" id="reason" class="form-control"
+						rows="5" required></textarea>
+					<div class="col-12 col-md-12 mt-5">
+						<label class="btn btn-outline-primary w-100"> <input
+							type="file" name="upfile[]" multiple accept=".jpg, .jpeg, .png"
+							id="upfile" class="upfile d-none"> <!-- 選多個東西要用陣列儲存 name是負責接收不是負責選 藥用multiple才能多選 accept來過濾 -->
+							上傳附件
+						</label>
+
+						<ul style="list-style-type: disc; margin: 50px">
+							<li>上傳照片最多 10 張</li>
+							<li>每張照片容量最高 1M</li>
+							<li>照片寬度最小 1000px</li>
+							<li>檔案類型必須是 jpg、png、gif</li>
+							<li>按下【確定送出】才完成上傳</li>
+						</ul>
+
+						<div id="img_errmsg" class="text-danger text-center tw-bold"></div>
+						<div id="img_area" class="text-center"></div>
+					</div>
+
+				</div>
+			</div>
+
+
+
+			<!-- 最後 -->
+			<div
+				style="display: flex; justify-content: center; align-items: center;">
+				<button type="submit" id="submitbtn"
+					class="btn btn-primary align-items-center m-4" value="送出">送出</button>
+				<button type="reset" class="btn btn-danger">清除</button>
+			</div>
+
+
+		</div>
+	</form>
+</div>
+<!-- 模态框 -->
+<div class="container mt-5">
+
+	<div class="modal fade" id="remainingHoursModal" tabindex="-1"
+		role="dialog" aria-labelledby="remainingHoursModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="remainingHoursModalLabel">本月剩餘時數</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="remainingHoursModalBody">
+					<!-- 這裡顯示剩餘時數的內容 -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">關閉</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<script>
+
+$('#calculatebtn').on('click', function() {
+    // 取得上班時間範圍
+    var workStartTime = new Date();
+    workStartTime.setHours(9, 0, 0, 0);  // 上午9點
+
+    var workEndTime = new Date();
+    workEndTime.setHours(18, 0, 0, 0);  // 下午5點
+
+    var startDate = new Date($('#startTime').val());
+    var endDate = new Date($('#endTime').val());
+
+    // 檢查是否在上班時間範圍內
+    if (startDate < workStartTime || endDate > workEndTime) {
+        $('#overTimeStartError').text('請依上班時間請假');
+        return;
+    } else {
+        $('#overTimeStartError').text(''); // 清除錯誤信息
+    }
+        var timeDiff =Math.abs(endDate.getTime()- startDate.getTime());
+        var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));         
+        var diffHours =  Math.ceil(timeDiff / (1000 * 60 * 60));
+        var diffDayHours = diffHours % 24;
+        var difftotalDays = Math.floor(diffHours/ 24);
+        //var diffDayHours = diffHours- diffDays*24;
+
+        let calculatedResult = diffDays;
+        let calculatedResult2 = diffDayHours-1;
+        
+        
+        // 將計算結果丟給隱藏的 input 元素
+        $('#calculatedtakeoffDay').val(calculatedResult);
+        $('#calculatedtakeoffHour').val(calculatedResult2);
+
+        // 更新顯示在 readonly 的 input 元素中
+        $('#takeoffDay').val(calculatedResult);
+        $('#takeoffhour').val(calculatedResult2);
+
+        // 使用 console.log 顯示目前的計算值
+        console.log('目前的計算值：', calculatedResult +'天'+ calculatedResult2+'時');
+       
+    
+        });
+</script>
+
+<script>
+    // 當代理人下拉選單的值發生變化時
+    document.getElementById("agentName").addEventListener("change", function() {
+        // 取得代理人和申請人的下拉選單元素
+        var agentDropdown = document.getElementById("agentName");
+        var applierDropdown = document.getElementById("applierName");
+
+        // 取得選中的代理人和申請人的值
+        var selectedAgent = agentDropdown.options[agentDropdown.selectedIndex].text
+        var selectedApplier = applierDropdown.options[applierDropdown.selectedIndex].text
+
+        // 檢查是否選中相同的代理人和申請人
+        if (selectedAgent === selectedApplier) {
+            // 如果相同，顯示錯誤訊息（你可以根據實際需求自行調整提示內容和樣式）
+            alert("代理人和申請人不可為同一人");
+            // 或者清空申請人的選擇
+            applierDropdown.value = "";
+        }
+    });
+</script>
+
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 <script>
         $(document).ready(function () {
         	 console.log('Calculate button clicked');

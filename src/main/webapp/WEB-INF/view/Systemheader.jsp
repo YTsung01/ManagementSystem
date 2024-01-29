@@ -55,7 +55,11 @@
 							請假</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 							<li><a class="dropdown-item" href="/ManagementSystem/app/takeOff/request">請假申請</a></li>
+<<<<<<< HEAD
 							<li><a class="dropdown-item" href="/ManagementSystem/app/takeOff/search/${empBook.empId}">請假查詢</a></li>
+=======
+							<li><a class="dropdown-item" href="/ManagementSystem/app/takeOff/search">請假查詢</a></li>
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 							<li><c:if test="${empBook != null && empBook.getLevelId() == 2}"><a class="dropdown-item" href="/ManagementSystem/app/takeOff/check">請假管理</a></c:if></li>
 						</ul>
 					</div>

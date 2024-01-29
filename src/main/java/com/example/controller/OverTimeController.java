@@ -360,4 +360,8 @@ public class OverTimeController {
 		return "redirect:../check";
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git

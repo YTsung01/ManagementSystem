@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.entity.EmpBook;
 
@@ -47,6 +49,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 
 	
 	//1. 新增請假申請
+	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
 	public int addTakeOff(TakeOff takeOff) {
 		String sql = "insert into takeOff(formId, agent, takeoffType, startTime, endTime, reason, takeoffDay, takeoffHour)  values(?,?,?,?,?,?,?,?)";
@@ -78,16 +81,26 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	//3. 依據empId查詢請假資料
 	@Override
 	public List<TakeOff> findTakeOffByEmpId(Integer empId) {
+<<<<<<< HEAD
 		String sql = "select emp.empName, f.formId, f.type, t.* from empbook emp , form f, takeoff t "
 				+ "where f.applier = emp.empId and f.formId = t.formId AND emp.empId = ?;";
+=======
+		String sql = "select emp.empName, f.formId, f.type, f.applyDate, t.* from empbook emp , form f, takeoff t "
+				+ "where f.applier = emp.empId and f.formId = t.formId AND emp.empId = ? ORDER BY f.applyDate DESC;";
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 		return jdbcTemplate.query(sql, rowMapper, empId);
 	}
 
 	//4. 依據empId查詢已經審核過的加班資料
 	@Override
 	public List<TakeOff> findCheckoutTakeOffByEmpId(Integer empId) {
+<<<<<<< HEAD
 		String sql = "SELECT emp.empName, f.formId, f.type, t.* " + "FROM empbook emp, form f, takeoff t "
 				+ "WHERE f.applier = emp.empId AND f.formId = t.formId AND emp.empId = ? and t.verifyState = 1";
+=======
+		String sql = "SELECT emp.empName,f.applyDate, f.formId, f.type, t.* " + "FROM empbook emp, form f, takeoff t "
+				+ "WHERE f.applier = emp.empId AND f.formId = t.formId AND emp.empId = ? and t.verifyState = 1  ORDER BY f.applyDate DESC";
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 		return jdbcTemplate.query(sql, rowMapper, empId);
 	}
 
@@ -123,6 +136,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 				+ "WHERE f.applier = emp.empId AND f.formId = t.formId AND emp.empId = ? and t.verifyState = 2";
 		return jdbcTemplate.query(sql,rowMapper, empId);
 	}
+<<<<<<< HEAD
 
 	/**
 	 * SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime
@@ -174,4 +188,56 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	
 
 }
+=======
+>>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 
+	/**
+	 * SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime
+	 * o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = 101 and
+	 * o.verifyState = 2 and startTime BETWEEN '2024-01-23 14:40:41' AND '2024-01-25
+	 * 15:40:41';;
+	 */
+	
+	// 9. 查詢員工請假紀錄(根據起始日期與員工ID)
+	@Override
+	public List<TakeOff> findAllTakeOffByEmpIdAndStartDateAndEndDate(Integer empId, Date startDate, Date endDate) {
+		String sql = "SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ?  and startTime BETWEEN  ? AND ?;";
+		return jdbcTemplate.query(sql, rowMapper, empId, startDate, endDate);
+	}
+
+
+	// 10. 依照formId查詢請假表單
+	@Override
+	public Optional<TakeOff> findTakeOffByFormId(String formId) {
+		String sql = "SELECT emp.empName, f.formId, f.type, t.* "
+				+ "FROM empbook emp, form f, takeoff "
+				+ "WHERE f.applier = emp.empId AND f.formId = t.formId and t.formId = ?";
+		try {
+			TakeOff takeOff = jdbcTemplate.queryForObject(sql, rowMapper, formId);
+			return Optional.of(takeOff);
+		} catch (Exception e) {
+			return Optional.empty();
+
+		}
+	}
+
+	// 11.依照formId 同意請假狀態 verifyState = 1
+	@Override
+	public int passTakeOffByFormId(String formId) {
+		String sql = "UPDATE takeoff SET  verifyState = 1 WHERE formId = ? ";
+		return jdbcTemplate.update(sql, formId);
+	}
+
+	// 12.依照formId 不同意請假狀態 verifyState = 0
+	@Override
+	public int falseTakeOffByFormId(String formId, String checkReason) {
+		String sql = "UPDATE takeoff SET  verifyState = 0 , checkReason = ? WHERE formId = ?  ";
+		return jdbcTemplate.update(sql, checkReason , formId);
+	}
+
+	
+	
+
+	
+
+}
