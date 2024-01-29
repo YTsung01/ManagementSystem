@@ -27,6 +27,7 @@ ${empBook }-->
 						<th>請假天數</th>
 						<th>請假時數</th>
 						<th>請假原因</th>
+						<th>附件</th>
 						<th>審核狀態</th>
 						<th>審核人</th>
 						<th>詳情</th>
@@ -34,11 +35,11 @@ ${empBook }-->
 						<th>刪除</th>
 
 					</tr>
-				</thead> 
+				</thead>
 				<tbody>
 					<c:forEach var="takeOffs" items="${takeOff}">
 						<tr>
-							<td>${ takeOffs.formId }</td>
+							<td hidden="hidden">${ takeOffs.formId }</td>
 							<td>${ empBook.empId }</td>
 							<td>${ empBook.empName }</td>
 							<td>${ empBook.empDepartment  }</td>
@@ -48,6 +49,7 @@ ${empBook }-->
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td>${takeOffs.takeoffDay}</td>
 							<td>${takeOffs.takeoffHour}</td>
+							<td>${takeOffs.reason}</td>
 							<td>${takeOffs.reason}</td>
 							<td style="${takeOffs.verifyState == 0 ? 'color: red;' : ''} ">
 								${takeOffs.verifyState == 2 ? '審核中' : (takeOffs.verifyState == 1 ? '同意' : '駁回')}</td>
@@ -68,7 +70,7 @@ ${empBook }-->
 											style="background-color: #A2AFA6" id="detail">修改</a>
 									</c:otherwise>
 								</c:choose></td>
-								<td><c:choose>
+							<td><c:choose>
 									<c:when test="${takeOffs.verifyState eq 1}">
 										<span class="btn btn-disabled align-items-center"
 											style="color: white; background-color: #CC5F5A; cursor: not-allowed;">刪除</span>
@@ -86,11 +88,11 @@ ${empBook }-->
 
 				</tbody>
 			</table>
-			
+
 			<p>目前總請假時數:${totaltakeOffHour }小時</p>
 			<p>剩餘請假時數: ${takeOffLeftHour} 小時</p>
 			<p>待審核請假時數:${nonCheckOutTakeOffHour }小時</p>
-			
+
 			<!--  
 			<p>目前總加班時數:${totaltakeOffHour }小時</p>
 			<p>剩餘加班時數: ${overTimeLeftHour}小時</p>

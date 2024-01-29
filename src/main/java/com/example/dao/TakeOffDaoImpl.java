@@ -97,9 +97,9 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	//5. 依據formId修改請假(注意!! 不能修改已經審核過的申請單)
 	@Override
 	public int updateTakeOffByEmpId(String formId, TakeOff takeOff) {
-		 String sql = "UPDATE takeOff SET  agent=?, takeoffType=?, startTime=?, endTime=?, reason=?, checkReason=?, takeoffDay=?, takeoffHour=?";
+		 String sql = "UPDATE takeOff SET  agent=?, takeoffType=?, startTime=?, endTime=?, reason=?, checkReason=?, takeoffDay=?, takeoffHour=? WHERE formId = ? and verifyState = 2";
 		    return jdbcTemplate.update(sql,takeOff.getAgent(),takeOff.getTakeoffType(),takeOff.getStartTime(),takeOff.getEndTime(),takeOff.getReason(),
-					takeOff.getCheckReason(),takeOff.getTakeoffDay(),takeOff.getTakeoffHour());
+					takeOff.getCheckReason(),takeOff.getTakeoffDay(),takeOff.getTakeoffHour(), formId);
 	}
 
 	//6. 依照FormId取消請假申請

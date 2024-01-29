@@ -74,7 +74,7 @@ ${totalOvertimeHour} ${overIimeLeftHour} -->
 					<label> <input type="radio" name="overtimeType"
 						id="overtimeType" required value="1" /> 加班費
 					</label> <label> <input type="radio" name="overtimeType"
-						id="overtimeType" required value="2" /> 補修
+						id="overtimeType" required value="2" /> 補休
 					</label>
 				</div>
 			</div>

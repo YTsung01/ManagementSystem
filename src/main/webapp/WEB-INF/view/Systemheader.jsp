@@ -76,7 +76,7 @@
 					</div>
 
 					<li class="nav-item"><a class="nav-link text-light "
-						href="./Salary.jsp">薪資查詢</a></li>
+						href="/ManagementSystem/app/salary/search">薪資查詢</a></li>
 
 				</ul>
 

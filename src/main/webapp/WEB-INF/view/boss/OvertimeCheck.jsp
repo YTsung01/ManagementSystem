@@ -9,11 +9,10 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	
 
 
-${overTimes}
-
+<!-- 
+${overTimes} -->
 
 <style>
 .center {
@@ -40,7 +39,7 @@ ${overTimes}
 							<th class="center">加班結束時間</th>
 							<th>加班時數</th>
 							<th>加班原因</th>
-							<th >審核狀態</th>
+							<th>審核狀態</th>
 							<th colspan="1" width="150px" class="center">審核</th>
 							<th align='center' valign="middle">審核人</th>
 
@@ -61,19 +60,20 @@ ${overTimes}
 										value="${ overtime.endTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td class="center">${overtime.applyHour}</td>
 								<td class="center">${overtime.reason}</td>
-								<td class="center"
-									style="${overtime.verifyState == 0 ? 'color: red;' : (overtime.verifyState == 2 ? 'color: black;' : (overtime.verifyState == 1 ? 'color: blue;' : ''))} "">
+								<td class="center" style="${overtime.verifyState == 0 ? 'color: red;' : (overtime.verifyState == 2 ? 'color: black;' : (overtime.verifyState == 1 ? 'color: blue;' : ''))} ">
 									${overtime.verifyState == 2 ? '審核中' : (overtime.verifyState == 1 ? '同意' : '駁回')}</td>
-								<td  colspan="2"  class="d-flex">
-								<form method="POST" action="./pass/${ overtime.formId }"  class="me-1">
-									<input name="_method" type="hidden" value="${_method}" />
-								<button type="submit" class="btn " id="agree"
-											style="background-color: #A2AFA6" ${overtime.verifyState == 1 ? 'disabled' : ''}>同意</button>
-								</form>
-								
-								<button class="btn mx-1" style="background-color: #CC5F5A"
-									data-bs-toggle="modal"
-									data-bs-target="#rejectModel${stat.index}">駁回</button>
+								<td colspan="2" class="d-flex">
+									<form method="POST" action="./pass/${ overtime.formId }"
+										class="me-1">
+										<input name="_method" type="hidden" value="${_method}" />
+										<button type="submit" class="btn " id="agree"
+											style="background-color: #A2AFA6"
+											${overtime.verifyState == 1 ? 'disabled' : ''}>同意</button>
+									</form>
+
+									<button class="btn mx-1" style="background-color: #CC5F5A"
+										data-bs-toggle="modal"
+										data-bs-target="#rejectModel${stat.index}">駁回</button>
 								</td>
 								<td>${empBossName}</td>
 
@@ -91,7 +91,7 @@ ${overTimes}
 										<div class="modal-content">
 
 											<div class="modal-header">
-									
+
 												<h5 class="modal-title" id="exampleModalLabel">${ overtime.formId }請填寫駁回原因</h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
@@ -129,43 +129,4 @@ ${overTimes}
 	</div>
 </div>
 
-
-
-<head>
-<script type="text/javascript"
-	src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-
-    	var rows = [
-            ['${empBook.empName}', '${empBook.overTimeLeftHour}'],
-            ['${empBook.empName}', ${empBook.overTimeLeftHour}],
-            ['${empBook.empName}',       ${empBook.overTimeLeftHour}],
-            ['${empBook.empName}',   ${empBook.overTimeLeftHour}],
-            ['${empBook.empName}',  ${empBook.overTimeLeftHour}],
-            ['${empBook.empName}',     ${empBook.overTimeLeftHour}]
-        ];  
-    	  
-        var data = google.visualization.arrayToDataTable(rows);
-
-        var height = rows.length * 41 + 30; // 動態計算高度
- 
-        var options = {
-          title: '加班時數統計',
-          height : height
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-      }
-    </script>
-
-
-</head>
-<body>
-	<div id="piechart" style="width: 900px; height: 500px;"></div>
-</body>
+<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>
