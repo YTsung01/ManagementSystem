@@ -137,5 +137,6 @@
     
     <!-- 靜態資源對映： http://localhost:8080/ManagementSystem/app/img/sashimi.jpg -->
     <!-- 靜態資源對映： http://localhost:8080/ManagementSystem/app/img/qrcodes/63c0a02a-692e-41a5-a934-434fd51919ed.png -->
-    <mvc:resources mapping="/img/**" location="file:/Users/songyuting/Desktop/qr code"/>
+    <!--<mvc:resources mapping="/img/**" location="file:/Users/songyuting/Desktop/qrcodes"/>-->
+     <mvc:resources mapping="/img/**" location="file:C:/Users/NTPU/git/ManagementSystem/src/main/webapp/images/"/>
 </beans>

@@ -45,8 +45,8 @@
 				<div class="col-12 col-md-2 position-relative">
 					<select name="applierName" id="applierName" class="form-select"
 						required>
-						<option value="" selected disabled>請選擇申請人..</option>
-						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
+							<!-- 預設option值 selected代表預設選擇-->
+						<option value="${form.applier}" selected disabled>${applierName}</option>
 						<c:forEach var="emp" items="${allDeptEmp}">
 							<option value="${ emp.empId }">${emp.empName}</option>
 						</c:forEach>
@@ -76,9 +76,10 @@
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">代理人：</div>
 				<div class="col-12 col-md-2 position-relative">
+					<!-- 預設option值 selected代表預設選擇-->
 					<select name="agentName" id="agentName" class="form-select"
 						required>
-						<option value="" selected disabled>請選擇代理人..</option>
+						<option value="${takeOff.agent}" selected disabled>${agentName}</option>
 
 						<c:forEach var="emp" items="${allDeptEmp}">
 							<option value="${emp.empId}">${emp.empName}</option>
@@ -99,9 +100,9 @@
 			<div class="row align-items-center pe-4 mb-3">
 				<div class="col-12 col-md-2 text-md-end text-nowrap p-md-0">選擇假別：</div>
 				<div class="col-12 col-md-7">
-					<select name="takeoffType" id="takeoffType" class="form-select" required>
-						<option value="" selected disabled>請選擇請假類別..</option>
-						<!-- 第一個option是沒有值 代表你沒選擇,所以下面的選項都會有value(因為required要接收value) selected代表預設選擇 disabled代表他不能再被選-->
+					<select name="takeoffType" id="takeoffType" class="form-select" required ">
+						<!-- 預設option值 selected代表預設選擇-->
+						<option value="${takeOff.takeoffType}" selected disabled>${takeOfftypes}</option>
 						<option value="1">特別休假</option>
 						<option value="2">事假</option>
 						<option value="3">病假</option>
@@ -116,8 +117,9 @@
 				<div class="col-14 col-md-2 text-md-end text-nowrap p-md-0 ">請假起始日：</div>
 				<div class="col-14 col-md-2 position-relative">
 					<input type="datetime-local" name="startTime" id="startTime"
-						class="form-control me-3" style="width: auto;" min="2023-11-01"
-						max="2023-12-31">
+						class="form-control me-3" style="width: auto;"  value="<fmt:formatDate value="${takeOff.startTime}"
+							pattern="yyyy-MM-dd'T'HH:mm" />"
+						min="2023-11-01" max="2023-12-31">
 
 					<!-- 控制日期最大最小值 -->
 				</div>
@@ -126,7 +128,8 @@
 				<div class="col-14 col-md-2 position-relative">
 					<input type="datetime-local" name="endTime" id="endTime"
 						class="form-control" style="width: auto;" min="2023-11-01"
-						max="2023-12-31"> <span id="overTimeEndError"
+						max="2023-12-31"value="<fmt:formatDate value="${takeOff.endTime}"
+							pattern="yyyy-MM-dd'T'HH:mm" />" > <span id="overTimeEndError"
 						style="color: red;"></span>
 					<!-- 控制日期最大最小值 -->
 				</div>
@@ -139,8 +142,8 @@
 					<!-- 添加一個隱藏的 input 元素 -->
 					<input type="hidden" name="calculatedtakeoffDay"
 						id="calculatedtakeoffDay"> <input type="text"
-						name="takeoffDay" id="takeoffDay" class="form-control" required
-						readonly>
+						name="takeoffDay" id="takeoffDay" class="form-control" 
+						value="${ takeOff.takeoffDay }" required readonly>
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2">天</div>
 				</div>
@@ -149,8 +152,8 @@
 					<!-- 添加一個隱藏的 input 元素 -->
 					<input type="hidden" name="calculatedtakeoffHour"
 						id="calculatedtakeoffHour"> <input type="text"
-						name="takeoffHour" id="takeoffHour" class="form-control" required
-						readonly>
+						name="takeoffHour" id="takeoffHour" class="form-control" 
+						value="${ takeOff.takeoffHour }" required readonly>
 					<div
 						class="msg position-absolute top-0 end-0 ts-blueword pe-4 pt-2 ">時</div>
 				</div>

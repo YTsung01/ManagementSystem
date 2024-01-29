@@ -134,7 +134,7 @@ ${takeOffs}
         var data = google.visualization.arrayToDataTable([
           ['${empBook.empName}', '${empBook.overTimeLeftHour}'],
           ['${empBook.empName}', ${empBook.overTimeLeftHour}],
-          ['${empBook.empName}',       ${empBook.overTimeLeftHour}],
+          ['${empBook.empName}',  ${empBook.overTimeLeftHour}],
           ['${empBook.empName}',   ${empBook.overTimeLeftHour}],
           ['${empBook.empName}',  ${empBook.overTimeLeftHour}],
           ['${empBook.empName}',     ${empBook.overTimeLeftHour}]

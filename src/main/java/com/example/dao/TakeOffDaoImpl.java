@@ -87,7 +87,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	@Override
 	public List<TakeOff> findCheckoutTakeOffByEmpId(Integer empId) {
 		String sql = "SELECT emp.empName, f.formId, f.type, t.* " + "FROM empbook emp, form f, takeoff t "
-				+ "WHERE f.applier = emp.empId AND f.formId = t.formId AND emp.empId = ? and t.verifyState = 1";
+				+ "WHERE f.applier = emp.empId AND f.formId = t.formId AND emp.empId = ? and t.verifyState = 1 ORDER BY f.applyDate DESC";
 		return jdbcTemplate.query(sql, rowMapper, empId);
 	}
 
@@ -112,7 +112,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	public List<TakeOff> findAllTakeOffByDeptNo(Integer empDeptno) {
 		String sql = "select emp.empName, emp.empDepartment, emp.empDeptno, f.formId, f.type, t.* "
 				+ "from empbook emp , form f, takeoff t "
-				+ "where f.applier = emp.empId and f.formId = t.formId and emp.empDeptno= ?";
+				+ "where f.applier = emp.empId and f.formId = t.formId and emp.empDeptno= ? ORDER BY f.applyDate DESC";
 		return jdbcTemplate.query(sql, rowMapper, empDeptno);
 	}
 
@@ -120,7 +120,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	@Override
 	public List<TakeOff> findNonCheckoutTakeOffFormByEmpId(Integer empId) {
 		String sql = "SELECT emp.empName, f.formId, f.type, t.* " + "FROM empbook emp, form f, takeoff t "
-				+ "WHERE f.applier = emp.empId AND f.formId = t.formId AND emp.empId = ? and t.verifyState = 2";
+				+ "WHERE f.applier = emp.empId AND f.formId = t.formId AND emp.empId = ? and t.verifyState = 2 ORDER BY f.applyDate DESC";
 		return jdbcTemplate.query(sql,rowMapper, empId);
 	}
 
@@ -134,7 +134,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	// 9. 查詢員工請假紀錄(根據起始日期與員工ID)
 	@Override
 	public List<TakeOff> findAllTakeOffByEmpIdAndStartDateAndEndDate(Integer empId, Date startDate, Date endDate) {
-		String sql = "SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ?  and startTime BETWEEN  ? AND ?;";
+		String sql = "SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ?  and startTime BETWEEN  ? AND ? ORDER BY f.applyDate DESC";
 		return jdbcTemplate.query(sql, rowMapper, empId, startDate, endDate);
 	}
 
@@ -144,7 +144,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	public Optional<TakeOff> findTakeOffByFormId(String formId) {
 		String sql = "SELECT emp.empName, f.formId, f.type, t.* "
 				+ "FROM empbook emp, form f, takeoff t  "
-				+ "WHERE f.applier = emp.empId AND f.formId = t.formId and t.formId = ?";
+				+ "WHERE f.applier = emp.empId AND f.formId = t.formId and t.formId = ? ORDER BY f.applyDate DESC";
 		try {
 			TakeOff takeOff = jdbcTemplate.queryForObject(sql, rowMapper, formId);
 			return Optional.of(takeOff);

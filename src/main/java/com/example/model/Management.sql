@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `managementsystem`.`empbook` (
   `salary` INT NOT NULL default 28000,
   `overTimeLeftHour` INT NOT NULL DEFAULT 46,
   `overTimeTotalHour` INT NOT NULL DEFAULT 46,
-  `takeoffTotalHours` INT NOT NULL DEFAULT 0,
+  `takeoffTotalHours` INT NOT NULL DEFAULT 56,
   `empAcator` VARCHAR(1000) NULL default '/images/default_user.jpg',
   PRIMARY KEY (`empId`),
   UNIQUE INDEX `empName` (`empName` ASC) VISIBLE)

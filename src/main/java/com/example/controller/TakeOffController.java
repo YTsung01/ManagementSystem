@@ -37,6 +37,8 @@ import com.example.entity.EmpBook;
 import com.example.entity.Form;
 import com.example.entity.OverTime;
 import com.example.entity.TakeOff;
+import com.example.util.Qrcode;
+import com.google.zxing.WriterException;
 
 @Controller
 @RequestMapping("/takeOff")
@@ -120,7 +122,7 @@ public class TakeOffController {
 	public String addTakeOff(@RequestParam Map<String, Object> formMap,
 			@RequestParam("applierName") Integer applierId, @RequestParam("agentName") Integer agentId,
 							Model model, HttpSession session,
-							RedirectAttributes redirectAttributes)   throws ParseException, IllegalStateException, IOException {
+							RedirectAttributes redirectAttributes)   throws ParseException, IllegalStateException, IOException, WriterException {
 
 		
 		 System.out.println("前端傳來的 selectedEmployee 值為: "  );
@@ -166,7 +168,7 @@ public class TakeOffController {
 
 		String reason = formMap.get("reason") + "";
 		takeOff.setReason(reason);
-
+		String path = Qrcode.generateQRcode(uuid);
 		takeOffDao.addTakeOff(takeOff);
 		model.addAttribute("takeOff", takeOff);
 		
@@ -211,6 +213,7 @@ public class TakeOffController {
 		int takeOffLeftHour = takeoffTotalHours - sumTakeOffHour;
 		model.addAttribute("takeOffLeftHour", takeOffLeftHour);
 		empBook.setTakeoffTotalHours(takeoffTotalHours);*/
+		
 
 		// 尚未審核請假時數
 		List<TakeOff> nonCheckOutTakeOffList = takeOffDao.findNonCheckoutTakeOffFormByEmpId(empBook.getEmpId());
@@ -226,6 +229,8 @@ public class TakeOffController {
 			throws ParseException {
 		// 取得登入者資料
 		EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+		Integer deptNo = empBook.getEmpDeptno();
+		
 		// 處理搜索邏輯，selectedMonth 是前端傳遞過來的月份參數
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		Date StartDate2 = sdf.parse(startDate);
@@ -308,6 +313,36 @@ public class TakeOffController {
 			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 			TakeOff takeOff = takeOffDao.findTakeOffByFormId(formId).get();
 			Form form = formDao.findFormByFormId(formId).get();
+			Integer deptNo = empBook.getEmpDeptno();
+			
+			Integer applierId = formDao.findFormByFormId(formId).get().getApplier();
+			Integer agentId = takeOffDao.findTakeOffByFormId(formId).get().getAgent();
+			String applierName = empBookDao.findEmpBookByEmpId(applierId).get().getEmpName();
+			String agentName = empBookDao.findEmpBookByEmpId(agentId).get().getEmpName();
+			
+			model.addAttribute("applierId", applierId);
+			model.addAttribute("applierName", applierName);
+			model.addAttribute("agentId", agentId);
+			model.addAttribute("agentName", agentName);
+			
+			if (takeOff.getTakeoffType() == 1) {
+				model.addAttribute("takeOfftypes", "特休");
+			}
+
+			if (takeOff.getTakeoffType() == 2) {
+				model.addAttribute("takeOfftypes", "事假");
+			}
+			
+			if (takeOff.getTakeoffType() == 3) {
+				model.addAttribute("takeOfftypes", "病假");
+			}
+			
+			if (takeOff.getTakeoffType() == 4) {
+				model.addAttribute("takeOfftypes", "喪假");
+			}
+			if (takeOff.getTakeoffType() == 5) {
+				model.addAttribute("takeOfftypes", "公假");
+			}
 
 			model.addAttribute("takeOff", takeOff);
 			model.addAttribute("form", form);
@@ -323,12 +358,19 @@ public class TakeOffController {
 			System.out.println(updateTime);
 			System.out.println(takeOff.getTakeoffType());
 			
+		
+			
 			
 			// 計算目前已審核的總請假時數
 			Integer empId = empBook.getEmpId();
 			List<TakeOff> calculateTakeOffHourList = takeOffDao.findNonCheckoutTakeOffFormByEmpId(empId);
 			int totalTakeOffHour = calculateTakeOffHourList.stream().mapToInt(TakeOff::getTakeoffHour).sum();
 			model.addAttribute("totalTakeOffHour", totalTakeOffHour);
+			
+			// 申請人(只能幫同部門的人申請)
+			List<EmpBook> allDeptEmp = empBookDao.findEmpBooksByEmpDeptNo(empBook.getEmpDeptno());
+			model.addAttribute("allDeptEmp", allDeptEmp);
+			System.out.print(allDeptEmp);
 
 			return "emp/TakeOffRequestUpdate"; // 重導到 user 首頁
 		}
@@ -351,6 +393,8 @@ public class TakeOffController {
 			int rowcount = takeOffDao.updateTakeOffByEmpId(formId, takeOff);
 			System.out.println("update  rowcount = " + rowcount);
 			return "redirect:/app/takeOff/search/"+empBook.getEmpId();
+			
+		
 		}
 
 		// 刪除
