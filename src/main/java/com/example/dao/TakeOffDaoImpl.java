@@ -146,7 +146,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	@Override
 	public Optional<TakeOff> findTakeOffByFormId(String formId) {
 		String sql = "SELECT emp.empName, f.formId, f.type, t.* "
-				+ "FROM empbook emp, form f, takeoff "
+				+ "FROM empbook emp, form f, takeoff t "
 				+ "WHERE f.applier = emp.empId AND f.formId = t.formId and t.formId = ?";
 		try {
 			TakeOff takeOff = jdbcTemplate.queryForObject(sql, rowMapper, formId);
