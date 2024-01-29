@@ -33,8 +33,8 @@ public class TakeOffDaoImpl implements TakeOffDao {
 		takeOff.setFormId(rs.getString("formId"));
 		takeOff.setAgent(rs.getInt("agent"));
 		takeOff.setTakeoffType(rs.getInt("takeoffType"));
-		takeOff.setStartTime(rs.getDate("startTime"));
-		takeOff.setEndTime(rs.getDate("endTime"));
+		takeOff.setStartTime(rs.getTimestamp("startTime"));
+		takeOff.setEndTime(rs.getTimestamp("endTime"));
 		takeOff.setReason(rs.getString("reason"));
 		takeOff.setVerifyState(rs.getInt("verifyState"));
 		takeOff.setCheckReason(rs.getString("checkReason"));
@@ -137,7 +137,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	// 9. 查詢員工請假紀錄(根據起始日期與員工ID)
 	@Override
 	public List<TakeOff> findAllTakeOffByEmpIdAndStartDateAndEndDate(Integer empId, Date startDate, Date endDate) {
-		String sql = "SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ?  and startTime BETWEEN  ? AND ?;";
+		String sql = "SELECT emp.empName, f.formId, f.type, t.* FROM empbook emp, form f, takeoff t WHERE f.applier = emp.empId AND f.formId = t.formId AND emp.empId = ?  and startTime BETWEEN  ? AND ?;";
 		return jdbcTemplate.query(sql, rowMapper, empId, startDate, endDate);
 	}
 
@@ -171,8 +171,6 @@ public class TakeOffDaoImpl implements TakeOffDao {
 		return jdbcTemplate.update(sql, checkReason , formId);
 	}
 
-	
-	
 
 	
 

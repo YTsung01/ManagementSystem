@@ -2,17 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	
-
-
-${overTimes}
 
 
 <style>
@@ -27,7 +16,7 @@ ${overTimes}
 	<div class="d-flex justify-content-center mx-auto p-4">
 
 		<div class="border rounded mx-auto p-4 ">
-			<p class="fs-3 fw-bold text-center">加班管理</p>
+			<p class="fs-3 fw-bold text-center">請假管理</p>
 			<div class="p-3">
 				<table class="table table-bordered ">
 					<thead>
@@ -36,10 +25,10 @@ ${overTimes}
 							<th class="center">員工編號</th>
 							<th class="center">名稱</th>
 							<th class="center">部門</th>
-							<th class="center">加班開始時間</th>
-							<th class="center">加班結束時間</th>
-							<th>加班時數</th>
-							<th>加班原因</th>
+							<th class="center">請假開始時間</th>
+							<th class="center">請假結束時間</th>
+							<th>請假時數</th>
+							<th>請假原因</th>
 							<th >審核狀態</th>
 							<th colspan="1" width="150px" class="center">審核</th>
 							<th align='center' valign="middle">審核人</th>
@@ -48,27 +37,27 @@ ${overTimes}
 					</thead>
 					<tbody>
 
-						<c:forEach var="overtime" items="${overTimes}" varStatus="stat">
+						<c:forEach var="takeOff" items="${takeOffs}" varStatus="stat">
 							<tr>
-								<td hidden="hidden" class="center">${ overtime.formId }</td>
-								<td class="center">${ overtime.empBook.empId }</td>
-								<td class="center">${ overtime.empBook.empName }</td>
-								<td class="center">${ overtime.empBook.empDepartment  }</td>
+								<td hidden="hidden" class="center">${ takeOff.formId }</td>
+								<td class="center">${ takeOff.empBook.empId }</td>
+								<td class="center">${ takeOff.empBook.empName }</td>
+								<td class="center">${ takeOff.empBook.empDepartment  }</td>
 
 								<td class="center"><fmt:formatDate
-										value="${ overtime.startTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+										value="${ takeOff.startTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td class="center"><fmt:formatDate
-										value="${ overtime.endTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-								<td class="center">${overtime.applyHour}</td>
-								<td class="center">${overtime.reason}</td>
+										value="${ takeOff.endTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								<td class="center">${takeOff.takeoffHour}</td>
+								<td class="center">${takeOff.reason}</td>
 								<td class="center"
-									style="${overtime.verifyState == 0 ? 'color: red;' : (overtime.verifyState == 2 ? 'color: black;' : (overtime.verifyState == 1 ? 'color: blue;' : ''))} "">
-									${overtime.verifyState == 2 ? '審核中' : (overtime.verifyState == 1 ? '同意' : '駁回')}</td>
+									style="${takeOff.verifyState == 0 ? 'color: red;' : (takeOff.verifyState == 2 ? 'color: black;' : (takeOff.verifyState == 1 ? 'color: blue;' : ''))} "">
+									${takeOff.verifyState == 2 ? '審核中' : (takeOff.verifyState == 1 ? '同意' : '駁回')}</td>
 								<td  colspan="2"  class="d-flex">
-								<form method="POST" action="./pass/${ overtime.formId }"  class="me-1">
+								<form method="POST" action="./pass/${ takeOff.formId }"  class="me-1">
 									<input name="_method" type="hidden" value="${_method}" />
 								<button type="submit" class="btn " id="agree"
-											style="background-color: #A2AFA6" ${overtime.verifyState == 1 ? 'disabled' : ''}>同意</button>
+											style="background-color: #A2AFA6" ${takeOff.verifyState == 1 ? 'disabled' : ''}>同意</button>
 								</form>
 								
 								<button class="btn mx-1" style="background-color: #CC5F5A"
@@ -86,13 +75,13 @@ ${overTimes}
 								<div class="modal-dialog">
 
 
-									<form method="POST" action="./false/${ overtime.formId }">
+									<form method="POST" action="./false/${ takeOff.formId }">
 										<input name="_method" type="hidden" value="${_method}" />
 										<div class="modal-content">
 
 											<div class="modal-header">
-									
-												<h5 class="modal-title" id="exampleModalLabel">${ overtime.formId }請填寫駁回原因</h5>
+										
+												<h5 class="modal-title" id="exampleModalLabel">${ takeOff.formId }請填寫駁回原因</h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -143,7 +132,7 @@ ${overTimes}
         var data = google.visualization.arrayToDataTable([
           ['${empBook.empName}', '${empBook.overTimeLeftHour}'],
           ['${empBook.empName}', ${empBook.overTimeLeftHour}],
-          ['${empBook.empName}',       ${empBook.overTimeLeftHour}],
+          ['${empBook.empName}',  ${empBook.overTimeLeftHour}],
           ['${empBook.empName}',   ${empBook.overTimeLeftHour}],
           ['${empBook.empName}',  ${empBook.overTimeLeftHour}],
           ['${empBook.empName}',     ${empBook.overTimeLeftHour}]
@@ -164,3 +153,5 @@ ${overTimes}
 <body>
 	<div id="piechart" style="width: 900px; height: 500px;"></div>
 </body>
+
+<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>
