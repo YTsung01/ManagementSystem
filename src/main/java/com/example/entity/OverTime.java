@@ -8,10 +8,10 @@ public class OverTime {
 	
 	String formId;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") 
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	Date startTime;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") 
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	Date endTime;
 	
 	Integer applyHour;
