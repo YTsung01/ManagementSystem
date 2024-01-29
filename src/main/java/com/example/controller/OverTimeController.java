@@ -67,7 +67,8 @@ public class OverTimeController {
 		// 取得所有的
 		model.addAttribute("overTimes", overTimeDao.findAllOverTimeByDeptNo(deptNo));
 
-		// 計算目前已審核的總加班時數
+		addOverTimeLeftHour(model, session);
+	/*	// 計算目前已審核的總加班時數
 		Integer empId = empBook.getEmpId();
 		List<OverTime> calculateOverTimeHourList = overTimeDao.findCheckoutOverTimeFormByEmpId(empId);
 		model.addAttribute("overTimesbyId", calculateOverTimeHourList);
@@ -84,7 +85,7 @@ public class OverTimeController {
 		int overTimeLeftHour = empBook.getOverTimeLeftHour() - totalOvertimeHour;
 		model.addAttribute("overTimeLeftHour", overTimeLeftHour);
 		System.out.println("目前所剩下的加班時數 = " + overTimeLeftHour);
-		redirectAttributes.addFlashAttribute("overTimeLeftHour", overTimeLeftHour);
+		redirectAttributes.addFlashAttribute("overTimeLeftHour", overTimeLeftHour);*/
 
 		return "emp/OvertimeRequest";
 
@@ -388,7 +389,8 @@ public class OverTimeController {
 				model.addAttribute("overTimeDate", sdf.format(new Date()));
 
 				// 計算目前所剩下的加班時數
-				int overTimeLeftHour = empBook.getOverTimeLeftHour() - totalOvertimeHour;
+				int overTimeLeftHour = empBook.getOverTimeTotalHour() - totalOvertimeHour;
+				empBook.setOverTimeLeftHour(overTimeLeftHour);
 				model.addAttribute("overTimeLeftHour", overTimeLeftHour);
 				System.out.println("目前所剩下的加班時數 = " + overTimeLeftHour);
 
