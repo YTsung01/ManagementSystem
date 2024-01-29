@@ -156,23 +156,27 @@ public class TakeOffController {
 			takeOff.setReason(reason);
 			System.out.println(formMap);
 			System.out.println(formMap);
-			System.out.println(formMap);
-			System.out.println(formMap);
-			System.out.println(formMap);
-			System.out.println(formMap);
-			System.out.println(formMap);
-			System.out.println(formMap);
+		
 			System.out.println(formMap);
 			takeOffDao.addTakeOff(takeOff);
 			model.addAttribute("takeOff", takeOff);
 		
 		Attachement attachement = new Attachement();
-		attachement.setForm_id(uuid);
+		attachement.setForm_id(uuid);	
 		
 		for(MultipartFile file:files) {
 			file.transferTo(new File("C:/uploads/"+file.getOriginalFilename()));
+		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
+		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
+		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
+		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
+		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
+		System.out.println("檔案名稱 :"  +file.getOriginalFilename());
 		}
-		attachementDao.addAttachement(attachement);
+	//	attachementDao.addAttachement(attachement);
+		System.out.println(attachement);
+		System.out.println(attachement);
+		System.out.println(attachement);
 		
 		
 		return formMap + "<hr>" + takeOff;

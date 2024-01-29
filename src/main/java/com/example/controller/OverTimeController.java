@@ -164,6 +164,7 @@ public class OverTimeController {
 
 		// 計算目前所剩下的加班時數
 		int overTimeLeftHour = empBook.getOverTimeLeftHour() - totalOvertimeHour;
+		model.addAttribute("overTimeLeftHour", overTimeLeftHour);
 		empBookDao.addOverTimeLeftHourByEmpId(empId, overTimeLeftHour);
 
 		// 尚未審核加班時數

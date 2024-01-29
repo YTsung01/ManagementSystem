@@ -183,6 +183,7 @@
 
 						<div id="img_errmsg" class="text-danger text-center tw-bold"></div>
 						<div id="img_area" class="text-center"></div>
+						<div id="file-preview"></div>
 					</div>
 
 				</div>
@@ -319,6 +320,26 @@ $('#calculatebtn').on('click', function() {
             });
         });
     </script>
+    
+    <script>
+function previewFiles() {
+    var previewDiv = document.getElementById("file-preview");
+    previewDiv.innerHTML = ""; // 清空預覽區域
+
+    var input = document.getElementById("upfile");
+    var files = input.files;
+
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        var fileName = file.name;
+
+        // 顯示檔案名稱
+        var fileInfo = document.createElement("p");
+        fileInfo.innerHTML = "檔案名稱：" + fileName;
+        previewDiv.appendChild(fileInfo);
+    }
+}
+</script>
 
 
 
