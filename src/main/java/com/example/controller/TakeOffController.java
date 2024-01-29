@@ -273,6 +273,9 @@ public class TakeOffController {
 			if (takeOff.getTakeoffType() == 5) {
 				model.addAttribute("takeOfftype", "公假");
 			}
+			
+			
+			
 
 			model.addAttribute("takeOff", takeOff);
 			model.addAttribute("form", form);
@@ -350,6 +353,7 @@ public class TakeOffController {
 
 		// 主管依照加班查詢本部門所有加班資料
 		@GetMapping(value = "/check", produces = "text/plain;charset=utf-8")
+		//@ResponseBody
 		public String takeOffSearchPageBoss(Model model, HttpSession session) {
 
 			// 取得登入者的資訊
@@ -376,6 +380,9 @@ public class TakeOffController {
 			model.addAttribute("_method", "PUT");
 			System.out.println("takeOff = " + takeOffs);
 			return "boss/TakeOffCheck";
+			//return takeOffs+"";
+			
+			
 		}
 
 		// 加班申請通過
