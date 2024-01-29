@@ -56,8 +56,11 @@
 
 <!-- ${form}
 <hr>
-${overTime} -->
+${overTime} 
 
+${applierId }
+${applierName }
+${takeoffType }-->
 
 
 <div class="container-xl mt-5 ">
@@ -102,7 +105,7 @@ ${overTime} -->
 						</tr>
 						<tr>
 							<th width="100px" align='center' valign="middle">請假假別</th>
-							<td colspan="1" width="200px" align='center' valign="middle">${takeoffType}</td>
+							<td colspan="1" width="200px" align='center' valign="middle">${takeOfftypes}</td>
 							<th width="100px" align='center' valign="middle">申請時數</th>
 							<td colspan="1" width="200px" align='center' valign="middle">
 								${takeOff.takeoffDay}&nbsp;天&nbsp;&nbsp;&nbsp;${takeOff.takeoffHour}&nbsp;小時</td>

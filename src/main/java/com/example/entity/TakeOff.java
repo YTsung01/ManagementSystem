@@ -26,7 +26,6 @@ public class TakeOff {
 
 	public TakeOff(String formId, Integer agent, Integer takeoffType, Date startTime, Date endTime, String reason,
 			Integer verifyState, String checkReason, Integer takeoffDay, Integer takeoffHour, EmpBook empBook) {
-		super();
 		this.formId = formId;
 		this.agent = agent;
 		this.takeoffType = takeoffType;

@@ -2,17 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-
 
 ${takeOffs}
+
 
 <style>
 .center {
@@ -31,16 +23,16 @@ ${takeOffs}
 				<table class="table table-bordered ">
 					<thead>
 						<tr>
-							<th hidden="hidden" class="center">員工編號</th>
-							<th class="center">申請單號</th>
+							<th hidden="hidden" class="center">申請單號</th>
+							<th class="center">員工編號</th>
 							<th class="center">名稱</th>
 							<th class="center">部門</th>
 							<th class="center">請假開始時間</th>
 							<th class="center">請假結束時間</th>
 							<th>請假時數</th>
 							<th>請假原因</th>
-							<th>審核狀態</th>
-							<th width="150px" class="center">審核</th>
+							<th >審核狀態</th>
+							<th colspan="1" width="150px" class="center">審核</th>
 							<th align='center' valign="middle">審核人</th>
 
 						</tr>
@@ -53,7 +45,7 @@ ${takeOffs}
 								<td class="center">${ takeOff.empBook.empId }</td>
 								<td class="center">${ takeOff.empBook.empName }</td>
 								<td class="center">${ takeOff.empBook.empDepartment  }</td>
-								
+
 								<td class="center"><fmt:formatDate
 										value="${ takeOff.startTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td class="center"><fmt:formatDate
@@ -61,16 +53,19 @@ ${takeOffs}
 								<td class="center">${takeOff.takeoffHour}</td>
 								<td class="center">${takeOff.reason}</td>
 								<td class="center"
-									style="${takeOff.verifyState == 0 ? 'color: red;' : ''} ">
+									style="${takeOff.verifyState == 0 ? 'color: red;' : (takeOff.verifyState == 2 ? 'color: black;' : (takeOff.verifyState == 1 ? 'color: blue;' : ''))} "">
 									${takeOff.verifyState == 2 ? '審核中' : (takeOff.verifyState == 1 ? '同意' : '駁回')}</td>
-								<form method="POST" action="./pass/${ takeOff.formId }">
+								<td  colspan="2"  class="d-flex">
+								<form method="POST" action="./pass/${ takeOff.formId }"  class="me-1">
 									<input name="_method" type="hidden" value="${_method}" />
-								<td><button type="submit" class="btn "
-										style="background-color: #ccdce8">同意</button>
-									</form>
-									<button class="btn mx-1" style="background-color: #ccdce8"
-										data-bs-toggle="modal"
-										data-bs-target="#rejectModel${stat.index}">駁回</button></td>
+								<button type="submit" class="btn " id="agree"
+											style="background-color: #A2AFA6" ${takeOff.verifyState == 1 ? 'disabled' : ''}>同意</button>
+								</form>
+								
+								<button class="btn mx-1" style="background-color: #CC5F5A"
+									data-bs-toggle="modal"
+									data-bs-target="#rejectModel${stat.index}">駁回</button>
+								</td>
 								<td>${empBossName}</td>
 
 							</tr>
@@ -82,12 +77,13 @@ ${takeOffs}
 								<div class="modal-dialog">
 
 
-									<form method="POST" action="./false/${ takeOffs.formId }">
+									<form method="POST" action="./false/${ takeOff.formId }">
 										<input name="_method" type="hidden" value="${_method}" />
 										<div class="modal-content">
 
 											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">${ takeOffs.formId }請填寫駁回原因</h5>
+											${ overtime.formId }
+												<h5 class="modal-title" id="exampleModalLabel">${ takeOff.formId }請填寫駁回原因</h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -111,6 +107,7 @@ ${takeOffs}
 							</div>
 
 							<!-- Modal END -->
+
 						</c:forEach>
 					</tbody>
 
@@ -121,10 +118,14 @@ ${takeOffs}
 
 		</div>
 	</div>
-	
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+</div>
+
+
+
+<head>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -148,7 +149,11 @@ ${takeOffs}
         chart.draw(data, options);
       }
     </script>
-  </head>
-  <body>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
-  </body>
+
+
+</head>
+<body>
+	<div id="piechart" style="width: 900px; height: 500px;"></div>
+</body>
+
+<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>

@@ -192,8 +192,10 @@ public class TakeOffController {
 		model.addAttribute("empBossName", empBossOpt.get().getEmpName());
 		System.out.println("takeOff = " + takeOffs);
 		model.addAttribute("takeOff", takeOffs);
+		
+		addTakeoffLeftHour(model,session);
 
-		// 計算目前已審核的總請假時數
+	/*// 計算目前已審核的總請假時數
 		Integer empId = empBook.getEmpId();
 		List<TakeOff> calculateTakeOffHourList = takeOffDao.findCheckoutTakeOffByEmpId(empId);
 		model.addAttribute("TakeOffsbyId", calculateTakeOffHourList);
@@ -208,7 +210,7 @@ public class TakeOffController {
 		Integer takeoffTotalHours = empBook.getTakeoffTotalHours();
 		int takeOffLeftHour = takeoffTotalHours - sumTakeOffHour;
 		model.addAttribute("takeOffLeftHour", takeOffLeftHour);
-		empBook.setTakeoffTotalHours(takeoffTotalHours);
+		empBook.setTakeoffTotalHours(takeoffTotalHours);*/
 
 		// 尚未審核請假時數
 		List<TakeOff> nonCheckOutTakeOffList = takeOffDao.findNonCheckoutTakeOffFormByEmpId(empBook.getEmpId());
@@ -254,25 +256,43 @@ public class TakeOffController {
 			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
 			TakeOff takeOff = takeOffDao.findTakeOffByFormId(formId).get();
 			Form form = formDao.findFormByFormId(formId).get();
+			
+			Integer applierId = formDao.findFormByFormId(formId).get().getApplier();
+			Integer agentId = takeOffDao.findTakeOffByFormId(formId).get().getAgent();
+			String applierName = empBookDao.findEmpBookByEmpId(applierId).get().getEmpName();
+			String agentName = empBookDao.findEmpBookByEmpId(agentId).get().getEmpName();
+			
+			model.addAttribute("applierId", applierId);
+			model.addAttribute("applierName", applierName);
+			model.addAttribute("agentId", agentId);
+			model.addAttribute("agentName", agentName);
 
 			if (takeOff.getTakeoffType() == 1) {
-				model.addAttribute("takeOfftype", "特休");
+				model.addAttribute("takeOfftypes", "特休");
 			}
 
 			if (takeOff.getTakeoffType() == 2) {
-				model.addAttribute("takeOfftype", "事假");
+				model.addAttribute("takeOfftypes", "事假");
 			}
 			
 			if (takeOff.getTakeoffType() == 3) {
-				model.addAttribute("takeOfftype", "病假");
+				model.addAttribute("takeOfftypes", "病假");
 			}
 			
 			if (takeOff.getTakeoffType() == 4) {
-				model.addAttribute("takeOfftype", "喪假");
+				model.addAttribute("takeOfftypes", "喪假");
 			}
 			if (takeOff.getTakeoffType() == 5) {
-				model.addAttribute("takeOfftype", "公假");
+				model.addAttribute("takeOfftypes", "公假");
 			}
+			
+			System.out.println("請假類別 :" +takeOff.getTakeoffType());
+			System.out.println("請假類別 :" +takeOff.getTakeoffType());
+			System.out.println("請假類別 :" +takeOff.getTakeoffType());
+			System.out.println("請假類別 :" +takeOff.getTakeoffType());
+			System.out.println("請假類別 :" +takeOff.getTakeoffType());
+			System.out.println("請假類別 :" +takeOff.getTakeoffType());
+			System.out.println("請假類別 :" +takeOff.getTakeoffType());
 
 			model.addAttribute("takeOff", takeOff);
 			model.addAttribute("form", form);
@@ -378,7 +398,7 @@ public class TakeOffController {
 			return "boss/TakeOffCheck";
 		}
 
-		// 加班申請通過
+		// 請假申請通過
 		@PutMapping("/pass/{formId}")
 
 		public String passbtn(@PathVariable("formId") String formId, Model model, HttpSession session) {
@@ -393,7 +413,7 @@ public class TakeOffController {
 			return "redirect:../check";
 		}
 
-		// 加班申請未通過
+		// 請假申請未通過
 		@PutMapping("/false/{formId}")
 		public String falsebtn(@PathVariable("formId") String formId, @RequestParam("checkReason") String checkReason,
 				HttpSession session) {
@@ -407,6 +427,26 @@ public class TakeOffController {
 			System.out.println(checkReason);
 
 			return "redirect:../check";
+		}
+		
+		// 首頁基礎資料
+		private void addTakeoffLeftHour(Model model,HttpSession session) {
+			EmpBook empBook = (EmpBook) session.getAttribute("empBook");
+					// 計算目前已審核的總請假時數
+					Integer empId = empBook.getEmpId();
+					List<TakeOff>calculateTakeoffHourList = takeOffDao.findCheckoutTakeOffByEmpId(empId);
+					model.addAttribute("takeoffbyId", calculateTakeoffHourList);
+					int totaltakeOffHour = calculateTakeoffHourList.stream().mapToInt(TakeOff::getTakeoffHour).sum();
+					model.addAttribute("totaltakeOffHour", totaltakeOffHour);
+			
+					System.out.println("目前已經審核通過請假清單 : " + calculateTakeoffHourList);
+					System.out.println("已經審核通過的總請假時數 = " + totaltakeOffHour);
+
+					// 計算目前所剩下的加班時數
+					int takeOffLeftHour = empBook.getTakeoffTotalHours() - totaltakeOffHour;
+					model.addAttribute("takeOffLeftHour", takeOffLeftHour);
+					System.out.println("目前所剩下的請假時數 = " + takeOffLeftHour);
+
 		}
 
 }
