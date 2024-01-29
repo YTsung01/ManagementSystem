@@ -167,9 +167,8 @@
 					<textarea name="reason" id="reason" class="form-control"
 						rows="5" required></textarea>
 					<div class="col-12 col-md-12 mt-5">
-						<label class="btn btn-outline-primary w-100"> <input
-							type="file" name="upfile[]" multiple accept=".jpg, .jpeg, .png"
-							id="upfile" class="upfile d-none"> <!-- 選多個東西要用陣列儲存 name是負責接收不是負責選 藥用multiple才能多選 accept來過濾 -->
+						<label class="btn btn-outline-primary w-100">
+						<input type="file" name="upfile" multiple accept=".jpg, .jpeg, .png" id="upfile" class="upfile d-none"> <!-- 選多個東西要用陣列儲存 name是負責接收不是負責選 藥用multiple才能多選 accept來過濾 -->
 							上傳附件
 						</label>
 

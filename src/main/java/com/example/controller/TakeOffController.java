@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.dao.AttachementDao;
@@ -119,8 +120,16 @@ public class TakeOffController {
 	@Transactional(propagation = Propagation.REQUIRED)
 	@PostMapping("/add/{empId}")
 	//@ResponseBody
-	public String addTakeOff(@RequestParam Map<String, Object> formMap,
-			@RequestParam("applierName") Integer applierId, @RequestParam("agentName") Integer agentId,
+	public String addTakeOff(
+			@RequestParam("applierName") Integer applierId, 
+			@RequestParam("agentName") Integer agentId,
+			@RequestParam("upfile") List<MultipartFile> files,
+			@RequestParam("takeoffType") Integer takeoffType, 
+			@RequestParam("startTime") String startTime, 
+			@RequestParam("endTime") String endTime, 
+			@RequestParam("takeoffDay") Integer takeoffDay, 
+			@RequestParam("takeoffHour") Integer takeoffHour, 
+			@RequestParam("reason") String reason, 
 							Model model, HttpSession session,
 							RedirectAttributes redirectAttributes)   throws ParseException, IllegalStateException, IOException, WriterException {
 
@@ -149,37 +158,24 @@ public class TakeOffController {
 		form.setApplier(applierId);
 		
 		takeOff.setAgent(agentId);
-		  
-		Integer takeoffType = Integer.parseInt(formMap.get("takeoffType") + "");
 		takeOff.setTakeoffType(takeoffType);
 
-		Date startTime = sdf.parse(formMap.get("startTime") + "");
-		takeOff.setStartTime(startTime);
+		Date dstartTime = sdf.parse(startTime);
+		takeOff.setStartTime(dstartTime);
 
-		Date endTime = sdf.parse(formMap.get("endTime") + "");
-		takeOff.setEndTime(endTime);
-		System.out.println(formMap);
-		
-		Integer takeoffDay = Integer.parseInt(formMap.get("takeoffDay") + "");
+		Date dendTime = sdf.parse(endTime);
+		takeOff.setEndTime(dendTime);
+
 		takeOff.setTakeoffDay(takeoffDay);
-		
-		Integer takeoffHour = Integer.parseInt(formMap.get("takeoffHour") + "");
 		takeOff.setTakeoffHour(takeoffHour);
 
-		String reason = formMap.get("reason") + "";
 		takeOff.setReason(reason);
 		String path = Qrcode.generateQRcode(uuid);
 		takeOffDao.addTakeOff(takeOff);
 		model.addAttribute("takeOff", takeOff);
 		
 		Attachement attachement = new Attachement();
-		
-		
-		
-		
-		
-		
-	//	return formMap + "<hr>" + takeOff;
+		//	return formMap + "<hr>" + takeOff;
 		return "redirect:../search/{empId}";
 
 	}

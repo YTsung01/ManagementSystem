@@ -140,17 +140,22 @@ ${overTimes}
 
       function drawChart() {
 
-        var data = google.visualization.arrayToDataTable([
-          ['${empBook.empName}', '${empBook.overTimeLeftHour}'],
-          ['${empBook.empName}', ${empBook.overTimeLeftHour}],
-          ['${empBook.empName}',       ${empBook.overTimeLeftHour}],
-          ['${empBook.empName}',   ${empBook.overTimeLeftHour}],
-          ['${empBook.empName}',  ${empBook.overTimeLeftHour}],
-          ['${empBook.empName}',     ${empBook.overTimeLeftHour}]
-        ]);
+    	var rows = [
+            ['${empBook.empName}', '${empBook.overTimeLeftHour}'],
+            ['${empBook.empName}', ${empBook.overTimeLeftHour}],
+            ['${empBook.empName}',       ${empBook.overTimeLeftHour}],
+            ['${empBook.empName}',   ${empBook.overTimeLeftHour}],
+            ['${empBook.empName}',  ${empBook.overTimeLeftHour}],
+            ['${empBook.empName}',     ${empBook.overTimeLeftHour}]
+        ];  
+    	  
+        var data = google.visualization.arrayToDataTable(rows);
 
+        var height = rows.length * 41 + 30; // 動態計算高度
+ 
         var options = {
-          title: '加班時數統計'
+          title: '加班時數統計',
+          height : height
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
