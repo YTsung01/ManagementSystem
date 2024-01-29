@@ -87,13 +87,12 @@ ${takeOff}
 				</tbody>
 			</table>
 			
-			<p>目前總請假時數:${totalOvertimeHour }小時</p>
-			<p>剩餘請假時數: 小時</p>
-			<p>待審核請假時數:  小時</p>
-			<p>已審核請假時數:${totalcheckedTakeOffHour }小時</p>
+			<p>目前總請假時數:${totaltakeOffHour }小時</p>
+			<p>剩餘請假時數: ${takeOffLeftHour} 小時</p>
+			<p>待審核請假時數:${nonCheckOutTakeOffHour }小時</p>
 			
 			<!--  
-			<p>目前總加班時數:${totalOvertimeHour }小時</p>
+			<p>目前總加班時數:${totaltakeOffHour }小時</p>
 			<p>剩餘加班時數: ${overTimeLeftHour}小時</p>
 			<p>待審核加班時數: ${nonCheckOutOverTimeHour} 小時</p>
 			-->
