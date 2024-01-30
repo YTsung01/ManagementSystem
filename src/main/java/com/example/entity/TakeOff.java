@@ -27,10 +27,10 @@ public class TakeOff {
 	Integer agent; // 代理人Id
 	Integer takeoffType; // 請假類型'1:特休 2:事假 3:病假 4:喪假 5:公假'
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	Date startTime; // 請假開始的時間
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	Date endTime; // 請假結束的時間
 
 	String reason; // 請假事由

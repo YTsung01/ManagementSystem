@@ -34,15 +34,15 @@
 
     <bean id="loggingAspect" class="com.example.aop.LoggingAspect"/>
 
-    <!-- 定義切面和通知
+   <!-- 定義切面和通知 
     <aop:config>
         <aop:aspect id="myAspect" ref="loggingAspect">
             <aop:pointcut id="logMethod"
                           expression="execution(* controller.*.*(..))"/>
             <aop:before pointcut-ref="logMethod" method="logMethodParams"/>
         </aop:aspect>
-    </aop:config>
- 	-->
+    </aop:config>--> 
+ 	
      
 	<mvc:annotation-driven />
 	
@@ -86,8 +86,6 @@
 	</mvc:annotation-driven>
 	
 	<!-- c3p0 pool -->
-	<!-- name="user" value="web" name="password" value="12345678"-->
-	<!-- name="user" value="root" name="password" value="00000000"-->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/managementsystem?serverTimezone=Asia/Taipei&amp;characterEncoding=utf-8&amp;useUnicode=true" />
@@ -131,16 +129,6 @@
         </mvc:interceptor>
     </mvc:interceptors>
     
-<<<<<<< HEAD
-    <!-- 配置上傳檔案解析器 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="#{1024 * 1024 * 50}"></property>
-    </bean>
-    
-    <!-- 靜態資源對映： http://localhost:8080/ManagementSystem/app/img/sashimi.jpg -->
-    <!-- 靜態資源對映： http://localhost:8080/ManagementSystem/app/img/qrcodes/63c0a02a-692e-41a5-a934-434fd51919ed.png -->
-    <mvc:resources mapping="/img/**" location="file:/Users/songyuting/Desktop/qr code"/>
-=======
 	<!-- 配置上傳檔案解析器 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="#{1024 * 1024 * 50}"></property>
@@ -148,6 +136,5 @@
     
     <!-- 靜態資源對映： http://localhost:8080/ManagementSystem/app/img/sashimi.jpg -->
     <!-- 靜態資源對映： http://localhost:8080/ManagementSystem/app/img/qrcodes/63c0a02a-692e-41a5-a934-434fd51919ed.png -->
-    <mvc:resources mapping="/img/**" location="file:C:/Users/NTPU/git/ManagementSystem/src/main/webapp/images/qrcodes/"/>
->>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
+    <mvc:resources mapping="/img/**" location="file:C:/Users/NTPU/git/ManagementSystem/src/main/webapp/images/"/>
 </beans>

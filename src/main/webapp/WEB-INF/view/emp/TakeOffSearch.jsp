@@ -5,12 +5,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 表單元素 
+${takeOff}
 <hr>
 ${empBook }-->
 
 
-${empBook }
-${takeOff}
 
 <div class="d-flex justify-content-center mx-auto p-4">
 	<div class="border rounded mx-auto p-4 ">
@@ -28,6 +27,7 @@ ${takeOff}
 						<th>請假天數</th>
 						<th>請假時數</th>
 						<th>請假原因</th>
+						<th>附件</th>
 						<th>審核狀態</th>
 						<th>審核人</th>
 						<th>詳情</th>
@@ -35,10 +35,11 @@ ${takeOff}
 						<th>刪除</th>
 
 					</tr>
-				</thead> 
+				</thead>
 				<tbody>
 					<c:forEach var="takeOffs" items="${takeOff}">
 						<tr>
+							<td hidden="hidden">${ takeOffs.formId }</td>
 							<td>${ empBook.empId }</td>
 							<td>${ empBook.empName }</td>
 							<td>${ empBook.empDepartment  }</td>
@@ -48,6 +49,7 @@ ${takeOff}
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td>${takeOffs.takeoffDay}</td>
 							<td>${takeOffs.takeoffHour}</td>
+							<td>${takeOffs.reason}</td>
 							<td>${takeOffs.reason}</td>
 							<td style="${takeOffs.verifyState == 0 ? 'color: red;' : ''} ">
 								${takeOffs.verifyState == 2 ? '審核中' : (takeOffs.verifyState == 1 ? '同意' : '駁回')}</td>
@@ -68,7 +70,7 @@ ${takeOff}
 											style="background-color: #A2AFA6" id="detail">修改</a>
 									</c:otherwise>
 								</c:choose></td>
-								<td><c:choose>
+							<td><c:choose>
 									<c:when test="${takeOffs.verifyState eq 1}">
 										<span class="btn btn-disabled align-items-center"
 											style="color: white; background-color: #CC5F5A; cursor: not-allowed;">刪除</span>
@@ -86,11 +88,11 @@ ${takeOff}
 
 				</tbody>
 			</table>
-			
+
 			<p>目前總請假時數:${totaltakeOffHour }小時</p>
 			<p>剩餘請假時數: ${takeOffLeftHour} 小時</p>
 			<p>待審核請假時數:${nonCheckOutTakeOffHour }小時</p>
-			
+
 			<!--  
 			<p>目前總加班時數:${totaltakeOffHour }小時</p>
 			<p>剩餘加班時數: ${overTimeLeftHour}小時</p>
@@ -101,7 +103,7 @@ ${takeOff}
 
 			<div class="p-6">
 				<form class="d-flex"
-					action="/ManagementSystem/app/overtime/searchOvertime" method="get"
+					action="/ManagementSystem/app/takeOff/searchTakeOff" method="get"
 					onsubmit="return validateForm();">
 					<input type="datetime-local" name="startDate" id="startDate"
 						class="form-control" style="width: auto;" min="2023-09-01"

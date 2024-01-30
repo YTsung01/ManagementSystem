@@ -29,12 +29,12 @@
 								<td>${ empBook.empName }</td>
 								<td>${ empBook.empDepartment  }</td>
 								<td
-									style="color: ${checkin.checkInTime.hours > 9 && checkin.checkInTime.hours le 18 ? 'black' : 'red'};">
+									style="color: ${checkin.checkInTime.hours > 8 || checkin.checkInTime.hours le 18 ? 'black' : 'red'};">
 									<fmt:formatDate value="${ checkin.checkInTime  }"
 										pattern="yyyy-MM-dd HH:mm:ss" />
 								</td>
 								<td
-									style="color: ${checkin.checkOutTime.hours > 9 && checkin.checkOutTime.hours le 18 ? 'black' : 'red'};">
+									style="color: ${checkin.checkOutTime.hours > 8 || checkin.checkOutTime.hours le 18 ? 'black' : 'red'};">
 									<fmt:formatDate value="${ checkin.checkOutTime  }"
 										pattern="yyyy-MM-dd HH:mm:ss" />
 								</td>

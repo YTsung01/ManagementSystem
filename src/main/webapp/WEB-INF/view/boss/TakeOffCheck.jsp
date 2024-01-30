@@ -3,8 +3,6 @@
 <%@ include file="/WEB-INF/view/Systemheader.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-${takeOffs}
-
 
 <style>
 .center {
@@ -82,7 +80,7 @@ ${takeOffs}
 										<div class="modal-content">
 
 											<div class="modal-header">
-											${ overtime.formId }
+										
 												<h5 class="modal-title" id="exampleModalLabel">${ takeOff.formId }請填寫駁回原因</h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
@@ -119,41 +117,5 @@ ${takeOffs}
 		</div>
 	</div>
 </div>
-
-
-
-<head>
-<script type="text/javascript"
-	src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['${empBook.empName}', '${empBook.overTimeLeftHour}'],
-          ['${empBook.empName}', ${empBook.overTimeLeftHour}],
-          ['${empBook.empName}',       ${empBook.overTimeLeftHour}],
-          ['${empBook.empName}',   ${empBook.overTimeLeftHour}],
-          ['${empBook.empName}',  ${empBook.overTimeLeftHour}],
-          ['${empBook.empName}',     ${empBook.overTimeLeftHour}]
-        ]);
-
-        var options = {
-          title: '加班時數統計'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-      }
-    </script>
-
-
-</head>
-<body>
-	<div id="piechart" style="width: 900px; height: 500px;"></div>
-</body>
 
 <%@ include file="/WEB-INF/view/Systemfooter.jsp"%>

@@ -322,9 +322,8 @@ $('#calculatebtn').on('click', function() {
 					<textarea name="reason" id="reason" class="form-control"
 						rows="5" required></textarea>
 					<div class="col-12 col-md-12 mt-5">
-						<label class="btn btn-outline-primary w-100"> <input
-							type="file" name="upfile[]" multiple accept=".jpg, .jpeg, .png"
-							id="upfile" class="upfile d-none"> <!-- 選多個東西要用陣列儲存 name是負責接收不是負責選 藥用multiple才能多選 accept來過濾 -->
+						<label class="btn btn-outline-primary w-100">
+						<input type="file" name="upfile" multiple accept=".jpg, .jpeg, .png" id="upfile" class="upfile d-none"> <!-- 選多個東西要用陣列儲存 name是負責接收不是負責選 藥用multiple才能多選 accept來過濾 -->
 							上傳附件
 						</label>
 
@@ -338,6 +337,7 @@ $('#calculatebtn').on('click', function() {
 
 						<div id="img_errmsg" class="text-danger text-center tw-bold"></div>
 						<div id="img_area" class="text-center"></div>
+						<div id="file-preview"></div>
 					</div>
 
 				</div>
@@ -475,6 +475,26 @@ $('#calculatebtn').on('click', function() {
             });
         });
     </script>
+    
+    <script>
+function previewFiles() {
+    var previewDiv = document.getElementById("file-preview");
+    previewDiv.innerHTML = ""; // 清空預覽區域
+
+    var input = document.getElementById("upfile");
+    var files = input.files;
+
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        var fileName = file.name;
+
+        // 顯示檔案名稱
+        var fileInfo = document.createElement("p");
+        fileInfo.innerHTML = "檔案名稱：" + fileName;
+        previewDiv.appendChild(fileInfo);
+    }
+}
+</script>
 
 
 

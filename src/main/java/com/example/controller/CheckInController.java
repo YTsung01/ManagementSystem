@@ -49,7 +49,7 @@ public class CheckInController {
 				calendar.setTime(checkInTime);
 				calendar.setTime(CheckOutTime);
 				int hour = calendar.get(Calendar.HOUR_OF_DAY);
-				if (hour > 9 || hour < 7) {
+				if (hour > 8 || hour < 7) {
 					model.addAttribute("lateCheckInMessage", "");
 				}
 				if (hour > 18 || hour < 17) {
@@ -91,7 +91,7 @@ public class CheckInController {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(checkInTime);
 			int hour = calendar.get(Calendar.HOUR_OF_DAY);
-			if (hour > 9) {
+			if (hour > 8) {
 				model.addAttribute("lateCheckInMessage", "");
 			}
 			String formattedCheckInTime = dateFormat.format(checkInTime);

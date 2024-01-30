@@ -33,8 +33,8 @@ public class TakeOffDaoImpl implements TakeOffDao {
 		takeOff.setFormId(rs.getString("formId"));
 		takeOff.setAgent(rs.getInt("agent"));
 		takeOff.setTakeoffType(rs.getInt("takeoffType"));
-		takeOff.setStartTime(rs.getDate("startTime"));
-		takeOff.setEndTime(rs.getDate("endTime"));
+		takeOff.setStartTime(rs.getTimestamp("startTime"));
+		takeOff.setEndTime(rs.getTimestamp("endTime"));
 		takeOff.setReason(rs.getString("reason"));
 		takeOff.setVerifyState(rs.getInt("verifyState"));
 		takeOff.setCheckReason(rs.getString("checkReason"));
@@ -107,9 +107,9 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	//5. 依據formId修改請假(注意!! 不能修改已經審核過的申請單)
 	@Override
 	public int updateTakeOffByEmpId(String formId, TakeOff takeOff) {
-		 String sql = "UPDATE takeOff SET  agent=?, takeoffType=?, startTime=?, endTime=?, reason=?, checkReason=?, takeoffDay=?, takeoffHour=?";
+		 String sql = "UPDATE takeOff SET  agent=?, takeoffType=?, startTime=?, endTime=?, reason=?, checkReason=?, takeoffDay=?, takeoffHour=? WHERE formId = ? and verifyState = 2";
 		    return jdbcTemplate.update(sql,takeOff.getAgent(),takeOff.getTakeoffType(),takeOff.getStartTime(),takeOff.getEndTime(),takeOff.getReason(),
-					takeOff.getCheckReason(),takeOff.getTakeoffDay(),takeOff.getTakeoffHour());
+					takeOff.getCheckReason(),takeOff.getTakeoffDay(),takeOff.getTakeoffHour(), formId);
 	}
 
 	//6. 依照FormId取消請假申請
@@ -201,7 +201,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	// 9. 查詢員工請假紀錄(根據起始日期與員工ID)
 	@Override
 	public List<TakeOff> findAllTakeOffByEmpIdAndStartDateAndEndDate(Integer empId, Date startDate, Date endDate) {
-		String sql = "SELECT emp.empName, f.formId, f.type, o.* FROM empbook emp, form f, overtime o WHERE f.applier = emp.empId AND f.formId = o.formId AND emp.empId = ?  and startTime BETWEEN  ? AND ?;";
+		String sql = "SELECT emp.empName, f.formId, f.type, t.* FROM empbook emp, form f, takeoff t WHERE f.applier = emp.empId AND f.formId = t.formId AND emp.empId = ?  and startTime BETWEEN  ? AND ?;";
 		return jdbcTemplate.query(sql, rowMapper, empId, startDate, endDate);
 	}
 
@@ -210,7 +210,7 @@ public class TakeOffDaoImpl implements TakeOffDao {
 	@Override
 	public Optional<TakeOff> findTakeOffByFormId(String formId) {
 		String sql = "SELECT emp.empName, f.formId, f.type, t.* "
-				+ "FROM empbook emp, form f, takeoff "
+				+ "FROM empbook emp, form f, takeoff t "
 				+ "WHERE f.applier = emp.empId AND f.formId = t.formId and t.formId = ?";
 		try {
 			TakeOff takeOff = jdbcTemplate.queryForObject(sql, rowMapper, formId);
@@ -235,8 +235,6 @@ public class TakeOffDaoImpl implements TakeOffDao {
 		return jdbcTemplate.update(sql, checkReason , formId);
 	}
 
-	
-	
 
 	
 
