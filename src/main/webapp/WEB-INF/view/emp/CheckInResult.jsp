@@ -81,8 +81,5 @@
         }
     </script>
     
-<<<<<<< HEAD
+
     	<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>
-=======
-    	<%@ include file="/WEB-INF/view/Systemfooter.jsp"%>
->>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git

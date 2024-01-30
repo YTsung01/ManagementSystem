@@ -15,13 +15,4 @@ public interface EmpBookDao {
 	Optional<EmpBook> findEmpBookByEmpDeptNoAndLevelId(Integer empDeptno);
 	
 	//新增加班剩餘時數時數
-	int addOverTimeLeftHourByEmpId(Integer empId, Integer overTimeLeftHour);
-	
-<<<<<<< HEAD
-	//新增請假總時數（？
-	
-}
-=======
-	
-}
->>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
+	int addOverTimeLeftHourByEmpId(Integer empId, Integer overTimeLeftHour);}

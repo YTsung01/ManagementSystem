@@ -398,8 +398,6 @@ public class OverTimeController {
 	
 	
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
+
+

@@ -56,8 +56,7 @@ public class EmpBookDaoImpl implements EmpBookDao {
 		return jdbcTemplate.update(sql,overTimeLeftHour, empId);
 
 	}
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
+
+

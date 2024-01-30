@@ -33,11 +33,7 @@ public class Qrcode {
 
 	private static Logger logger = LoggerFactory.getLogger(Qrcode.class);
 	
-<<<<<<< HEAD
-	private static final String QRCODE_UPLOAD_PATH = "/Users/songyuting/Desktop/qr code"; // window - C:/qrcodes
-=======
 	private static final String QRCODE_UPLOAD_PATH = "C:/Users/NTPU/git/ManagementSystem/src/main/webapp/images/qrcodes"; // window - C:/qrcodes
->>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
 	
 	static {
 		Path dir = Paths.get(QRCODE_UPLOAD_PATH);

@@ -46,8 +46,5 @@ public interface OverTimeDao {
 	// 12.依照formId 不同意加班狀態 verifyState = 0
 	int falseOverTimeByFormId(String formId, String checkReason);
 
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git

@@ -26,12 +26,7 @@ public interface FormDao {
 	
 	Optional<EmpBook> findEmpBookByFormId(String formId);
 	
-<<<<<<< HEAD
+
 	//6.依據formId刪除表單
-	public int cancelFormByFormId(String formId);
-=======
-	//6.
-	public int cancelFormByFormId(String formId);
-	
->>>>>>> branch 'master' of https://github.com/YTsung01/ManagementSystem.git
-}
+	public int cancelFormByFormId(String formId);}
+
