@@ -92,7 +92,7 @@ ${overTimes} -->
 
 											<div class="modal-header">
 
-												<h5 class="modal-title" id="exampleModalLabel">${ overtime.formId }請填寫駁回原因</h5>
+												<h5 class="modal-title" id="exampleModalLabel">請填寫駁回原因</h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
