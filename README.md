@@ -24,10 +24,15 @@
 1. 登入與登出
    - 使用AES+ECB模式進行加密
    - 將登入權限分級分為員工帳號以及主管帳號
+   - ![image](https://github.com/YTsung01/ManagementSystem/assets/132649559/2f1901c3-9d41-4ae4-83bc-f6d1e53cd788)
+
      
 2. 個人資訊
    - 個人基本資料
    - 主管帳號可查看部門員工列表
+   - ![image](https://github.com/YTsung01/ManagementSystem/assets/132649559/45e7285d-02b8-40a5-bb1e-d9c5066fd736)
+   - ![image](https://github.com/YTsung01/ManagementSystem/assets/132649559/97367d6c-12a2-48cf-b5a1-abeb680478f0)
+
 
 3. 打卡
    - 新增上/下班時間
